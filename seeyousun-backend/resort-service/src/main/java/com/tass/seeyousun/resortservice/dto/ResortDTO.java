@@ -17,7 +17,7 @@ public class ResortDTO {
     private String location;
     private String description;
     private Integer rating;
-    // private FOTO
+    private List<String> photos;
     private List<String> services;
     private List<ReviewDTO> reviews;
     private List<EventDTO> events;
