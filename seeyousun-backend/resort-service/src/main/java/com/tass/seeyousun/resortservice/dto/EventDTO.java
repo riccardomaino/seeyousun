@@ -5,20 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class ResortDTO {
+public class EventDTO {
     private Long id;
     private String name;
-    private String location;
+    private Date intialDate;
+    private Date finalDate;
     private String description;
-    private Integer rating;
-    // private FOTO
-    private List<String> services;
-    private List<ReviewDTO> reviews;
-    private List<EventDTO> events;
 }
