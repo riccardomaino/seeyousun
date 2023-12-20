@@ -7,8 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 /**
- * ResortMapper è una classe che permette di mappere oggetti Resort in
- * oggetti ResortDTO, e viceversa.
+ * ResortMapper è una classe che permette di mappere oggetti "Resort" in oggetti "ResortDTO", e viceversa.
  */
 @Component
 public class ResortMapper implements Mapper<ResortDTO, Resort> {
