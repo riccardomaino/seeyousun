@@ -1,56 +1,34 @@
-version: '3.2'
-
+version: '3.8'
 services:
-  dbpostgresql:
-    container_name: dbpostgres
-    image: "postgres"
-    ports:
-      - "5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    networks:
-      - taassi-resort-internal
-    environment:
-      POSTGRES_DB: resortdb
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      restart: unless-stopped
-  pgadmin:
-    container_name: pgadmin4_container
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
-      PGADMIN_LISTEN_PORT: 50
-    ports:
-      - "5050:50"
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    depends_on:
-      - dbpostgresql
-    networks:
-      - taassi-resort-internal
-  resort:
-    build: .
-    image: resort-service:1.0
-    container_name: resort-container
+  resort-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: resort-service:latest
+    container_name: resort-service-ctn
     ports:
       - "8080:8080"
-    depends_on:
-      - dbpostgresql
+    restart: unless-stopped
     networks:
-      - taassi-resort-internal
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/testdb
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=admin
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-volumes:
-  db-data:
-  pgadmin-data:
-networks:
-  appbootrestnet:
-    driver: bridge
-# docker-compose build && docker-compose up
+      - resort-network
+    depends_on:
+      - postgres
 
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: resort
+      POSTGRES_USER: resort
+      POSTGRES_PASSWORD: resort
+    restart: unless-stopped
+    networks:
+      - resort-network
+    volumes:
+      - postgresdb-data-resort:/data
+
+networks:
+  resort-network:
+volumes:
+  postgresdb-data-resort:
