@@ -1,34 +1,58 @@
-version: '3.8'
-services:
-  resort-service:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: resort-service:latest
-    container_name: resort-service-ctn
-    ports:
-      - "8080:8080"
-    restart: unless-stopped
-    networks:
-      - resort-network
-    depends_on:
-      - postgres
+version: '3'
 
-  postgres:
-    image: postgres:latest
+services:
+  dbpostgresql:
+    container_name: db-resort
+    image: "postgres"
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_DB: resort
-      POSTGRES_USER: resort
-      POSTGRES_PASSWORD: resort
-    restart: unless-stopped
-    networks:
-      - resort-network
     volumes:
-      - postgresdb-data-resort:/data
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - net
+    environment:
+      POSTGRES_DB: dbresort
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      restart: unless-stopped
 
-networks:
-  resort-network:
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_LISTEN_PORT: 50
+    ports:
+      - "5051:50"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - dbpostgresql
+    networks:
+      - net
+
+  app:
+    build: .
+    image: resort-service
+    container_name: resort
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dbpostgresql
+    networks:
+      - net
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/dbresort
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 volumes:
-  postgresdb-data-resort:
+  db-data:
+  pgadmin-data:
+networks:
+  net:
+    driver: bridge
+# docker-compose build && docker-compose up
+
