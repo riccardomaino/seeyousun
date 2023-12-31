@@ -30,11 +30,11 @@ public class Resort {
     private String description;
     @Column(name = "rating")
     private Integer rating;
-/*
+
     @ElementCollection
     @CollectionTable(name = "resort_services", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> services;
-
+/*
     @ElementCollection
     @CollectionTable(name = "resort_photos", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> photos;
