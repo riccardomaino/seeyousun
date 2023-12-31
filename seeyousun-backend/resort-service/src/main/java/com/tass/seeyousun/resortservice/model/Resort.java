@@ -34,7 +34,7 @@ public class Resort {
     @ElementCollection
     @CollectionTable(name = "resort_services", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> services;
-/*
+
     @ElementCollection
     @CollectionTable(name = "resort_photos", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> photos;
@@ -45,5 +45,4 @@ public class Resort {
     @OneToMany(mappedBy = "resort")
     private List<Event> events;
 
- */
 }

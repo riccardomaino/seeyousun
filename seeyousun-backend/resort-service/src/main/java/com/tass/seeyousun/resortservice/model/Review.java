@@ -26,10 +26,11 @@ public class Review {
 
     @Column(name = "rating")
     private int rating;
-/*
+
     @ManyToOne
-    @JoinColumn(join)
-    private User user;
-*/
+    @JoinColumn(name = "resort_id")
+    private Resort resort;
+
+
 }
 

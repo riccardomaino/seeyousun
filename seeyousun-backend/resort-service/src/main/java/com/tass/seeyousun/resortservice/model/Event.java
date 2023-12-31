@@ -26,4 +26,8 @@ public class Event {
     private Date finalDate;
 
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "resort_id")
+    private Resort resort;
 }
