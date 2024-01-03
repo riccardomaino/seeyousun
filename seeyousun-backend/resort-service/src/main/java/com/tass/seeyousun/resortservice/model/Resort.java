@@ -29,9 +29,18 @@ public class Resort {
     @Column(name = "rating")
     private Integer rating;
 
+
+    /*informazioi quali numero di telefono, orario ecc */
+    @ElementCollection
+    @CollectionTable(name = "resort_information", joinColumns = @JoinColumn(name = "resort_id"))
+    private List<String> information;
+
     @ElementCollection
     @CollectionTable(name = "resort_services", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> services;
+
+    @Column(name = "photo_cover")
+    private String photoCover;
 
     @ElementCollection
     @CollectionTable(name = "resort_photos", joinColumns = @JoinColumn(name = "resort_id"))

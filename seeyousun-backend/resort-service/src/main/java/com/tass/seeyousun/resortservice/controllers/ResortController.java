@@ -1,7 +1,8 @@
 package com.tass.seeyousun.resortservice.controllers;
 
-import com.tass.seeyousun.resortservice.dto.ResortDTO;
-import com.tass.seeyousun.resortservice.mappers.impl.ResortMapper;
+import com.tass.seeyousun.resortservice.dto.ResortFullDTO;
+import com.tass.seeyousun.resortservice.dto.ResortPresentationDTO;
+import com.tass.seeyousun.resortservice.mappers.impl.*;
 import com.tass.seeyousun.resortservice.repositories.ResortRepository;
 import com.tass.seeyousun.resortservice.services.ResortService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,21 +18,23 @@ import java.util.List;
 public class ResortController {
     private final ResortService resortService;
 
-    private final ResortMapper resortMapper;
+    private final ResortFullMapper resortFullMapper;
+    private final ResortPresentationMapper resortPresentationMapper;
     private final ResortRepository resortRepository;
 
-    public ResortController(ResortService resortService, ResortMapper resortMapper, ResortRepository resortRepository){
+    public ResortController(ResortService resortService, ResortFullMapper resortFullMapper, ResortPresentationMapper resortPresentationMapper, ResortRepository resortRepository){
         this.resortService = resortService;
-        this.resortMapper = resortMapper;
+        this.resortFullMapper = resortFullMapper;
+        this.resortPresentationMapper = resortPresentationMapper;
         this.resortRepository = resortRepository;
     }
 
     @GetMapping("/popular")
-    public List<ResortDTO> getPopularResort(){
+    public List<ResortPresentationDTO> getPopularResort(){
         System.out.println("Get the first 10 popular resort...");
         return resortRepository.trovaResortMigliori()
                         .stream()
-                        .map(resortMapper::mapFrom)
+                        .map(resortPresentationMapper::mapFrom)
                         .toList();
     }
 
@@ -39,28 +42,28 @@ public class ResortController {
     Cerca il Resort per l'ID. Restituisce un Optional che viene convertito in null se non esiste nessun resort con quel ID
      */
     @GetMapping("/getResortById/{id}")
-    public ResortDTO getResortInfo(@PathVariable Long id){
+    public ResortFullDTO getResortInfo(@PathVariable Long id){
         System.out.println("Get the " + id + " resort");
         return resortRepository.findById(id)
-                .map(resortMapper::mapFrom)
+                .map(resortFullMapper::mapFrom)
                 .orElse(null);
     }
 
     @GetMapping("/getResortByName/{name}")
-    public List<ResortDTO> getResortByName(@PathVariable String name){
+    public List<ResortPresentationDTO> getResortByName(@PathVariable String name){
         System.out.println("Get the " + name + " resort");
         return resortRepository.findByName(name)
                 .stream()
-                .map(resortMapper::mapFrom)
+                .map(resortPresentationMapper::mapFrom)
                 .toList();
     }
 
     @GetMapping("/getResortByLocation/{location}")
-    public List<ResortDTO> getResortByLocation(@PathVariable String location){
+    public List<ResortPresentationDTO> getResortByLocation(@PathVariable String location){
         System.out.println("Get the " + location + " resort");
         return resortRepository.findByLocation(location)
                 .stream()
-                .map(resortMapper::mapFrom)
+                .map(resortPresentationMapper::mapFrom)
                 .toList();
     }
 }

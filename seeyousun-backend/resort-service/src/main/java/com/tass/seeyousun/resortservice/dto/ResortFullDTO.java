@@ -11,12 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResortDTO {
+public class ResortFullDTO {
     private Long id;
     private String name;
     private String location;
     private String description;
     private Integer rating;
+    private List<String> information;
+    private String photoCover;
     private List<String> photos;
     private List<String> services;
     private List<ReviewDTO> reviews;
