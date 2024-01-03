@@ -1,5 +1,6 @@
 package com.tass.seeyousun.resortservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,5 +30,6 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "resort_id")
+    @JsonBackReference
     private Resort resort;
 }

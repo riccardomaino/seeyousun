@@ -1,8 +1,6 @@
 package com.tass.seeyousun.resortservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tass.seeyousun.resortservice.dto.EventDTO;
-import com.tass.seeyousun.resortservice.dto.ReviewDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,9 +38,11 @@ public class Resort {
     private List<String> photos;
 
     @OneToMany(mappedBy = "resort")
+    @JsonManagedReference
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "resort")
+    @JsonManagedReference
     private List<Event> events;
 
 }

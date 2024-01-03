@@ -4,9 +4,11 @@ import com.tass.seeyousun.resortservice.dto.ResortDTO;
 import com.tass.seeyousun.resortservice.mappers.impl.ResortMapper;
 import com.tass.seeyousun.resortservice.repositories.ResortRepository;
 import com.tass.seeyousun.resortservice.services.ResortService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,11 +29,10 @@ public class ResortController {
     @GetMapping("/popular")
     public List<ResortDTO> getPopularResort(){
         System.out.println("Get the first 10 popular resort...");
-        List<ResortDTO> result = resortRepository.findFirst10ByOrderByRatingDesc()
+        return resortRepository.trovaResortMigliori()
                         .stream()
                         .map(resortMapper::mapFrom)
                         .toList();
-        return new ArrayList<>();
     }
 
     /*

@@ -1,12 +1,12 @@
 package com.tass.seeyousun.resortservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 @Entity
 @Data
@@ -29,6 +29,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "resort_id")
+    @JsonBackReference
     private Resort resort;
 
 

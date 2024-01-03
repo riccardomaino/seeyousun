@@ -11,7 +11,7 @@ import java.util.List;
 public interface ResortRepository extends JpaRepository<Resort, Long> {
 
     @Query("SELECT r FROM Resort r ORDER BY r.rating DESC")
-    List<Resort> findFirst10ByOrderByRatingDesc();
+    List<Resort> trovaResortMigliori();
 
     List<Resort> findByName(String name);
 
