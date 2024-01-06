@@ -24,6 +24,10 @@ public class Reservation {
 
     private int numberOfSunbeds;
 
+    private int reservedUmbrellaLine;
+
+    private int reservedUmbrellaColumn;
+
     @ManyToOne
     @JoinColumn(name = "resort_reservation_id")
     @JsonBackReference
