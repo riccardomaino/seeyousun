@@ -2,6 +2,7 @@ package com.tass.seeyousun.resortservice.controllers;
 
 import com.tass.seeyousun.resortservice.dto.ResortFullDTO;
 import com.tass.seeyousun.resortservice.dto.ResortPresentationDTO;
+import com.tass.seeyousun.resortservice.dto.ServiceDTO;
 import com.tass.seeyousun.resortservice.mappers.impl.*;
 import com.tass.seeyousun.resortservice.repositories.ResortRepository;
 import com.tass.seeyousun.resortservice.services.ResortService;
@@ -65,5 +66,11 @@ public class ResortController {
                 .stream()
                 .map(resortPresentationMapper::mapFrom)
                 .toList();
+    }
+
+    //TODO fare api per restituire tutti i possibili servizi
+    @GetMapping("/getAllService")
+    public List<ServiceDTO> getAllService(){
+        return  resortService.getAllServiceDTO();
     }
 }

@@ -26,8 +26,9 @@ public class Resort {
     private String location;
     @Column(name = "description")
     private String description;
+
     @Column(name = "rating")
-    private Integer rating;
+    private Double rating;
 
 
     /*informazioi quali numero di telefono, orario ecc */
@@ -35,10 +36,12 @@ public class Resort {
     @CollectionTable(name = "resort_information", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> information;
 
+    //TODO: mettere enum
     @ElementCollection
     @CollectionTable(name = "resort_services", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> services;
 
+    //https://storage.googleapis.com/pod_public/1300/122734.jpg
     @Column(name = "photo_cover")
     private String photoCover;
 
