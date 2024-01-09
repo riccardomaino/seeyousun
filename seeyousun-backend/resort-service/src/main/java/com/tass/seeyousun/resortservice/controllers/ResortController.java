@@ -68,8 +68,7 @@ public class ResortController {
                 .toList();
     }
 
-    //TODO fare api per restituire tutti i possibili servizi
-    @GetMapping("/getAllService")
+    @GetMapping("/services")
     public List<ServiceDTO> getAllService(){
         return  resortService.getAllServiceDTO();
     }

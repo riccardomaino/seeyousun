@@ -1,6 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.controllers;
 
-import com.taass.seeyousun.resortreservationservice.DTO.PriceDTO;
+import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
 import com.taass.seeyousun.resortreservationservice.exception.PriceNotSettedException;
 import com.taass.seeyousun.resortreservationservice.repositories.ReservationRepository;
 import com.taass.seeyousun.resortreservationservice.repositories.ResortReservationRepository;
@@ -22,11 +22,11 @@ public class ResortReservationController {
         this.reservationRepository = reservationRepository;
     }
 
-    @GetMapping("/map-dimension/{resort}/{date}")
-    public PriceDTO getMapDimension(@PathVariable Long resort, @PathVariable String date){
+    @GetMapping("/reservation/{resort}/{date}")
+    public ReservationDTO getReservationInformation(@PathVariable Long resort, @PathVariable String date){
         try {
             return resortReservationRepository.findByResortAndDate(resort, Date.valueOf(date))
-                    .getFirst().getPrice();
+                    .getFirst().getReservationInformation();
         }catch (PriceNotSettedException ex){
             return null;
         }

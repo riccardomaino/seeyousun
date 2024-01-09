@@ -18,7 +18,7 @@ services:
 
   app:
     build: .
-    image: runner
+    image: resort-reservation-service
     container_name: resort-reservation
     ports:
       - "8081:8080"

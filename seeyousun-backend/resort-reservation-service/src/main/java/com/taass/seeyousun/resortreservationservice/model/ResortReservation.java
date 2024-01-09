@@ -1,7 +1,8 @@
 package com.taass.seeyousun.resortreservationservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.taass.seeyousun.resortreservationservice.DTO.PriceDTO;
+import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
+import com.taass.seeyousun.resortreservationservice.DTO.UmbrellaDTO;
 import com.taass.seeyousun.resortreservationservice.exception.PriceNotSettedException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,9 +29,9 @@ public class ResortReservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int umbrellaLine;
+    private int totalUmbrellaLine;
 
-    private int umbrellaColumn;
+    private int totalUmbrellaColumn;
 
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -45,16 +46,24 @@ public class ResortReservation {
     private List<Reservation> reservation;
 
 
-    public PriceDTO getPrice () throws PriceNotSettedException {
-        PriceDTO priceDTO = new PriceDTO(umbrellaLine,umbrellaColumn);
+    public ReservationDTO getReservationInformation() throws PriceNotSettedException {
+        ReservationDTO reservationDTO = new ReservationDTO(totalUmbrellaLine, totalUmbrellaColumn);
+
+        //setta la lista degli ombrelloni occupati(linea,colonna)
+        reservationDTO.setReservedUmbrella(
+                reservation.stream()
+                        .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), getTotalUmbrellaColumn()))
+                        .toList());
+
 
         for(PricePeriod p : pricePeriodList){
             if(p.isInPeriod(date)){
-                priceDTO.setUmbrellaPrice(p.getUmbrellaPrice());
-                priceDTO.setSunbedPrice(p.getSunbedPrice());
-                return priceDTO;
+                reservationDTO.setUmbrellaPrice(p.getUmbrellaPrice());
+                reservationDTO.setSunbedPrice(p.getSunbedPrice());
+                return reservationDTO;
             }
         }
+
         throw new PriceNotSettedException();
     }
 }
