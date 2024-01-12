@@ -1,13 +1,16 @@
 package com.taass.seeyousun.resortreservationservice.controllers;
 
 import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
+import com.taass.seeyousun.resortreservationservice.DTO.SingleReservationRequestDTO;
+import com.taass.seeyousun.resortreservationservice.exception.NoSuchResortReservationException;
 import com.taass.seeyousun.resortreservationservice.exception.PriceNotSettedException;
-import com.taass.seeyousun.resortreservationservice.repositories.ReservationRepository;
+import com.taass.seeyousun.resortreservationservice.model.Reservation;
 import com.taass.seeyousun.resortreservationservice.repositories.ResortReservationRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.taass.seeyousun.resortreservationservice.service.ResortReservationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
@@ -15,13 +18,16 @@ import java.sql.Date;
 @RequestMapping("/resorts-reservation/v1")
 public class ResortReservationController {
     private final ResortReservationRepository resortReservationRepository;
-    private final ReservationRepository reservationRepository;
 
-    public ResortReservationController(ResortReservationRepository resortReservationRepository, ReservationRepository reservationRepository) {
+    private final ResortReservationService resortReservationService;
+
+    public ResortReservationController(ResortReservationRepository resortReservationRepository, ResortReservationService resortReservationService) {
         this.resortReservationRepository = resortReservationRepository;
-        this.reservationRepository = reservationRepository;
+        this.resortReservationService = resortReservationService;
     }
 
+    /*ottenere le informazioni necessarie per prenotare in un resort
+    * posti occupati, grandezza della matrice di ombrelloni, costo delle rige degli ombrelloni, costo dei lettini*/
     @GetMapping("/reservation/{resort}/{date}")
     public ReservationDTO getReservationInformation(@PathVariable Long resort, @PathVariable String date){
         try {
@@ -32,6 +38,26 @@ public class ResortReservationController {
         }
     }
 
+
+
+    @PostMapping(path = "/reservation",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Reservation> saveReservation (@RequestBody SingleReservationRequestDTO requestDTO) {
+        try{
+            return resortReservationService.saveReservation(requestDTO);
+        } catch (NoSuchResortReservationException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+        /*
+        @PostMapping(path = "/reservation",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveReservation (@RequestBody MultipleReservationRequestDTO requestDTO){
+        resortReservationService.saveReservation(requestDTO);
+    }*/
 
 
 }
