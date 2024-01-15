@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ResortRepository extends JpaRepository<Resort, Long> {
 
-    @Query("SELECT r FROM Resort r ORDER BY r.rating DESC")
+    @Query("SELECT r FROM Resort r ORDER BY r.rating DESC LIMIT 10")
     List<Resort> trovaResortMigliori();
 
     List<Resort> findByName(String name);
