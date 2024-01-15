@@ -17,16 +17,18 @@ import java.time.LocalDate;
 @Builder
 public class MultipleReservationRequestDTO {
     private long resort;
-    private int umbrellaLine;
-    private int umbrellaColumn;
-
-    @Temporal(TemporalType.DATE)
-    private LocalDate intialDate;
-    @Temporal(TemporalType.DATE)
-    private LocalDate finalDate;
+    private int reservedUmbrellaLine;
+    private int reservedUmbrellaColumn;
 
     private PersistenceType persistenceType;
 
-    private int numerbOfSunbeds;
+    private int numberOfSunbeds;
+
+    @Temporal(TemporalType.DATE)
+    private LocalDate initialDate;
+    @Temporal(TemporalType.DATE)
+    private LocalDate finalDate;
+
+
 }
 

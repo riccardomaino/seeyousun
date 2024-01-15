@@ -18,4 +18,6 @@ public class SingleReservationRequestDTO {
     private PersistenceType persistenceType;
 
     private int numberOfSunbeds;
+
+
 }

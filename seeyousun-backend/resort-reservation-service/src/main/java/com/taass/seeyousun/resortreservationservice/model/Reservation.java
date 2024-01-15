@@ -33,6 +33,13 @@ public class Reservation {
     @JsonBackReference
     private ResortReservation resortReservation;
 
-    private PersistenceType persistencyType;
+    private PersistenceType persistenceType;
 
+    public boolean isSamePlaceAndSameDayTime(Reservation newReservation) {
+        return this.reservedUmbrellaLine == newReservation.reservedUmbrellaLine &&
+                this.reservedUmbrellaColumn == newReservation.reservedUmbrellaColumn &&
+                (this.persistenceType == PersistenceType.FULL_DAY ||
+                        newReservation.persistenceType == PersistenceType.FULL_DAY ||
+                                this.persistenceType == newReservation.persistenceType);
+    }
 }

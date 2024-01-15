@@ -1,13 +1,14 @@
 package com.taass.seeyousun.resortreservationservice.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -24,7 +25,7 @@ public class PricePeriod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "umbrella_line_price", joinColumns = @JoinColumn(name = "price_period_id"))
     @OrderColumn
     private List<Integer> umbrellaPrice;
@@ -32,16 +33,17 @@ public class PricePeriod {
     private Integer sunbedPrice;
 
     @Temporal(TemporalType.DATE)
-    private Date periodIntitalDate;
+    private LocalDate periodIntitalDate;
 
     @Temporal(TemporalType.DATE)
-    private Date periodFinalDate;
+    private LocalDate periodFinalDate;
 
-    @ManyToOne
-    @JoinColumn(name = "resort_reservation_id")
-    private ResortReservation resortReservation;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "resort_id")
+    @JsonBackReference
+    private Resort resort;
 
-    public boolean isInPeriod(Date date) {
-        return periodIntitalDate.before(date)  && periodFinalDate.after(date);
+    public boolean isInPeriod(LocalDate date) {
+        return periodIntitalDate.isBefore(date)  && periodFinalDate.isAfter(date);
     }
 }
