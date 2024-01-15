@@ -6,6 +6,7 @@ import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
 import com.taass.seeyousun.resortreservationservice.DTO.UmbrellaDTO;
 import com.taass.seeyousun.resortreservationservice.exception.PriceNotSettedException;
 import com.taass.seeyousun.resortreservationservice.exception.UmbrellaAlreadyReservedException;
+import com.taass.seeyousun.resortreservationservice.exception.UmbrellaOutOfBound;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,16 +46,17 @@ public class ResortReservation {
 
 
 
-    public ReservationDTO getReservationInformation() throws PriceNotSettedException {
+    public ReservationDTO reservationInformation() throws PriceNotSettedException {
+        //specifica numero di ombrelloni
         ReservationDTO reservationDTO = new ReservationDTO(resort.getTotalUmbrellaLine(), resort.getTotalUmbrellaColumn());
 
         //setta la lista degli ombrelloni occupati(linea,colonna)
         reservationDTO.setReservedUmbrella(
                 reservation.stream()
-                        .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), r.getReservedUmbrellaColumn()))
+                        .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), r.getReservedUmbrellaColumn(), r.getPersistenceType()))
                         .toList());
 
-
+        //setta il listino
         for(PricePeriod p : resort.getPricePeriodList()){
             if(p.isInPeriod(date)){
                 reservationDTO.setUmbrellaPrice(p.getUmbrellaPrice());
@@ -70,15 +72,22 @@ public class ResortReservation {
         return initialDate.isBefore(this.date) && finalDate.isAfter(this.date);
     }
 
-    //TODO: aggiungere controllo sul posto: fare in modo che non ecceda i limiti della mappa
-    public void addReservation(Reservation newReservation) throws UmbrellaAlreadyReservedException {
+    public void addReservation(Reservation newReservation) throws UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
+        //controlli
+        if(resort.getTotalUmbrellaLine() <= newReservation.getReservedUmbrellaLine() &&
+                resort.getTotalUmbrellaColumn() <= newReservation.getReservedUmbrellaColumn()) {
+            throw new UmbrellaOutOfBound();
+        }
+
         boolean isAlreadyReserved = reservation.stream()
                 .anyMatch(r -> r.isSamePlaceAndSameDayTime(newReservation));
-        if(isAlreadyReserved) throw new UmbrellaAlreadyReservedException("Umbrella (" +
+        if(isAlreadyReserved) throw new UmbrellaAlreadyReservedException(
+                "Umbrella (" +
                 newReservation.getReservedUmbrellaLine() + ", " + newReservation.getReservedUmbrellaColumn()+
                 ") are already reserved");
+
+        //controlli ok
         newReservation.setResortReservation(this);
         reservation.add(newReservation);
-        System.out.println(reservation.size());
     }
 }

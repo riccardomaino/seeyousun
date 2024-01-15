@@ -3,10 +3,7 @@ package com.taass.seeyousun.resortreservationservice.service;
 import com.taass.seeyousun.resortreservationservice.DTO.MultipleReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
 import com.taass.seeyousun.resortreservationservice.DTO.SingleReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.exception.NoSuchResortReservationException;
-import com.taass.seeyousun.resortreservationservice.exception.PriceNotSettedException;
-import com.taass.seeyousun.resortreservationservice.exception.ResortNotFoundException;
-import com.taass.seeyousun.resortreservationservice.exception.UmbrellaAlreadyReservedException;
+import com.taass.seeyousun.resortreservationservice.exception.*;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.MultipleReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.SingleReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
@@ -37,7 +34,7 @@ public class ResortReservationService {
     }
 
     @Transactional
-    public List<Reservation> saveReservation(MultipleReservationRequestDTO requestDTO) throws ResortNotFoundException, NoSuchResortReservationException, UmbrellaAlreadyReservedException {
+    public List<Reservation> saveReservation(MultipleReservationRequestDTO requestDTO) throws ResortNotFoundException, NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
         Resort resort = resortRepository.findById(requestDTO.getResort())
                 .orElseThrow(ResortNotFoundException::new);
 
@@ -58,7 +55,7 @@ public class ResortReservationService {
 
 
     @Transactional
-    public Reservation saveReservation(SingleReservationRequestDTO requestDTO) throws NoSuchResortReservationException, UmbrellaAlreadyReservedException {
+    public Reservation saveReservation(SingleReservationRequestDTO requestDTO) throws NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
         Reservation newReservation = singleReservationRequestDTOmapper.mapTo(requestDTO);
         ResortReservation rr = resortReservationRepository.findById(requestDTO.getResortReservation())
                 .orElseThrow(NoSuchResortReservationException::new);
@@ -66,7 +63,7 @@ public class ResortReservationService {
     }
 
     @Transactional
-    public Reservation addNewReservation(Reservation newReservation, ResortReservation resortReservation) throws UmbrellaAlreadyReservedException {
+    public Reservation addNewReservation(Reservation newReservation, ResortReservation resortReservation) throws UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
         resortReservation.addReservation(newReservation);
         resortReservationRepository.save(resortReservation);
         return newReservation;
@@ -76,7 +73,7 @@ public class ResortReservationService {
         Resort resort = resortRepository.findById(resortId)
                 .orElseThrow(ResortNotFoundException::new);
         return resortReservationRepository.findByResortAndDate(resort, date)
-                    .getFirst().getReservationInformation();
+                    .getFirst().reservationInformation();
     }
 
 }

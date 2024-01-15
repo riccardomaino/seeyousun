@@ -3,10 +3,7 @@ package com.taass.seeyousun.resortreservationservice.controllers;
 import com.taass.seeyousun.resortreservationservice.DTO.MultipleReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
 import com.taass.seeyousun.resortreservationservice.DTO.SingleReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.exception.NoSuchResortReservationException;
-import com.taass.seeyousun.resortreservationservice.exception.PriceNotSettedException;
-import com.taass.seeyousun.resortreservationservice.exception.ResortNotFoundException;
-import com.taass.seeyousun.resortreservationservice.exception.UmbrellaAlreadyReservedException;
+import com.taass.seeyousun.resortreservationservice.exception.*;
 import com.taass.seeyousun.resortreservationservice.service.ResortReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,8 +42,8 @@ public class ResortReservationController {
     public ResponseEntity<?> saveReservation (@RequestBody SingleReservationRequestDTO requestDTO) {
         try {
             return new ResponseEntity<>(resortReservationService.saveReservation(requestDTO), HttpStatus.CREATED);
-        } catch (NoSuchResortReservationException | UmbrellaAlreadyReservedException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (NoSuchResortReservationException | UmbrellaAlreadyReservedException | UmbrellaOutOfBound e) {
+            return new ResponseEntity<>(e.getMessage() + e.getClass().getSimpleName(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -57,8 +54,9 @@ public class ResortReservationController {
     public ResponseEntity<?> saveReservation (@RequestBody MultipleReservationRequestDTO requestDTO){
         try {
             return new ResponseEntity<>(resortReservationService.saveReservation(requestDTO), HttpStatus.CREATED) ;
-        } catch (ResortNotFoundException | NoSuchResortReservationException | UmbrellaAlreadyReservedException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (ResortNotFoundException | NoSuchResortReservationException | UmbrellaAlreadyReservedException |
+                 UmbrellaOutOfBound e) {
+            return new ResponseEntity<>(e.getMessage() + e.getClass().getSimpleName(), HttpStatus.BAD_REQUEST);
         }
     }
 
