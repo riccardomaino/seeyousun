@@ -1,5 +1,5 @@
 package com.tass.seeyousun.resortservice.enums;
 
-public enum Benessere implements Service {
+public enum Benessere implements ServiceInterface {
     IDROMASSAGGIO
 }

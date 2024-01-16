@@ -13,7 +13,7 @@ public interface ResortRepository extends JpaRepository<Resort, Long> {
     @Query("SELECT r FROM Resort r ORDER BY r.rating DESC LIMIT 10")
     List<Resort> trovaResortMigliori();
 
-    List<Resort> findByName(String name);
+    List<Resort> findByNameContaining(String name);
 
-    List<Resort> findByLocation(String location);
+    List<Resort> findByLocationContaining(String location);
 }

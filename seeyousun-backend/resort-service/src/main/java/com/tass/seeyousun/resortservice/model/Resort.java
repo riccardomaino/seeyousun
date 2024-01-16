@@ -1,6 +1,7 @@
 package com.tass.seeyousun.resortservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tass.seeyousun.resortservice.enums.ServiceInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -37,9 +39,13 @@ public class Resort {
     private List<String> information;
 
     //TODO: mettere enum
-    @ElementCollection
-    @CollectionTable(name = "resort_services", joinColumns = @JoinColumn(name = "resort_id"))
-    private List<String> services;
+    @ManyToMany
+    @JoinTable(
+            name = "resorts_services",
+            joinColumns = @JoinColumn(name = "service_id"),
+            inverseJoinColumns = @JoinColumn(name = "resort_id")
+    )
+    private Set<Service> services;
 
     //https://storage.googleapis.com/pod_public/1300/122734.jpg
     @Column(name = "photo_cover")

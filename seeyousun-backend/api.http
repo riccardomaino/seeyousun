@@ -1,3 +1,19 @@
 //da Home 1.0 a Home1.1
 ###
 GET http://localhost:8080/resorts/v1/popular
+
+//da Home 1.0 a Home1.1 ricerca per Location
+###
+GET http://localhost:8080/resorts/v1/resort-by-location/Galli
+
+//da Home 1.0 a Home1.1 ricerca per Nome
+###
+GET http://localhost:8080/resorts/v1/resort-by-name/Mar
+
+//da Home 1.1 a ResortPage
+###
+GET http://localhost:8080/resorts/v1/resort-by-id/2
+
+
+
+

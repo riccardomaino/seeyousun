@@ -42,7 +42,7 @@ public class ResortController {
     /*
     Cerca il Resort per l'ID. Restituisce un Optional che viene convertito in null se non esiste nessun resort con quel ID
      */
-    @GetMapping("/getResortById/{id}")
+    @GetMapping("/resort-by-id/{id}")
     public ResortFullDTO getResortInfo(@PathVariable Long id){
         System.out.println("Get the " + id + " resort");
         return resortRepository.findById(id)
@@ -50,19 +50,19 @@ public class ResortController {
                 .orElse(null);
     }
 
-    @GetMapping("/getResortByName/{name}")
+    @GetMapping("/resort-by-name/{name}")
     public List<ResortPresentationDTO> getResortByName(@PathVariable String name){
         System.out.println("Get the " + name + " resort");
-        return resortRepository.findByName(name)
+        return resortRepository.findByNameContaining(name)
                 .stream()
                 .map(resortPresentationMapper::mapFrom)
                 .toList();
     }
 
-    @GetMapping("/getResortByLocation/{location}")
+    @GetMapping("/resort-by-location/{location}")
     public List<ResortPresentationDTO> getResortByLocation(@PathVariable String location){
         System.out.println("Get the " + location + " resort");
-        return resortRepository.findByLocation(location)
+        return resortRepository.findByLocationContaining(location)
                 .stream()
                 .map(resortPresentationMapper::mapFrom)
                 .toList();
