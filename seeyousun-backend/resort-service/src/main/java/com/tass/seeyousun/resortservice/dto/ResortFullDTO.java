@@ -1,11 +1,13 @@
 package com.tass.seeyousun.resortservice.dto;
 
+import com.tass.seeyousun.resortservice.model.Service;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +22,7 @@ public class ResortFullDTO {
     private List<String> information;
     private String photoCover;
     private List<String> photos;
-    private List<String> services;
+    private Set<Service> services;
     private List<ReviewDTO> reviews;
     private List<EventDTO> events;
 }

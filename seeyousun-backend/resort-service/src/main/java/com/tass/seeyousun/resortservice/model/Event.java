@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -22,11 +23,9 @@ public class Event {
 
     private String name;
 
-    @Temporal(TemporalType.DATE)
-    private LocalDate initialDate;
+    private LocalDateTime initialDate;
 
-    @Temporal(TemporalType.DATE)
-    private LocalDate finalDate;
+    private LocalDateTime finalDate;
 
     private String description;
 

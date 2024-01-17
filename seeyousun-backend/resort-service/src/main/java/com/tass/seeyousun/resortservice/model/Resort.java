@@ -1,7 +1,6 @@
 package com.tass.seeyousun.resortservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tass.seeyousun.resortservice.enums.ServiceInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,13 +38,9 @@ public class Resort {
     private List<String> information;
 
     //TODO: mettere enum
-    @ManyToMany
-    @JoinTable(
-            name = "resorts_services",
-            joinColumns = @JoinColumn(name = "service_id"),
-            inverseJoinColumns = @JoinColumn(name = "resort_id")
-    )
-    private Set<Service> services;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Service> services;
 
     //https://storage.googleapis.com/pod_public/1300/122734.jpg
     @Column(name = "photo_cover")

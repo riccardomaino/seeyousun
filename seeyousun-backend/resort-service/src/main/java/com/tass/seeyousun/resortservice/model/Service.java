@@ -1,12 +1,15 @@
 package com.tass.seeyousun.resortservice.model;
 
-import com.tass.seeyousun.resortservice.enums.Accessibilita;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tass.seeyousun.resortservice.converter.ServiceConverter;
 import com.tass.seeyousun.resortservice.enums.ServiceInterface;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -20,8 +23,12 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "services")
-    private Set<Resort> resorts;
+    @ManyToOne
+    @JsonBackReference
+    private Resort resorts;
 
+    @Convert(converter = ServiceConverter.class)
     private ServiceInterface serviceInterface;
+
 }
+
