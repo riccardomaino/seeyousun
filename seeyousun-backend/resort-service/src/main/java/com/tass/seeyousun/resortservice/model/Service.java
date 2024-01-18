@@ -9,8 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -26,6 +24,7 @@ public class Service {
     @ManyToOne
     @JsonBackReference
     private Resort resorts;
+
 
     @Convert(converter = ServiceConverter.class)
     private ServiceInterface serviceInterface;

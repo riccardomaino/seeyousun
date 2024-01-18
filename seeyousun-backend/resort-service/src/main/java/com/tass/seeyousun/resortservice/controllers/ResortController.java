@@ -1,15 +1,16 @@
 package com.tass.seeyousun.resortservice.controllers;
 
+import com.tass.seeyousun.resortservice.dto.RequestByServiceAndLocationDTO;
 import com.tass.seeyousun.resortservice.dto.ResortFullDTO;
 import com.tass.seeyousun.resortservice.dto.ResortPresentationDTO;
 import com.tass.seeyousun.resortservice.dto.ServiceDTO;
-import com.tass.seeyousun.resortservice.mappers.impl.*;
+import com.tass.seeyousun.resortservice.enums.ServiceInterface;
+import com.tass.seeyousun.resortservice.mappers.impl.ResortFullMapper;
+import com.tass.seeyousun.resortservice.mappers.impl.ResortPresentationMapper;
 import com.tass.seeyousun.resortservice.repositories.ResortRepository;
 import com.tass.seeyousun.resortservice.services.ResortService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -64,6 +65,22 @@ public class ResortController {
         System.out.println("Get the " + location + " resort");
         return resortRepository.findByLocationContaining(location)
                 .stream()
+                .map(resortPresentationMapper::mapFrom)
+                .toList();
+    }
+
+    @PostMapping(name = "/resort-by-location-and-service",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ResortPresentationDTO> getResortByLocationAndService(@RequestBody RequestByServiceAndLocationDTO request){
+        List<ServiceInterface> services = request.getServices()
+                .stream()
+                .map(ServiceDTO::getService)
+                .toList();
+        System.out.println(services);
+        return resortRepository.findByLocationContaining(request.getLocation())
+                .stream()
+                .filter(r -> r.isOfferingService(services))
                 .map(resortPresentationMapper::mapFrom)
                 .toList();
     }

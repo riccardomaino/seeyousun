@@ -2,16 +2,26 @@
 ###
 GET http://localhost:8080/resorts/v1/popular
 
-//da Home 1.0 a Home1.1 ricerca per Location
-###
-GET http://localhost:8080/resorts/v1/resort-by-location/Galli
-
 //da Home 1.0 a Home1.1 ricerca per Nome
 ###
 GET http://localhost:8080/resorts/v1/resort-by-name/Mar
 
-//da Home 1.1 a ResortPage
+//da Home 1.0 a Home1.1 ricerca per Location
 ###
+GET http://localhost:8080/resorts/v1/resort-by-location/Galli
+
+###
+//da Home 1.0 a Home1.1 ricerca per Location e Service
+POST http://localhost:8080/resorts/v1
+Content-Type: application/json
+
+{
+  "services": [{"name":"IDROMASSAGGIO", "category": "Benessere"}, {"name":"BAR", "category": "Ristorazione"}],
+  "location": "Gallipo"
+}
+
+###
+//da Home 1.1 a ResortPage
 GET http://localhost:8080/resorts/v1/resort-by-id/2
 
 

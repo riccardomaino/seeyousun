@@ -1,14 +1,15 @@
 package com.tass.seeyousun.resortservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tass.seeyousun.resortservice.enums.ServiceInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -37,7 +38,7 @@ public class Resort {
     @CollectionTable(name = "resort_information", joinColumns = @JoinColumn(name = "resort_id"))
     private List<String> information;
 
-    //TODO: mettere enum
+
     @OneToMany(fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Service> services;
@@ -57,4 +58,13 @@ public class Resort {
     @OneToMany(mappedBy = "resort")
     @JsonManagedReference
     private List<Event> events;
+
+    public boolean isOfferingService(List<ServiceInterface> services){
+        return new HashSet<>(this.services
+                .stream()
+                .map(Service::getServiceInterface)
+                .toList())
+                .containsAll(services);
+
+    }
 }
