@@ -10,7 +10,7 @@ ADD . $HOME
 RUN mvn -f pom.xml clean package -DskipTests
 
 # Stage 2: run the application
-FROM amazoncorretto:21-alpine-jdk
+FROM amazoncorretto:21-alpine-jdk as run
 COPY --from=build /usr/app/target/resort-reservation-service.jar /app/resort-reservation-service.jar
 EXPOSE 8001
 ENTRYPOINT ["java", "-jar", "/app/resort-reservation-service.jar"]
