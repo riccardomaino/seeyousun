@@ -2,10 +2,10 @@ version: '3'
 
 services:
   dbpostgresql:
-    container_name: db-resort
     image: "postgres"
+    container_name: db-resort-ctn
     ports:
-      - "5432:5432"
+      - "5001:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -16,26 +16,20 @@ services:
       POSTGRES_PASSWORD: admin
       restart: unless-stopped
 
-  app:
+  resortservice:
     build: .
-    image: resort-service
-    container_name: resort
+    image: resort-service-img
+    container_name: resort-service-ctn
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - dbpostgresql
     networks:
       - net
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/dbresort
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=admin
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 volumes:
   db-data:
-  pgadmin-data:
 networks:
   net:
     driver: bridge
-# docker-compose build && docker-compose up
-
