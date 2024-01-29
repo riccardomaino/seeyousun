@@ -14,9 +14,9 @@ import java.util.List;
 @Builder
 public class ReservationDTO {
 
-    private int totalUmbrellaLine;
+    private Integer totalUmbrellaLine;
 
-    private int totalUmbrellaColumn;
+    private Integer totalUmbrellaColumn;
 
     //lista ordinata per file dei prezzi degli ombrelloni:
     //[15,10,10] in prima fila si paga 15, in seconda 10 in terza 10

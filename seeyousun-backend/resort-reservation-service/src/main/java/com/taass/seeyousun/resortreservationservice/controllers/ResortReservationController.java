@@ -3,7 +3,7 @@ package com.taass.seeyousun.resortreservationservice.controllers;
 import com.taass.seeyousun.resortreservationservice.dto.MultipleReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.dto.ReservationDTO;
 import com.taass.seeyousun.resortreservationservice.dto.SingleReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.exception.*;
+import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import com.taass.seeyousun.resortreservationservice.service.ResortReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/resorts-reservation/v1")
+@RequestMapping("/api/v1/resort-reservations")
 public class ResortReservationController {
     private final ResortReservationService resortReservationService;
 
@@ -23,12 +23,12 @@ public class ResortReservationController {
 
     /*ottenere le informazioni necessarie per prenotare in un resort
     * posti occupati, grandezza della matrice di ombrelloni, costo delle rige degli ombrelloni, costo dei lettini
-    * TODO: aggiungere in ReservedUmbrella informazione relativa a occupazione per metà giornata o intera(in front end meta giornata mezzo pallino)
+    * TODO: aggiungere in ReservedUmbrella informazione relativa a occupazione per metà giornata o intera (in front end meta giornata mezzo pallino)
     * */
-    @GetMapping("/reservation/{resortId}/{date}")
+    @GetMapping("/{resortId}/{date}")
     public ReservationDTO getReservationInformation(@PathVariable Long resortId, @PathVariable String date) {
         try {
-            return resortReservationService.getReservationInfo(resortId,LocalDate.parse(date));
+            return resortReservationService.getReservationInformation(resortId,LocalDate.parse(date));
         } catch (ResortNotFoundException | PriceNotSettedException e) {
             throw new RuntimeException(e);
         }

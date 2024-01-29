@@ -7,7 +7,7 @@ services:
     ports:
       - "5002:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data-resortreservation:/var/lib/postgresql/data
     networks:
       - resortreservation-net
     environment:
@@ -30,7 +30,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resortreservation:5432/dbresortreservation
 
 volumes:
-  db-data:
+  db-data-resortreservation:
 networks:
   resortreservation-net:
     driver: bridge

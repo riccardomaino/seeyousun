@@ -3,7 +3,7 @@ package com.taass.seeyousun.resortreservationservice.service;
 import com.taass.seeyousun.resortreservationservice.dto.MultipleReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.dto.ReservationDTO;
 import com.taass.seeyousun.resortreservationservice.dto.SingleReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.exception.*;
+import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.MultipleReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.SingleReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
@@ -25,7 +25,11 @@ public class ResortReservationService {
     private final MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper;
     private final ResortRepository resortRepository;
 
-    public ResortReservationService(SingleReservationRequestDTOmapper singleReservationRequestDTOmapper, ResortReservationRepository resortReservationRepository, MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper, ResortRepository resortRepository) {
+    public ResortReservationService(
+            SingleReservationRequestDTOmapper singleReservationRequestDTOmapper,
+            ResortReservationRepository resortReservationRepository,
+            MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper,
+            ResortRepository resortRepository) {
         this.singleReservationRequestDTOmapper = singleReservationRequestDTOmapper;
         this.resortReservationRepository = resortReservationRepository;
         this.multipleReservationRequestDTOmapper = multipleReservationRequestDTOmapper;
@@ -35,7 +39,7 @@ public class ResortReservationService {
     @Transactional
     public List<Reservation> saveReservation(MultipleReservationRequestDTO requestDTO) throws ResortNotFoundException, NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
         Resort resort = resortRepository.findById(requestDTO.getResort())
-                .orElseThrow(ResortNotFoundException::new);
+                .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", requestDTO.getResort())));
 
         List<ResortReservation> reservationList = resort.getResortReservationList()
                 .stream()
@@ -68,9 +72,9 @@ public class ResortReservationService {
         return newReservation;
     }
 
-    public ReservationDTO getReservationInfo (long resortId, LocalDate date) throws ResortNotFoundException, PriceNotSettedException {
+    public ReservationDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException, PriceNotSettedException {
         Resort resort = resortRepository.findById(resortId)
-                .orElseThrow(ResortNotFoundException::new);
+                .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
         return resortReservationRepository.findByResortAndDate(resort, date)
                     .getFirst().reservationInformation();
     }

@@ -19,11 +19,8 @@ public class MultipleReservationRequestDTO {
     private long resort;
     private int reservedUmbrellaLine;
     private int reservedUmbrellaColumn;
-
     private PersistenceType persistenceType;
-
     private int numberOfSunbeds;
-
     @Temporal(TemporalType.DATE)
     private LocalDate initialDate;
     @Temporal(TemporalType.DATE)

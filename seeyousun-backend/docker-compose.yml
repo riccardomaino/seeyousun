@@ -28,26 +28,64 @@ services:
       restart: unless-stopped
 
   # RESORT-SERVICE
-  resortservice:
-      build: ./resort-service
-      image: resort-service-img
-      container_name: resort-service-ctn
-      ports:
-        - "8081:8080"
-      depends_on:
-        - discovery-server
-        - db-postgres-resort
-      networks:
-        - resort-net
-        - global-net
-      environment:
-        - EUREKA_INSTANCE_HOSTNAME=discovery-server
-        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resort:5432/dbresort
+  resort-service:
+    build: ./resort-service
+    image: resort-service-img
+    container_name: resort-service-ctn
+    ports:
+      - "8081:8080"
+    depends_on:
+      - discovery-server
+      - db-postgres-resort
+    networks:
+      - resort-net
+      - global-net
+    environment:
+      - EUREKA_INSTANCE_HOSTNAME=discovery-server
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resort:5432/dbresort
+
+  # DATABASE RESORT-RESERVATION-SERVICE
+  db-postgres-resortreservation:
+    image: "postgres"
+    container_name: db-resort-reservation-ctn
+    ports:
+      - "5002:5432"
+    volumes:
+      - db-data-resortreservation:/var/lib/postgresql/data
+    networks:
+      - resortreservation-net
+    environment:
+      POSTGRES_DB: dbresortreservation
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      restart: unless-stopped
+
+  # RESORT-RESERVATION-SERVICE
+  resort-reservation-service:
+    build: ./resort-reservation-service
+    image: resort-reservation-service-img
+    container_name: resort-reservation-service-ctn
+    ports:
+      - "8082:8080"
+    depends_on:
+      - discovery-server
+      - db-postgres-resortreservation
+    networks:
+      - resortreservation-net
+      - global-net
+    environment:
+      - EUREKA_INSTANCE_HOSTNAME=discovery-server
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resortreservation:5432/dbresortreservation
+
 volumes:
   db-data-resort:
+  db-data-resortreservation:
 networks:
   global-net:
     driver: bridge
   resort-net:
+    driver: bridge
+  resortreservation-net:
     driver: bridge
