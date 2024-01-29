@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # eureka server
+  # EUREKA DISCOVERY SERVER
   discovery-server:
     build: ./eureka-discovery-server
     image: eureka-discovery-server-img
@@ -9,25 +9,25 @@ services:
     ports:
       - "8761:8761"
     networks:
-      - global_net
+      - global-net
 
-  # resort-service DB
-  dbpostgresresort:
+  # DATABASE RESORT-SERVICE
+  db-postgres-resort:
     image: "postgres"
     container_name: db-resort-ctn
     ports:
       - "5001:5432"
     volumes:
-      - resort_db_data:/var/lib/postgresql/data
+      - db-data-resort:/var/lib/postgresql/data
     networks:
-      - resort_net
+      - resort-net
     environment:
       POSTGRES_DB: dbresort
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       restart: unless-stopped
 
-  # resort-service
+  # RESORT-SERVICE
   resortservice:
       build: ./resort-service
       image: resort-service-img
@@ -36,18 +36,18 @@ services:
         - "8081:8080"
       depends_on:
         - discovery-server
-        - dbpostgresresort
+        - db-postgres-resort
       networks:
-        - resort_net
-        - global_net
+        - resort-net
+        - global-net
       environment:
         - EUREKA_INSTANCE_HOSTNAME=discovery-server
         - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresresort:5432/dbresort
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resort:5432/dbresort
 volumes:
-  resort_db_data:
+  db-data-resort:
 networks:
-  global_net:
+  global-net:
     driver: bridge
-  resort_net:
+  resort-net:
     driver: bridge

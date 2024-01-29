@@ -1,35 +1,35 @@
-version: '3'
+version: '3.8'
 
 services:
-  dbpostgresresort:
+  db-postgres-resort:
     image: "postgres"
     container_name: db-resort-ctn
     ports:
       - "5001:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data-resort:/var/lib/postgresql/data
     networks:
-      - resort_net
+      - resort-net
     environment:
       POSTGRES_DB: dbresort
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       restart: unless-stopped
 
-  resortservice:
+  resort-service:
     build: .
     image: resort-service-img
     container_name: resort-service-ctn
     ports:
       - "8081:8080"
     depends_on:
-      - dbpostgresresort
+      - db-postgres-resort
     networks:
-      - resort_net
+      - resort-net
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresresort:5432/dbresort
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resort:5432/dbresort
 volumes:
-  db-data:
+  db-data-resort:
 networks:
-  resort_net:
+  resort-net:
     driver: bridge
