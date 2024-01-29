@@ -1,11 +1,11 @@
 spring:
   application:
-    name: resortservice
+    name: resort-service
   datasource:
     driver-class-name: org.postgresql.Driver
     username: admin
     password: admin
-    url: jdbc:postgresql://localhost:5432/dbresort
+    url: jdbc:postgresql://localhost:5432/dbresort # Override con env variable: SPRING_DATASOURCE_URL di docker-compose
   jpa:
     database: postgresql
     hibernate:
@@ -17,3 +17,13 @@ spring:
   sql:
     init:
       mode: never
+  config:
+    import: optional:configserver:http://localhost:8888
+
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka # Override con env variable: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE di docker-compose

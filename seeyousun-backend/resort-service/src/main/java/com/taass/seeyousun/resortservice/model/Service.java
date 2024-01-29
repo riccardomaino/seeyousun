@@ -1,8 +1,6 @@
 package com.taass.seeyousun.resortservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.taass.seeyousun.resortservice.converter.ServiceConverter;
-import com.taass.seeyousun.resortservice.enums.ServiceInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

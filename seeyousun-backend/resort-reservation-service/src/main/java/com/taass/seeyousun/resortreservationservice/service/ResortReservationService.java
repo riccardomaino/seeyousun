@@ -1,8 +1,8 @@
 package com.taass.seeyousun.resortreservationservice.service;
 
-import com.taass.seeyousun.resortreservationservice.DTO.MultipleReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
-import com.taass.seeyousun.resortreservationservice.DTO.SingleReservationRequestDTO;
+import com.taass.seeyousun.resortreservationservice.dto.MultipleReservationRequestDTO;
+import com.taass.seeyousun.resortreservationservice.dto.ReservationDTO;
+import com.taass.seeyousun.resortreservationservice.dto.SingleReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.exception.*;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.MultipleReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.SingleReservationRequestDTOmapper;
@@ -21,7 +21,6 @@ import java.util.List;
 @Service
 public class ResortReservationService {
     private final SingleReservationRequestDTOmapper singleReservationRequestDTOmapper;
-
     private final ResortReservationRepository resortReservationRepository;
     private final MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper;
     private final ResortRepository resortRepository;

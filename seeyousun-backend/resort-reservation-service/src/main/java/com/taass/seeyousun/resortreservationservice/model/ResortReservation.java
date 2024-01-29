@@ -2,8 +2,8 @@ package com.taass.seeyousun.resortreservationservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.taass.seeyousun.resortreservationservice.DTO.ReservationDTO;
-import com.taass.seeyousun.resortreservationservice.DTO.UmbrellaDTO;
+import com.taass.seeyousun.resortreservationservice.dto.ReservationDTO;
+import com.taass.seeyousun.resortreservationservice.dto.UmbrellaDTO;
 import com.taass.seeyousun.resortreservationservice.exception.PriceNotSettedException;
 import com.taass.seeyousun.resortreservationservice.exception.UmbrellaAlreadyReservedException;
 import com.taass.seeyousun.resortreservationservice.exception.UmbrellaOutOfBound;

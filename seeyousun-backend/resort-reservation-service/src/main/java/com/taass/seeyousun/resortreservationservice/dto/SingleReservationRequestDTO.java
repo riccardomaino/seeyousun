@@ -1,4 +1,4 @@
-package com.taass.seeyousun.resortreservationservice.DTO;
+package com.taass.seeyousun.resortreservationservice.dto;
 
 import com.taass.seeyousun.resortreservationservice.model.PersistenceType;
 import lombok.AllArgsConstructor;

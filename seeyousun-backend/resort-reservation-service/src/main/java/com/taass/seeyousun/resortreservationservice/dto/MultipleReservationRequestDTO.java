@@ -1,4 +1,4 @@
-package com.taass.seeyousun.resortreservationservice.DTO;
+package com.taass.seeyousun.resortreservationservice.dto;
 /*questa classe viene inviata dal front end in post per registrare una richiesta di prenotazione*/
 
 import com.taass.seeyousun.resortreservationservice.model.PersistenceType;

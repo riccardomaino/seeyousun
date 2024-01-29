@@ -2,39 +2,35 @@ version: '3'
 
 services:
   dbpostgresql:
-    container_name: db-resort-reservation
     image: "postgres"
+    container_name: db-resort-reservation-ctn
     ports:
-      - "5433:5432"
+      - "5002:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
       - net
     environment:
-      POSTGRES_DB: dbreservation
+      POSTGRES_DB: dbresortreservation
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       restart: unless-stopped
 
-  app:
+  resortreservationservice:
     build: .
-    image: resort-reservation-service
-    container_name: resort-reservation
+    image: resort-reservation-service-img
+    container_name: resort-reservation-service-ctn
     ports:
-      - "8081:8080"
+      - "8082:8080"
     depends_on:
       - dbpostgresql
     networks:
       - net
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/dbreservation
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=admin
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/dbresortreservation
+
 volumes:
   db-data:
 networks:
   net:
     driver: bridge
-# docker-compose build && docker-compose up
-

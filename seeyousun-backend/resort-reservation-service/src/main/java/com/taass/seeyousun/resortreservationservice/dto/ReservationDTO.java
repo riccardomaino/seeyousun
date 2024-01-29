@@ -1,4 +1,4 @@
-package com.taass.seeyousun.resortreservationservice.DTO;
+package com.taass.seeyousun.resortreservationservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

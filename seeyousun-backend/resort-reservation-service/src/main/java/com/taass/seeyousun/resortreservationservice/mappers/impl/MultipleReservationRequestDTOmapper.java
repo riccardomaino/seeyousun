@@ -1,6 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.mappers.impl;
 
-import com.taass.seeyousun.resortreservationservice.DTO.MultipleReservationRequestDTO;
+import com.taass.seeyousun.resortreservationservice.dto.MultipleReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.mappers.Mapper;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
 import org.modelmapper.ModelMapper;

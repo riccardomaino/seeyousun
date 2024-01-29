@@ -1,7 +1,7 @@
 package com.taass.seeyousun.resortreservationservice.mappers.impl;
 
-import com.taass.seeyousun.resortreservationservice.DTO.MultipleReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.DTO.SingleReservationRequestDTO;
+import com.taass.seeyousun.resortreservationservice.dto.MultipleReservationRequestDTO;
+import com.taass.seeyousun.resortreservationservice.dto.SingleReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.mappers.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

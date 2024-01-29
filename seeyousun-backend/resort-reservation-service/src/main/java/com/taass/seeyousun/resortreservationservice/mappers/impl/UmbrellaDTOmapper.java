@@ -1,6 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.mappers.impl;
 
-import com.taass.seeyousun.resortreservationservice.DTO.UmbrellaDTO;
+import com.taass.seeyousun.resortreservationservice.dto.UmbrellaDTO;
 import com.taass.seeyousun.resortreservationservice.mappers.Mapper;
 import com.taass.seeyousun.resortreservationservice.model.ResortReservation;
 import org.modelmapper.ModelMapper;
