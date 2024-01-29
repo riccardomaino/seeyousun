@@ -18,26 +18,21 @@ import java.util.List;
 @Service
 public class ResortService {
     private final ResortRepository resortRepository;
-    private final ServiceRepository serviceRepository;
     private final Mapper<ResortDTO, Resort> resortMapper;
     private final Mapper<ResortFullDTO, Resort> resortFullMapper;
-    private final Mapper<ServiceDTO, com.taass.seeyousun.resortservice.model.Service> serviceMapper;
+
     public ResortService(
             ResortRepository resortRepository,
-            ServiceRepository serviceRepository,
             Mapper<ResortDTO, Resort> resortMapper,
-            Mapper<ResortFullDTO, Resort> resortFullMapper,
-            Mapper<ServiceDTO, com.taass.seeyousun.resortservice.model.Service> serviceMapper) {
+            Mapper<ResortFullDTO, Resort> resortFullMapper) {
         this.resortRepository = resortRepository;
-        this.serviceRepository = serviceRepository;
         this.resortMapper = resortMapper;
         this.resortFullMapper = resortFullMapper;
-        this.serviceMapper = serviceMapper;
     }
 
     /**
      * Permette di ottenere i Resort più popolari sfruttando la pagination per ottenere un numero limitato di risultati.
-     * Nel caso in cui venga lanciata l'eccezione ResortNotFoundException, essa sarà propagata al Controller e verrà
+     * Nel caso in cui venga lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e verra
      * catturata dal GlobalExceptionHandler per indicare all'utente il problema.
      * @param pageNr specifica il numero della pagina richiesta
      * @param pageSize specifica il numero di elementi per pagina
@@ -64,7 +59,7 @@ public class ResortService {
 
     /**
      * Permette di ottenere un Resort con tutte le sue informazioni cercandolo attraverso l'id. Nel caso in cui venga
-     * lanciata l'eccezione ResortNotFoundException, essa sarà propagata al Controller e verrà catturata dal
+     * lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e verra catturata dal
      * GlobalExceptionHandler per indicare all'utente il problema.
      * @param id è l'id del Resort che si desidera ottenere
      * @return un oggetto ResortFullDTO che contiene tutte le informazioni del Resort
@@ -78,7 +73,7 @@ public class ResortService {
 
     /**
      * Permette di ottenere un Resort con le sole informazioni di base cercandolo attraverso il nome. Nel caso in cui
-     * venga lanciata l'eccezione ResortNotFoundException, essa sarà propagata al Controller e verrà catturata dal
+     * venga lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e verra catturata dal
      * GlobalExceptionHandler per indicare all'utente il problema.
      * @param name è il nome dei Resorts che si desidera ottenere
      * @return una lista di ResortDTO che contiene le informazioni essenziali dei Resort richiesti
@@ -97,7 +92,7 @@ public class ResortService {
 
     /**
      * Permette di ottenere un Resort con le sole informazioni di base cercandolo attraverso la location. Nel caso in cui
-     * venga lanciata l'eccezione ResortNotFoundException, essa sarà propagata al Controller e verrà catturata dal
+     * venga lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e verra catturata dal
      * GlobalExceptionHandler per indicare all'utente il problema.
      * @param location è la location dei Resorts che si desidera ottenere
      * @return una lista di ResortDTO che contiene le informazioni essenziali dei Resort richiesti
@@ -116,8 +111,8 @@ public class ResortService {
 
     /**
      * Permette di ottenere un Resort con le sole informazioni di base cercandolo attraverso la location e i servizi che
-     * offre. Nel caso in cui venga lanciata l'eccezione ResortNotFoundException, essa sarà propagata al Controller e
-     * verrà catturata dal GlobalExceptionHandler per indicare all'utente il problema.
+     * offre. Nel caso in cui venga lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e
+     * verra catturata dal GlobalExceptionHandler per indicare all'utente il problema.
      * @param location è la location dei Resorts che si desidera ottenere
      * @param services è la lista che contiene le stringhe dei nomi dei Servizi richiesti
      * @return una lista di ResortDTO che contiene le informazioni essenziali dei Resort richiesti

@@ -1,6 +1,5 @@
 package com.taass.seeyousun.resortservice.dto;
 
-import com.taass.seeyousun.resortservice.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

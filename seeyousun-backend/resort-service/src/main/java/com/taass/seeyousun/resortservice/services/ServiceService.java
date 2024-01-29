@@ -19,6 +19,10 @@ public class ServiceService {
         this.serviceMapper = serviceMapper;
     }
 
+    /**
+     * Permette di ottenere tutti i possibili tipi di servizi esistenti per i vari resorts
+     * @return una lista di ServiceDTO contente i vari tipi di servizi con id, nome e categoria
+     */
     public List<ServiceDTO> getAllServices() {
         return serviceRepository.findAll()
                 .stream()
