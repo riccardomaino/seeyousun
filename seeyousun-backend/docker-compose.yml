@@ -10,9 +10,6 @@ services:
       - "8761:8761"
     networks:
       - global_net
-    environment:
-      - EUREKA_INSTANCE_HOSTNAME=discovery-server
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
 
   # resort-service DB
   dbpostgresresort:

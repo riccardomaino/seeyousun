@@ -8,9 +8,9 @@ spring:
 
 eureka:
   instance:
-    hostname: localhost # Override con env variable: EUREKA_INSTANCE_HOSTNAME di docker-compose
+    hostname: localhost
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://localhost:8761/eureka # Override con env variable: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE di docker-compose
+      defaultZone: http://localhost:8761/eureka
