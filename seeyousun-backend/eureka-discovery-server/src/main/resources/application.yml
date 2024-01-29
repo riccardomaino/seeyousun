@@ -1,0 +1,31 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+# hostname: specifica su quale host viene avviato l'Eureka Server, in questo caso in locale.
+# register-with-eureka: specifica se si deve registrare all'Eureka Server. Essendo questo l'Eureka Server lo si imposta
+#     a false, dato che siamo per l'appunto l'Eureka Server (non dobbiamo registrarci a noi stessi).
+# fetch-registry: specifica se bisogna andare a fare un fetch del registry. Essendo questo l'Eureka Server lo si imposta
+#     a false, dato che non diamo eseguire il fetch essendo l'Eureka Server che ha il registry.
+# defaultZone: specifica dove viene eseguito l'Eureka Server. In questo caso lo impostiamo a http://localhost:8761/eureka/
+#     Da notare che l'impostazione fornita e' dinamica, ed utiliza i parametri definiti eureka.instance.hostname e server.port
+
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka-discovery-server
+  config:
+    import: optional:configserver:http://localhost:8888
+
+# spring.application.name: specifica il nome dell'applicazione.
+# port: specifica la porta su cui e' avviato l'Eureka Server
+# config.import: specifica dove andare a richiedere i parametri di configurazione dell'Eureka Server. Viene quindi specificato
+#     dove si trova il Config Server che contiene in generale tutti i parametri di configurazione dei vari microservizi,
+#     tra cui quelli dell'Eureka Server. L'opzione "optional:" indica che se non trova la sua configurazione nel Config
+#     Server non deve fallire ad avviarsi, ma si avviera lo stesso.
