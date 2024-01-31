@@ -46,8 +46,8 @@ public class ResortController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/by-name/{name}")
-    public ResponseEntity<ApiResponseDTO<List<ResortDTO>>> getResortsByName(@PathVariable String name){
+    @GetMapping("/by-name")
+    public ResponseEntity<ApiResponseDTO<List<ResortDTO>>> getResortsByName(@RequestParam("name") String name){
         List<ResortDTO> resortDtoList = resortService.getResortsByName(name);
         ApiResponseDTO<List<ResortDTO>> response = ApiResponseDTO.<List<ResortDTO>>builder()
                 .statusCode(200)
@@ -57,8 +57,8 @@ public class ResortController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/by-location/{location}")
-    public ResponseEntity<ApiResponseDTO<List<ResortDTO>>> getResortsByLocation(@PathVariable String location){
+    @GetMapping("/by-location")
+    public ResponseEntity<ApiResponseDTO<List<ResortDTO>>> getResortsByLocation(@RequestParam("location") String location){
         List<ResortDTO> resortDtoList = resortService.getResortsByLocation(location);
         ApiResponseDTO<List<ResortDTO>> response = ApiResponseDTO.<List<ResortDTO>>builder()
                 .statusCode(200)

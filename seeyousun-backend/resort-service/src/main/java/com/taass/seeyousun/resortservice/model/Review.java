@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -25,12 +27,13 @@ public class Review {
     private String description;
 
     @Column(name = "rating")
-    private int rating;
+    private Integer rating;
 
-    @ManyToOne
+    @Temporal(TemporalType.DATE)
+    private LocalDate date;
+
     @JoinColumn(name = "resort_id")
-    @JsonBackReference
-    private Resort resort;
+    private Long resortId;
 
 
 }
