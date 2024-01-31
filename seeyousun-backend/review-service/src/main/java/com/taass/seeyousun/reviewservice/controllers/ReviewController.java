@@ -3,8 +3,7 @@ package com.taass.seeyousun.reviewservice.controllers;
 
 import com.taass.seeyousun.reviewservice.dto.ApiResponseDTO;
 import com.taass.seeyousun.reviewservice.dto.ReviewDTO;
-import com.taass.seeyousun.reviewservice.repository.ReviewRepository;
-import com.taass.seeyousun.reviewservice.service.ServiceReview;
+import com.taass.seeyousun.reviewservice.service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +15,11 @@ import java.util.List;
 public class ReviewController {
 
 
-    private ServiceReview serviceReview;
+    private ReviewService reviewService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> getReviewForResort(@PathVariable("id") Long resortId){
-        List<ReviewDTO> resultReviews = serviceReview.getReviewForResort(resortId);
+        List<ReviewDTO> resultReviews = reviewService.getReviewForResort(resortId);
         ApiResponseDTO<List<ReviewDTO>> response = ApiResponseDTO.<List<ReviewDTO>>builder()
                 .statusCode(200)
                 .message("found successful")
@@ -32,7 +31,7 @@ public class ReviewController {
 
     @PostMapping()
     public ResponseEntity<ApiResponseDTO<ReviewDTO>> createReview(@RequestBody ReviewDTO reviewDTO){
-        serviceReview.createReview(reviewDTO);
+        reviewService.createReview(reviewDTO);
         ApiResponseDTO<ReviewDTO> response = ApiResponseDTO.<ReviewDTO>builder()
                 .statusCode(201)
                 .message("created successful")

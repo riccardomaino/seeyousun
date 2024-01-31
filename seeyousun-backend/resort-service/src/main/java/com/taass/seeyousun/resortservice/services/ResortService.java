@@ -5,6 +5,7 @@ import com.taass.seeyousun.resortservice.dto.PopularResortDTO;
 import com.taass.seeyousun.resortservice.dto.ResortFullDTO;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
 import com.taass.seeyousun.resortservice.mappers.Mapper;
+import com.taass.seeyousun.resortservice.messaging.ReviewMessageDTO;
 import com.taass.seeyousun.resortservice.model.Resort;
 import com.taass.seeyousun.resortservice.repositories.ResortRepository;
 import org.springframework.data.domain.Page;
@@ -125,5 +126,9 @@ public class ResortService {
                 .stream()
                 .map(resortMapper::mapFrom)
                 .toList();
+    }
+
+    public void updateResortRating(ReviewMessageDTO reviewMessageDTO) {
+
     }
 }

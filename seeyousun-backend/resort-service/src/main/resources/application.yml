@@ -20,9 +20,19 @@ spring:
   sql:
     init:
       mode: never
+
+  # Configurazione Config Server
   config:
     import: optional:configserver:http://localhost:8888
 
+  # Configurazione RabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+# Configurazione Eureka Discovery Server
 eureka:
   instance:
     hostname: localhost
