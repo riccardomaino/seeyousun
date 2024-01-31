@@ -3,12 +3,10 @@ package com.taass.seeyousun.resortservice.services;
 import com.taass.seeyousun.resortservice.dto.ResortDTO;
 import com.taass.seeyousun.resortservice.dto.PopularResortDTO;
 import com.taass.seeyousun.resortservice.dto.ResortFullDTO;
-import com.taass.seeyousun.resortservice.dto.ServiceDTO;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
 import com.taass.seeyousun.resortservice.mappers.Mapper;
 import com.taass.seeyousun.resortservice.model.Resort;
 import com.taass.seeyousun.resortservice.repositories.ResortRepository;
-import com.taass.seeyousun.resortservice.repositories.ServiceRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +35,7 @@ public class ResortService {
      * @param pageNr specifica il numero della pagina richiesta
      * @param pageSize specifica il numero di elementi per pagina
      * @return un oggetto PopularResortDTO che contiene la lista di ResortDTO con le informazioni essenziali dei Resort
-     * popolari ed inoltre contiene le informazioni riguardanti la pagination per effettuare eventuali nuove richieste
+     * popolari e inoltre contiene le informazioni riguardanti la pagination per effettuare eventuali nuove richieste
      * per ottenere ulteriori risultati.
      */
     public PopularResortDTO getPopularResorts(int pageNr, int pageSize) {
@@ -59,7 +57,7 @@ public class ResortService {
 
     /**
      * Permette di ottenere un Resort con tutte le sue informazioni cercandolo attraverso l'id. Nel caso in cui venga
-     * lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e verra catturata dal
+     * lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e verra' catturata dal
      * GlobalExceptionHandler per indicare all'utente il problema.
      * @param id è l'id del Resort che si desidera ottenere
      * @return un oggetto ResortFullDTO che contiene tutte le informazioni del Resort
@@ -112,7 +110,7 @@ public class ResortService {
     /**
      * Permette di ottenere un Resort con le sole informazioni di base cercandolo attraverso la location e i servizi che
      * offre. Nel caso in cui venga lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e
-     * verra catturata dal GlobalExceptionHandler per indicare all'utente il problema.
+     * verra' catturata dal GlobalExceptionHandler per indicare all'utente il problema.
      * @param location è la location dei Resorts che si desidera ottenere
      * @param services è la lista che contiene le stringhe dei nomi dei Servizi richiesti
      * @return una lista di ResortDTO che contiene le informazioni essenziali dei Resort richiesti

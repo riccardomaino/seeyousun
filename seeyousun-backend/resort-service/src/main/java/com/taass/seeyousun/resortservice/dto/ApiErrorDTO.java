@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -14,5 +14,5 @@ import java.util.Date;
 public class ApiErrorDTO {
     private Integer statusCode;
     private String message;
-    private Date timestamp;
+    private LocalDate timestamp;
 }

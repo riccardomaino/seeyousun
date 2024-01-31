@@ -6,8 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -16,7 +15,7 @@ public class GlobalExceptionHandler {
         ApiErrorDTO errorDto = ApiErrorDTO.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .message(e.getMessage())
-                .timestamp(new Date())
+                .timestamp(LocalDate.now())
                 .build();
         return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
     }
