@@ -1,6 +1,5 @@
-package com.taass.seeyousun.resortservice.model;
+package com.taass.seeyousun.reviewservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,19 +21,17 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "description")
+    private String title;
+
     @Length(max=2000)
     private String description;
 
-    @Column(name = "rating")
     private Integer rating;
 
     @Temporal(TemporalType.DATE)
     private LocalDate date;
 
-    @JoinColumn(name = "resort_id")
-    private Long resortId;
-
+    private Long resort;
 
 }
 

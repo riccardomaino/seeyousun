@@ -61,9 +61,5 @@ public class Resort {
 
     @OneToMany(mappedBy = "resort")
     @JsonManagedReference
-    private List<Review> reviews;
-
-    @OneToMany(mappedBy = "resort")
-    @JsonManagedReference
     private List<Event> events;
 }
