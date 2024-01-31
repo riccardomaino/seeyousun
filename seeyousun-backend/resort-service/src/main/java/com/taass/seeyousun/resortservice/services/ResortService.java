@@ -129,6 +129,10 @@ public class ResortService {
     }
 
     public void updateResortRating(ReviewMessageDTO reviewMessageDTO) {
-
+        Long resortId = reviewMessageDTO.getResortId();
+        Resort r = resortRepository.findById(resortId)
+                .orElseThrow(()-> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
+        r.setRating(reviewMessageDTO.getAverageRating());
+        resortRepository.save(r);
     }
 }
