@@ -15,7 +15,11 @@ import java.util.List;
 public class ReviewController {
 
 
-    private ReviewService reviewService;
+    private final ReviewService reviewService;
+
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> getReviewForResort(@PathVariable("id") Long resortId){
