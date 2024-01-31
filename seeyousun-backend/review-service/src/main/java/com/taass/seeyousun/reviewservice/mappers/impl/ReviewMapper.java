@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReviewMapper implements Mapper<Review, ReviewDTO> {
+public class ReviewMapper implements Mapper<ReviewDTO, Review> {
     private final ModelMapper modelMapper;
 
     public ReviewMapper(ModelMapper modelMapper) {
@@ -15,12 +15,12 @@ public class ReviewMapper implements Mapper<Review, ReviewDTO> {
     }
 
     @Override
-    public ReviewDTO mapTo(Review review) {
-        return modelMapper.map(review, ReviewDTO.class);
+    public Review mapTo(ReviewDTO reviewDTO) {
+        return modelMapper.map(reviewDTO, Review.class);
     }
 
     @Override
-    public Review mapFrom(ReviewDTO reviewDTO) {
-        return modelMapper.map(reviewDTO, Review.class);
+    public ReviewDTO mapFrom(Review review) {
+        return modelMapper.map(review, ReviewDTO.class);
     }
 }

@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ReviewMessageDTO {
-    private Long id;
-    private String title;
-    private String description;
-    private Double rating;
     private Long resortId;
+    private Double averageRating;
 }

@@ -1,7 +1,10 @@
 package com.taass.seeyousun.reviewservice.messaging;
 
+import com.taass.seeyousun.reviewservice.config.RabbitMQConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReviewMessageProducer {
     private final RabbitTemplate rabbitTemplate;
 
@@ -9,14 +12,11 @@ public class ReviewMessageProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-//    public void sendMessage(Review review){
-//        ReviewMessageDTO reviewMessageDTO = ReviewMessageDTO.builder()
-//                .id(review.getId())
-//                .title(review.getTitle())
-//                .description(review.getDescription())
-//                .rating(review.getRating())
-//                .resortId(review.getResortId())
-//                .build();
-//        rabbitTemplate.convertAndSend(RabbitMQConfiguration.resortReviewQueue, reviewMessageDTO);
-//    }
+    public void sendMessage(Long resortId, Double averageRating){
+        ReviewMessageDTO reviewMessageDTO = ReviewMessageDTO.builder()
+                .resortId(resortId)
+                .averageRating(averageRating)
+                .build();
+        rabbitTemplate.convertAndSend(RabbitMQConfig.resortReviewQueue, reviewMessageDTO);
+    }
 }

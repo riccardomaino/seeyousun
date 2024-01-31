@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Builder
 @Table(name = "reviews")
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +30,7 @@ public class Review {
     @Temporal(TemporalType.DATE)
     private LocalDate date;
 
-    private Long resort;
+    private Long resortId;
 
 }
 
