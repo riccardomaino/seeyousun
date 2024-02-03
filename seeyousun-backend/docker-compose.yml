@@ -2,22 +2,6 @@ version: '3.8'
 
 
 services:
-  api-gateway:
-    build: ./api-gateway
-    image: api-gateway-img
-    container_name: api-gateway-ctn
-    ports:
-      - "8080:8080"
-    networks:
-      - global-net
-    environment:
-      - RESORT_SERVICE_HOST=resort-service
-      - RESORT_SERVICE_PORT=8080
-      - RESORT_RESERVATION_SERVICE_HOST=resort-reservation-service
-      - RESORT_RESERVATION_SERVICE_PORT=8080
-      - REVIEW_SERVICE_HOST=review-service
-      - REVIEW_SERVICE_PORT=8080
-
   # EUREKA DISCOVERY SERVER
   discovery-server:
     build: ./eureka-discovery-server
@@ -27,6 +11,27 @@ services:
       - "8761:8761"
     networks:
       - global-net
+
+  # API GATEWAY
+  api-gateway:
+    build: ./api-gateway
+    image: api-gateway-img
+    container_name: api-gateway-ctn
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-server
+    networks:
+      - global-net
+    environment:
+      - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
+      - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
+      - RESORT_SERVICE_HOST=resort-service
+      - RESORT_SERVICE_PORT=8080
+      - RESORT_RESERVATION_SERVICE_HOST=resort-reservation-service
+      - RESORT_RESERVATION_SERVICE_PORT=8080
+      - REVIEW_SERVICE_HOST=review-service
+      - REVIEW_SERVICE_PORT=8080
 
   # RABBIT-MQ
   rabbit-mq:
@@ -63,6 +68,8 @@ services:
       - "8081:8080"
     depends_on:
       - discovery-server
+      - api-gateway
+      - rabbit-mq
       - db-postgres-resort
     networks:
       - resort-net
@@ -103,6 +110,7 @@ services:
       - "8082:8080"
     depends_on:
       - discovery-server
+      - api-gateway
       - db-postgres-resort-reservation
     networks:
       - resort-reservation-net
@@ -139,6 +147,8 @@ services:
       - "8083:8080"
     depends_on:
       - discovery-server
+      - api-gateway
+      - rabbit-mq
       - db-postgres-review
     networks:
       - review-net

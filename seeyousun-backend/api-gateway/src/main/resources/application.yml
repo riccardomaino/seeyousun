@@ -35,5 +35,9 @@ spring:
 
 # Configurazione Eureka Server
 eureka:
+  instance:
+    hostname: ${EUREKA_SERVER_HOST:localhost}
   client:
     register-with-eureka: false
+    service-url:
+      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
