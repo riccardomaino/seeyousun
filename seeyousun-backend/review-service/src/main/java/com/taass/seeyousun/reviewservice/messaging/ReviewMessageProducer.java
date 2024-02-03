@@ -2,9 +2,9 @@ package com.taass.seeyousun.reviewservice.messaging;
 
 import com.taass.seeyousun.reviewservice.config.RabbitMQConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ReviewMessageProducer {
     private final RabbitTemplate rabbitTemplate;
 

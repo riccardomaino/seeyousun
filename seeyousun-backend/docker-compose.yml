@@ -1,6 +1,23 @@
 version: '3.8'
 
+
 services:
+  api-gateway:
+    build: ./api-gateway
+    image: api-gateway-img
+    container_name: api-gateway-ctn
+    ports:
+      - "8080:8080"
+    networks:
+      - global-net
+    environment:
+      - RESORT_SERVICE_HOST=resort-service
+      - RESORT_SERVICE_PORT=8080
+      - RESORT_RESERVATION_SERVICE_HOST=resort-reservation-service
+      - RESORT_RESERVATION_SERVICE_PORT=8080
+      - REVIEW_SERVICE_HOST=review-service
+      - REVIEW_SERVICE_PORT=8080
+
   # EUREKA DISCOVERY SERVER
   discovery-server:
     build: ./eureka-discovery-server
@@ -14,7 +31,7 @@ services:
   # RABBIT-MQ
   rabbit-mq:
     image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
+    container_name: rabbit-mq-ctn
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -33,8 +50,8 @@ services:
       - resort-net
     environment:
       POSTGRES_DB: dbresort
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       restart: unless-stopped
 
   # RESORT-SERVICE
@@ -51,24 +68,30 @@ services:
       - resort-net
       - global-net
     environment:
-      - EUREKA_INSTANCE_HOSTNAME=discovery-server
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resort:5432/dbresort
+      - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
+      - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
+      - RABBIT_SERVICE_HOST=${RABBIT_SERVICE_HOST}
+      - RABBIT_SERVICE_PORT=${RABBIT_SERVICE_PORT}
+      - RABBIT_SERVICE_USERNAME=${RABBIT_SERVICE_USERNAME}
+      - RABBIT_SERVICE_PASSWORD=${RABBIT_SERVICE_PASSWORD}
+      - DATABASE_SERVICE_HOST=db-postgres-resort
+      - DATABASE_SERVICE_PORT=5432
+      - DATABASE_NAME=dbresort
 
   # DATABASE RESORT-RESERVATION-SERVICE
-  db-postgres-resortreservation:
+  db-postgres-resort-reservation:
     image: "postgres"
     container_name: db-resort-reservation-ctn
     ports:
       - "5002:5432"
     volumes:
-      - db-data-resortreservation:/var/lib/postgresql/data
+      - db-data-resort-reservation:/var/lib/postgresql/data
     networks:
-      - resortreservation-net
+      - resort-reservation-net
     environment:
       POSTGRES_DB: dbresortreservation
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       restart: unless-stopped
 
   # RESORT-RESERVATION-SERVICE
@@ -80,22 +103,67 @@ services:
       - "8082:8080"
     depends_on:
       - discovery-server
-      - db-postgres-resortreservation
+      - db-postgres-resort-reservation
     networks:
-      - resortreservation-net
+      - resort-reservation-net
       - global-net
     environment:
-      - EUREKA_INSTANCE_HOSTNAME=discovery-server
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resortreservation:5432/dbresortreservation
+      - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
+      - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
+      - DATABASE_SERVICE_HOST=db-postgres-resort-reservation
+      - DATABASE_SERVICE_PORT=5432
+      - DATABASE_NAME=dbresortreservation
+
+  # DATABASE REVIEW-SERVICE
+  db-postgres-review:
+    image: "postgres"
+    container_name: db-review-ctn
+    ports:
+      - "5003:5432"
+    volumes:
+      - db-data-review:/var/lib/postgresql/data
+    networks:
+      - review-net
+    environment:
+      POSTGRES_DB: dbreview
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      restart: unless-stopped
+
+  # REVIEW-SERVICE
+  review-service:
+    build: ./review-service
+    image: review-service-img
+    container_name: review-service-ctn
+    ports:
+      - "8083:8080"
+    depends_on:
+      - discovery-server
+      - db-postgres-review
+    networks:
+      - review-net
+      - global-net
+    environment:
+      - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
+      - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
+      - RABBIT_SERVICE_HOST=${RABBIT_SERVICE_HOST}
+      - RABBIT_SERVICE_PORT=${RABBIT_SERVICE_PORT}
+      - RABBIT_SERVICE_USERNAME=${RABBIT_SERVICE_USERNAME}
+      - RABBIT_SERVICE_PASSWORD=${RABBIT_SERVICE_PASSWORD}
+      - DATABASE_SERVICE_HOST=db-postgres-review
+      - DATABASE_SERVICE_PORT=5432
+      - DATABASE_NAME=dbreview
 
 volumes:
   db-data-resort:
-  db-data-resortreservation:
+  db-data-resort-reservation:
+  db-data-review:
 networks:
   global-net:
     driver: bridge
   resort-net:
     driver: bridge
-  resortreservation-net:
+  resort-reservation-net:
+    driver: bridge
+  review-net:
     driver: bridge

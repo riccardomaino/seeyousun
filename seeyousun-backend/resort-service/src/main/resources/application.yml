@@ -8,7 +8,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: admin
     password: admin
-    url: jdbc:postgresql://localhost:5432/dbresort # Override con env variable: SPRING_DATASOURCE_URL di docker-compose
+    url: jdbc:postgresql://${DATABASE_SERVICE_HOST:localhost}:${DATABASE_SERVICE_PORT:5432}/${DATABASE_NAME:default}
   jpa:
     database: postgresql
     hibernate:
@@ -27,15 +27,15 @@ spring:
 
   # Configurazione RabbitMQ
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBIT_SERVICE_HOST:localhost}
+    port: ${RABBIT_SERVICE_PORT:localhost}
+    username: ${RABBIT_SERVICE_USERNAME:guest}
+    password: ${RABBIT_SERVICE_PASSWORD:guest}
 
 # Configurazione Eureka Discovery Server
 eureka:
   instance:
-    hostname: localhost
+    hostname: ${EUREKA_SERVER_HOST:localhost}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka # Override con env variable: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE di docker-compose
+      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka

@@ -1,15 +1,15 @@
 version: '3.8'
 
 services:
-  db-postgres-resortreservation:
+  db-postgres-resort-reservation:
     image: "postgres"
     container_name: db-resort-reservation-ctn
     ports:
       - "5002:5432"
     volumes:
-      - db-data-resortreservation:/var/lib/postgresql/data
+      - db-data-resort-reservation:/var/lib/postgresql/data
     networks:
-      - resortreservation-net
+      - resort-reservation-net
     environment:
       POSTGRES_DB: dbresortreservation
       POSTGRES_USER: admin
@@ -23,14 +23,14 @@ services:
     ports:
       - "8082:8080"
     depends_on:
-      - db-postgres-resortreservation
+      - db-postgres-resort-reservation
     networks:
-      - resortreservation-net
+      - resort-reservation-net
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resortreservation:5432/dbresortreservation
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-postgres-resort-reservation:5432/dbresortreservation
 
 volumes:
-  db-data-resortreservation:
+  db-data-resort-reservation:
 networks:
-  resortreservation-net:
+  resort-reservation-net:
     driver: bridge
