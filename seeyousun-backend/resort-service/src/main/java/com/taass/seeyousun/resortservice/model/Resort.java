@@ -62,4 +62,14 @@ public class Resort {
     @OneToMany(mappedBy = "resort")
     @JsonManagedReference
     private List<Event> events;
+
+
+
+    private int totalUmbrellaLine;
+
+    private int totalUmbrellaColumn;
+
+    @OneToMany(mappedBy = "resort")
+    @JsonManagedReference
+    private List<PricePeriod> pricePeriodList;
 }
