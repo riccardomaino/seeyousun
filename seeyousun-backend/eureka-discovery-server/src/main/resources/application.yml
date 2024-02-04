@@ -3,9 +3,10 @@ server:
 spring:
   application:
     name: eureka-discovery-server
+  # Configurazione del Config Server: se non viene trovato salta questo passaggio senza crashare grazie ad "optional"
   config:
     import: optional:configserver:http://localhost:8888
-
+# Configurazione Eureka Server ed Eureka Client
 eureka:
   instance:
     hostname: localhost

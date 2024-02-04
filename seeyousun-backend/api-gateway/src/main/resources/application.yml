@@ -1,11 +1,11 @@
 server:
   port: ${API_GATEWAY_PORT:8080}
-
 spring:
   application:
     name: api-gateway
   cloud:
     gateway:
+      # Configurazione routes API Gateway: il traffico verra' indirizzato sulla base dell'uri e dei predicates (vengono aggiunti i filers)
       routes:
         - id: resort-route
           uri: http://${RESORT_SERVICE_HOST:localhost}/${RESORT_SERVICE_PORT:8080}
@@ -25,15 +25,14 @@ spring:
             - Path=/reviews/**
           filters:
             - PrefixPath=/api/v1
+      # Configurazione dell'utilizzo di Eureka per implementare il dynamic routing
       discovery:
         locator:
           enabled: true
-
-  # Configurazione Config Server
+  # Configurazione del Config Server: se non viene trovato salta questo passaggio senza crashare grazie ad "optional"
   config:
     import: optional:configserver:http://localhost:8888
-
-# Configurazione Eureka Server
+# Configurazione Eureka Server ed Eureka Client
 eureka:
   instance:
     hostname: ${EUREKA_SERVER_HOST:localhost}
@@ -42,3 +41,11 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka/
+# Configurazione Zipkin: utile per effettuare distributed tracing
+management:
+  zipkin:
+    tracing:
+      endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0

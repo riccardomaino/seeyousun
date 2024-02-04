@@ -1,14 +1,15 @@
 server:
   port: ${REVIEW_SERVICE_PORT:8080}
-
 spring:
   application:
     name: review-service
+  # Configurazione del Database
   datasource:
     driver-class-name: org.postgresql.Driver
     username: admin
     password: admin
     url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:default}
+  # Configurazione di Spring Data JPA
   jpa:
     database: postgresql
     hibernate:
@@ -17,22 +18,20 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  # Configurazione tipo di inizializzazione del Database
   sql:
     init:
       mode: never
-
-  # Configurazione Config Server
+  # Configurazione del Config Server: se non viene trovato salta questo passaggio senza crashare grazie ad "optional"
   config:
     import: optional:configserver:http://localhost:8888
-
-  # Configurazione RabbitMQ
+  # Configurazione RabbitMQ: utile per implementare la comunicazione asincrona tra vari microservizi
   rabbitmq:
     host: ${RABBIT_HOST:localhost}
     port: ${RABBIT_PORT:localhost}
     username: ${RABBIT_USERNAME:guest}
     password: ${RABBIT_PASSWORD:guest}
-
-# Configurazione Eureka Discovery Server
+# Configurazione Eureka Server e Eureka Client
 eureka:
   instance:
     hostname: ${EUREKA_SERVER_HOST:localhost}
@@ -41,3 +40,11 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka/
+# Configurazione Zipkin: utile per effettuare distributed tracing
+management:
+  zipkin:
+    tracing:
+      endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0

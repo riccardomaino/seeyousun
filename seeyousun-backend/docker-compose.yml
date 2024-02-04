@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   # EUREKA DISCOVERY SERVER
-  discovery-server:
+  eureka-discovery-server:
     build: ./eureka-discovery-server
     image: eureka-discovery-server-img
     container_name: eureka-discovery-server-ctn
@@ -21,13 +21,15 @@ services:
     ports:
       - "${API_GATEWAY_PORT}:${API_GATEWAY_PORT}"
     depends_on:
-      - discovery-server
+      - eureka-discovery-server
     networks:
       - global-net
     environment:
       - API_GATEWAY_PORT=${API_GATEWAY_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
+      - ZIPKIN_HOST=${ZIPKIN_HOST}
+      - ZIPKIN_PORT=${ZIPKIN_PORT}
       - RESORT_SERVICE_HOST=${RESORT_SERVICE_HOST}
       - RESORT_SERVICE_PORT=${RESORT_SERVICE_PORT}
       - RESORT_RESERVATION_SERVICE_HOST=${RESORT_RESERVATION_SERVICE_HOST}
@@ -46,6 +48,14 @@ services:
       - type: volume
         source: data-rabbit-mq
         target: /var/lib/rabbitmq
+    networks:
+      - global-net
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin-ctn
+    ports:
+      - "${ZIPKIN_PORT}:${ZIPKIN_PORT}"
     networks:
       - global-net
 
@@ -73,9 +83,10 @@ services:
     ports:
       - "${RESORT_SERVICE_PORT}:${RESORT_SERVICE_PORT}"
     depends_on:
-      - discovery-server
+      - eureka-discovery-server
       - api-gateway
       - rabbit-mq
+      - zipkin
       - db-postgres-resort
     networks:
       - resort-net
@@ -88,6 +99,8 @@ services:
       - RABBIT_PORT=${RABBIT_PORT}
       - RABBIT_USERNAME=${RABBIT_USERNAME}
       - RABBIT_PASSWORD=${RABBIT_PASSWORD}
+      - ZIPKIN_HOST=${ZIPKIN_HOST}
+      - ZIPKIN_PORT=${ZIPKIN_PORT}
       - DATABASE_HOST=db-postgres-resort
       - DATABASE_PORT=5432
       - DATABASE_NAME=dbresort
@@ -116,8 +129,9 @@ services:
     ports:
       - "${RESORT_RESERVATION_SERVICE_PORT}:${RESORT_RESERVATION_SERVICE_PORT}"
     depends_on:
-      - discovery-server
+      - eureka-discovery-server
       - api-gateway
+      - zipkin
       - db-postgres-resort-reservation
     networks:
       - resort-reservation-net
@@ -126,6 +140,8 @@ services:
       - RESORT_RESERVATION_SERVICE_PORT=${RESORT_RESERVATION_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
+      - ZIPKIN_HOST=${ZIPKIN_HOST}
+      - ZIPKIN_PORT=${ZIPKIN_PORT}
       - DATABASE_HOST=db-postgres-resort-reservation
       - DATABASE_PORT=5432
       - DATABASE_NAME=dbresortreservation
@@ -154,9 +170,10 @@ services:
     ports:
       - "${REVIEW_SERVICE_PORT}:${REVIEW_SERVICE_PORT}"
     depends_on:
-      - discovery-server
+      - eureka-discovery-server
       - api-gateway
       - rabbit-mq
+      - zipkin
       - db-postgres-review
     networks:
       - review-net
@@ -169,6 +186,8 @@ services:
       - RABBIT_PORT=${RABBIT_PORT}
       - RABBIT_USERNAME=${RABBIT_USERNAME}
       - RABBIT_PASSWORD=${RABBIT_PASSWORD}
+      - ZIPKIN_HOST=${ZIPKIN_HOST}
+      - ZIPKIN_PORT=${ZIPKIN_PORT}
       - DATABASE_HOST=db-postgres-review
       - DATABASE_PORT=5432
       - DATABASE_NAME=dbreview
