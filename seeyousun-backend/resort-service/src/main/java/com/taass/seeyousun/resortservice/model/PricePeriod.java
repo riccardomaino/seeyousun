@@ -1,4 +1,4 @@
-package com.taass.seeyousun.resortreservationservice.model;
+package com.taass.seeyousun.resortservice.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;

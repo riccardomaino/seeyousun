@@ -1,13 +1,13 @@
 package com.taass.seeyousun.resortreservationservice.mappers.impl;
 
-import com.taass.seeyousun.resortreservationservice.dto.ReservationDTO;
+import com.taass.seeyousun.resortreservationservice.dto.ReservationStateDTO;
 import com.taass.seeyousun.resortreservationservice.mappers.Mapper;
 import com.taass.seeyousun.resortreservationservice.model.ResortReservation;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PriceDTOmapper implements Mapper<ReservationDTO, ResortReservation> {
+public class PriceDTOmapper implements Mapper<ReservationStateDTO, ResortReservation> {
 
     private final ModelMapper modelMapper;
 
@@ -16,12 +16,12 @@ public class PriceDTOmapper implements Mapper<ReservationDTO, ResortReservation>
     }
 
     @Override
-    public ResortReservation mapTo(ReservationDTO priceDTO) {
+    public ResortReservation mapTo(ReservationStateDTO priceDTO) {
         return modelMapper.map(priceDTO, ResortReservation.class);
     }
 
     @Override
-    public ReservationDTO mapFrom(ResortReservation resortReservation) {
-        return  modelMapper.map(resortReservation, ReservationDTO.class);
+    public ReservationStateDTO mapFrom(ResortReservation resortReservation) {
+        return  modelMapper.map(resortReservation, ReservationStateDTO.class);
     }
 }

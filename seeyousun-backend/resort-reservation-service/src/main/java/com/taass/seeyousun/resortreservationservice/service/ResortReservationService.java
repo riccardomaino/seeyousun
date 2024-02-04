@@ -1,18 +1,13 @@
 package com.taass.seeyousun.resortreservationservice.service;
 
-import com.taass.seeyousun.resortreservationservice.dto.MultipleReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.dto.ReservationDTO;
-import com.taass.seeyousun.resortreservationservice.dto.SingleReservationRequestDTO;
+import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.MultipleReservationRequestDTOmapper;
-import com.taass.seeyousun.resortreservationservice.mappers.impl.SingleReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
-import com.taass.seeyousun.resortreservationservice.model.Resort;
 import com.taass.seeyousun.resortreservationservice.model.ResortReservation;
-import com.taass.seeyousun.resortreservationservice.repositories.ResortRepository;
+import com.taass.seeyousun.resortreservationservice.repositories.ResortClient;
 import com.taass.seeyousun.resortreservationservice.repositories.ResortReservationRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,28 +15,28 @@ import java.util.List;
 
 @Service
 public class ResortReservationService {
-    private final SingleReservationRequestDTOmapper singleReservationRequestDTOmapper;
     private final ResortReservationRepository resortReservationRepository;
     private final MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper;
-    private final ResortRepository resortRepository;
+    private final ResortClient resortClient;
 
     public ResortReservationService(
-            SingleReservationRequestDTOmapper singleReservationRequestDTOmapper,
             ResortReservationRepository resortReservationRepository,
             MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper,
-            ResortRepository resortRepository) {
-        this.singleReservationRequestDTOmapper = singleReservationRequestDTOmapper;
+            ResortClient resortClient) {
         this.resortReservationRepository = resortReservationRepository;
         this.multipleReservationRequestDTOmapper = multipleReservationRequestDTOmapper;
-        this.resortRepository = resortRepository;
+        this.resortClient = resortClient;
     }
 
-    @Transactional
     public List<Reservation> saveReservation(MultipleReservationRequestDTO requestDTO) throws ResortNotFoundException, NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
-        Resort resort = resortRepository.findById(requestDTO.getResort())
-                .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", requestDTO.getResort())));
+        //controlli
+        DimensionDTO dimensionDTO = resortClient.getResortDimension(requestDTO.getResort());
+        if(dimensionDTO.getTotalUmbrellaLine() <= requestDTO.getReservedUmbrellaLine() &&
+                dimensionDTO.getTotalUmbrellaColumn() <= requestDTO.getReservedUmbrellaColumn()) {
+            throw new UmbrellaOutOfBound();
+        }
 
-        List<ResortReservation> reservationList = resort.getResortReservationList()
+        List<ResortReservation> reservationList = resortReservationRepository.findByResortId(requestDTO.getResort())
                 .stream()
                 .filter(rr -> rr.isInPeriod(requestDTO.getInitialDate(),requestDTO.getFinalDate()))
                 .toList();
@@ -50,33 +45,33 @@ public class ResortReservationService {
 
         for(ResortReservation resortReservation: reservationList){
             Reservation reservation = multipleReservationRequestDTOmapper.mapTo(requestDTO);
-            addNewReservation(reservation,resortReservation);
+            resortReservation.addReservation(reservation);
+            //TODO controllare se funziona senza il save: resortReservationRepository.save(resortReservation);
             result.add(reservation);
         }
         return result;
     }
 
+    public ReservationStateDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException, PriceNotSettedException {
+        /*interroga Resort chiedendo dimensioni mappa*/
+        DimensionDTO dimension = resortClient.getResortDimension(resortId);
+        /*interroga Resort chiedendo listino*/
+        PriceDTO priceList = resortClient.getResortPrice(resortId, date);
+        /*lista degli ombrelloni occupati*/
+        List<UmbrellaDTO> reservedUmbrella = resortReservationRepository
+                .findByResortIdAndDate(resortId,date)
+                .getFirst()
+                .getReservation()
+                        .stream()
+                        .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), r.getReservedUmbrellaColumn(), r.getPersistenceType()))
+                        .toList();
 
-    @Transactional
-    public Reservation saveReservation(SingleReservationRequestDTO requestDTO) throws NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
-        Reservation newReservation = singleReservationRequestDTOmapper.mapTo(requestDTO);
-        ResortReservation rr = resortReservationRepository.findById(requestDTO.getResortReservation())
-                .orElseThrow(NoSuchResortReservationException::new);
-        return addNewReservation(newReservation, rr);
-    }
 
-    @Transactional
-    public Reservation addNewReservation(Reservation newReservation, ResortReservation resortReservation) throws UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
-        resortReservation.addReservation(newReservation);
-        resortReservationRepository.save(resortReservation);
-        return newReservation;
-    }
-
-    public ReservationDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException, PriceNotSettedException {
-        Resort resort = resortRepository.findById(resortId)
-                .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
-        return resortReservationRepository.findByResortAndDate(resort, date)
-                    .getFirst().reservationInformation();
+        return ReservationStateDTO.builder()
+                .dimension(dimension)
+                .reservedUmbrella(reservedUmbrella)
+                .priceList(priceList)
+                .build();
     }
 
 }
