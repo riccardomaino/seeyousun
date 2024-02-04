@@ -1,6 +1,5 @@
 version: '3.8'
 
-
 services:
   # EUREKA DISCOVERY SERVER
   discovery-server:
@@ -8,9 +7,11 @@ services:
     image: eureka-discovery-server-img
     container_name: eureka-discovery-server-ctn
     ports:
-      - "8761:8761"
+      - "${EUREKA_SERVER_PORT}:${EUREKA_SERVER_PORT}"
     networks:
       - global-net
+    environment:
+      - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
 
   # API GATEWAY
   api-gateway:
@@ -18,28 +19,33 @@ services:
     image: api-gateway-img
     container_name: api-gateway-ctn
     ports:
-      - "8080:8080"
+      - "${API_GATEWAY_PORT}:${API_GATEWAY_PORT}"
     depends_on:
       - discovery-server
     networks:
       - global-net
     environment:
+      - API_GATEWAY_PORT=${API_GATEWAY_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
-      - RESORT_SERVICE_HOST=resort-service
-      - RESORT_SERVICE_PORT=8080
-      - RESORT_RESERVATION_SERVICE_HOST=resort-reservation-service
-      - RESORT_RESERVATION_SERVICE_PORT=8080
-      - REVIEW_SERVICE_HOST=review-service
-      - REVIEW_SERVICE_PORT=8080
+      - RESORT_SERVICE_HOST=${RESORT_SERVICE_HOST}
+      - RESORT_SERVICE_PORT=${RESORT_SERVICE_PORT}
+      - RESORT_RESERVATION_SERVICE_HOST=${RESORT_RESERVATION_SERVICE_HOST}
+      - RESORT_RESERVATION_SERVICE_PORT=${RESORT_RESERVATION_SERVICE_PORT}
+      - REVIEW_SERVICE_HOST=${REVIEW_SERVICE_HOST}
+      - REVIEW_SERVICE_PORT=${REVIEW_SERVICE_PORT}
 
   # RABBIT-MQ
   rabbit-mq:
     image: rabbitmq:3-management-alpine
     container_name: rabbit-mq-ctn
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "${RABBIT_PORT}:${RABBIT_PORT}"
+      - "${RABBIT_MANAGEMENT_PORT}:${RABBIT_MANAGEMENT_PORT}"
+    volumes:
+      - type: volume
+        source: data-rabbit-mq
+        target: /var/lib/rabbitmq
     networks:
       - global-net
 
@@ -65,7 +71,7 @@ services:
     image: resort-service-img
     container_name: resort-service-ctn
     ports:
-      - "8081:8080"
+      - "${RESORT_SERVICE_PORT}:${RESORT_SERVICE_PORT}"
     depends_on:
       - discovery-server
       - api-gateway
@@ -75,14 +81,15 @@ services:
       - resort-net
       - global-net
     environment:
+      - RESORT_SERVICE_PORT=${RESORT_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
-      - RABBIT_SERVICE_HOST=${RABBIT_SERVICE_HOST}
-      - RABBIT_SERVICE_PORT=${RABBIT_SERVICE_PORT}
-      - RABBIT_SERVICE_USERNAME=${RABBIT_SERVICE_USERNAME}
-      - RABBIT_SERVICE_PASSWORD=${RABBIT_SERVICE_PASSWORD}
-      - DATABASE_SERVICE_HOST=db-postgres-resort
-      - DATABASE_SERVICE_PORT=5432
+      - RABBIT_HOST=${RABBIT_HOST}
+      - RABBIT_PORT=${RABBIT_PORT}
+      - RABBIT_USERNAME=${RABBIT_USERNAME}
+      - RABBIT_PASSWORD=${RABBIT_PASSWORD}
+      - DATABASE_HOST=db-postgres-resort
+      - DATABASE_PORT=5432
       - DATABASE_NAME=dbresort
 
   # DATABASE RESORT-RESERVATION-SERVICE
@@ -107,7 +114,7 @@ services:
     image: resort-reservation-service-img
     container_name: resort-reservation-service-ctn
     ports:
-      - "8082:8080"
+      - "${RESORT_RESERVATION_SERVICE_PORT}:${RESORT_RESERVATION_SERVICE_PORT}"
     depends_on:
       - discovery-server
       - api-gateway
@@ -116,10 +123,11 @@ services:
       - resort-reservation-net
       - global-net
     environment:
+      - RESORT_RESERVATION_SERVICE_PORT=${RESORT_RESERVATION_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
-      - DATABASE_SERVICE_HOST=db-postgres-resort-reservation
-      - DATABASE_SERVICE_PORT=5432
+      - DATABASE_HOST=db-postgres-resort-reservation
+      - DATABASE_PORT=5432
       - DATABASE_NAME=dbresortreservation
 
   # DATABASE REVIEW-SERVICE
@@ -144,7 +152,7 @@ services:
     image: review-service-img
     container_name: review-service-ctn
     ports:
-      - "8083:8080"
+      - "${REVIEW_SERVICE_PORT}:${REVIEW_SERVICE_PORT}"
     depends_on:
       - discovery-server
       - api-gateway
@@ -154,20 +162,22 @@ services:
       - review-net
       - global-net
     environment:
+      - REVIEW_SERVICE_PORT=${REVIEW_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
-      - RABBIT_SERVICE_HOST=${RABBIT_SERVICE_HOST}
-      - RABBIT_SERVICE_PORT=${RABBIT_SERVICE_PORT}
-      - RABBIT_SERVICE_USERNAME=${RABBIT_SERVICE_USERNAME}
-      - RABBIT_SERVICE_PASSWORD=${RABBIT_SERVICE_PASSWORD}
-      - DATABASE_SERVICE_HOST=db-postgres-review
-      - DATABASE_SERVICE_PORT=5432
+      - RABBIT_HOST=${RABBIT_HOST}
+      - RABBIT_PORT=${RABBIT_PORT}
+      - RABBIT_USERNAME=${RABBIT_USERNAME}
+      - RABBIT_PASSWORD=${RABBIT_PASSWORD}
+      - DATABASE_HOST=db-postgres-review
+      - DATABASE_PORT=5432
       - DATABASE_NAME=dbreview
 
 volumes:
   db-data-resort:
   db-data-resort-reservation:
   db-data-review:
+  data-rabbit-mq:
 networks:
   global-net:
     driver: bridge

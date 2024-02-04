@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${RESORT_RESERVATION_SERVICE_PORT:8080}
 
 spring:
   application:
@@ -8,7 +8,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: admin
     password: admin
-    url: jdbc:postgresql://${DATABASE_SERVICE_HOST:localhost}:${DATABASE_SERVICE_PORT:5432}/${DATABASE_NAME:default}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:default}
   jpa:
     database: postgresql
     hibernate:
@@ -24,5 +24,7 @@ eureka:
   instance:
     hostname: ${EUREKA_SERVER_HOST:localhost}
   client:
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
+      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka/
