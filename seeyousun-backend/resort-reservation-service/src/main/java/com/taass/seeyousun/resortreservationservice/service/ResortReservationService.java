@@ -2,7 +2,7 @@ package com.taass.seeyousun.resortreservationservice.service;
 
 import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
-import com.taass.seeyousun.resortreservationservice.mappers.impl.MultipleReservationRequestDTOmapper;
+import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
 import com.taass.seeyousun.resortreservationservice.model.ResortReservation;
 import com.taass.seeyousun.resortreservationservice.repositories.ResortClient;
@@ -19,19 +19,19 @@ import java.util.Objects;
 @Service
 public class ResortReservationService {
     private final ResortReservationRepository resortReservationRepository;
-    private final MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper;
+    private final ReservationRequestDTOmapper reservationRequestDTOmapper;
     private final ResortClient resortClient;
 
     public ResortReservationService(
             ResortReservationRepository resortReservationRepository,
-            MultipleReservationRequestDTOmapper multipleReservationRequestDTOmapper,
+            ReservationRequestDTOmapper reservationRequestDTOmapper,
             ResortClient resortClient) {
         this.resortReservationRepository = resortReservationRepository;
-        this.multipleReservationRequestDTOmapper = multipleReservationRequestDTOmapper;
+        this.reservationRequestDTOmapper = reservationRequestDTOmapper;
         this.resortClient = resortClient;
     }
 
-    public List<Reservation> saveReservation(MultipleReservationRequestDTO requestDTO) throws ResortNotFoundException, NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
+    public List<Reservation> saveReservation(ReservationRequestDTO requestDTO) throws ResortNotFoundException, NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
         //controlli
         ResponseEntity<ApiResponseDTO<DimensionDTO>> response = resortClient.getResortDimension(requestDTO.getResort());
         //TODO cambiare eccezione
@@ -51,7 +51,7 @@ public class ResortReservationService {
         List<Reservation> result = new ArrayList<>();
 
         for(ResortReservation resortReservation: reservationList){
-            Reservation reservation = multipleReservationRequestDTOmapper.mapTo(requestDTO);
+            Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
             resortReservation.addReservation(reservation);
             //TODO controllare se funziona senza il save: resortReservationRepository.save(resortReservation);
             result.add(reservation);
