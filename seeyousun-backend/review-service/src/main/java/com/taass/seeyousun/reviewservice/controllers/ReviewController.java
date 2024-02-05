@@ -21,8 +21,8 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> getReviewForResort(@PathVariable("id") Long resortId){
+    @GetMapping("/{resortId}")
+    public ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> getReviewForResort(@PathVariable Long resortId){
         List<ReviewDTO> resultReviews = reviewService.getReviewForResort(resortId);
         ApiResponseDTO<List<ReviewDTO>> response = ApiResponseDTO.<List<ReviewDTO>>builder()
                 .statusCode(200)
