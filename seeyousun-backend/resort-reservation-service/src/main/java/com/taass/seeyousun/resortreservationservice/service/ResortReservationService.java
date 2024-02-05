@@ -45,7 +45,7 @@ public class ResortReservationService {
 
         List<ResortReservation> reservationList = resortReservationRepository.findByResortId(requestDTO.getResort())
                 .stream()
-                .filter(rr -> rr.isInPeriod(requestDTO.getInitialDate(),requestDTO.getFinalDate()))
+                .filter(rr -> rr.isThisInPeriod(requestDTO.getInitialDate(),requestDTO.getFinalDate()))
                 .toList();
 
         List<Reservation> result = new ArrayList<>();
@@ -53,7 +53,7 @@ public class ResortReservationService {
         for(ResortReservation resortReservation: reservationList){
             Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
             resortReservation.addReservation(reservation);
-            //TODO controllare se funziona senza il save: resortReservationRepository.save(resortReservation);
+            resortReservationRepository.save(resortReservation);
             result.add(reservation);
         }
         return result;

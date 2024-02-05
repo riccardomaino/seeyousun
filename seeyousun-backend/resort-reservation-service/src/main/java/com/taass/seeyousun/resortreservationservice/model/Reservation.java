@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 
 /*
-* Rappresenta una prenotazione in un singolo giorno. può essre di mezza giornata al mattino al pomeriggio oppure giornata intera.
+* Rappresenta una prenotazione in un singolo giorno. Può essere di mezza giornata al mattino al pomeriggio oppure giornata intera.
 * */
 @Entity
 @Data
@@ -35,7 +35,7 @@ public class Reservation {
 
     private PersistenceType persistenceType;
 
-    public boolean isSamePlaceAndSameDayTime(Reservation newReservation) {
+    public boolean isOverlapped(Reservation newReservation) {
         return this.reservedUmbrellaLine == newReservation.reservedUmbrellaLine &&
                 this.reservedUmbrellaColumn == newReservation.reservedUmbrellaColumn &&
                 (this.persistenceType == PersistenceType.FULL_DAY ||

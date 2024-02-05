@@ -25,7 +25,7 @@ public class ResortReservationController {
     * */
     @GetMapping("/information/{resortId}/{date}")
     public ResponseEntity<ApiResponseDTO<ReservationStateDTO>> getReservationInformation(@PathVariable Long resortId, @PathVariable String date) {
-        ApiResponseDTO<ReservationStateDTO> response = null;
+        ApiResponseDTO<ReservationStateDTO> response;
         try {
             ReservationStateDTO reservationDTO = resortReservationService.getReservationInformation(resortId, LocalDate.parse(date));
             response = ApiResponseDTO.<ReservationStateDTO>builder()
@@ -43,7 +43,7 @@ public class ResortReservationController {
         }
     }
 
-    @PostMapping(path = "/reservation")
+    @PostMapping(path = "")
     public ResponseEntity<?> saveReservation (@RequestBody ReservationRequestDTO requestDTO){
         try {
             return new ResponseEntity<>(resortReservationService.saveReservation(requestDTO), HttpStatus.CREATED) ;

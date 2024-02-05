@@ -38,14 +38,16 @@ public class ResortReservation {
     private List<Reservation> reservation;
 
 
-    public boolean isInPeriod(LocalDate initialDate, LocalDate finalDate){
-        return initialDate.isBefore(this.date) && finalDate.isAfter(this.date);
+    public boolean isThisInPeriod(LocalDate initialDate, LocalDate finalDate){
+        return (initialDate.isBefore(this.date) && finalDate.isAfter(this.date))
+                ||
+                (initialDate.isEqual(finalDate) && initialDate.isEqual(this.date));
     }
 
     public void addReservation(Reservation newReservation) throws UmbrellaAlreadyReservedException {
 
         boolean isAlreadyReserved = reservation.stream()
-                .anyMatch(r -> r.isSamePlaceAndSameDayTime(newReservation));
+                .anyMatch(r -> r.isOverlapped(newReservation));
         if(isAlreadyReserved) throw new UmbrellaAlreadyReservedException(
                 "Umbrella (" +
                 newReservation.getReservedUmbrellaLine() + ", " + newReservation.getReservedUmbrellaColumn()+
