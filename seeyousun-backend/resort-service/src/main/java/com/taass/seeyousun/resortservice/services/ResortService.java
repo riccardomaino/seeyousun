@@ -1,17 +1,18 @@
 package com.taass.seeyousun.resortservice.services;
 
-import com.taass.seeyousun.resortservice.dto.ResortDTO;
-import com.taass.seeyousun.resortservice.dto.PopularResortDTO;
-import com.taass.seeyousun.resortservice.dto.ResortFullDTO;
+import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
 import com.taass.seeyousun.resortservice.mappers.Mapper;
 import com.taass.seeyousun.resortservice.messaging.ReviewMessageDTO;
+import com.taass.seeyousun.resortservice.model.PricePeriod;
 import com.taass.seeyousun.resortservice.model.Resort;
 import com.taass.seeyousun.resortservice.repositories.ResortRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -134,5 +135,25 @@ public class ResortService {
                 .orElseThrow(()-> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
         r.setRating(reviewMessageDTO.getAverageRating());
         resortRepository.save(r);
+    }
+
+    public DimensionDTO getResortDimension(Long resortId) {
+        Resort r = resortRepository.findById(resortId)
+                .orElseThrow();
+        return new DimensionDTO(r.getTotalUmbrellaLine(),r.getTotalUmbrellaColumn());
+    }
+
+    public PriceDTO getResortPricing(Long resortId, LocalDate date) {
+        PricePeriod p = resortRepository.findById(resortId)
+                .orElseThrow()
+                .getPricePeriodList()
+                .stream()
+                .filter(pricePeriod -> pricePeriod.isInPeriod(date))
+                .toList()
+                .getFirst();
+        return PriceDTO.builder()
+                .sunbedPrice(p.getSunbedPrice())
+                .umbrellaPrice(p.getUmbrellaPrice())
+                .build();
     }
 }

@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/api/v1/resorts")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ResortController {
     private final ResortService resortService;
     private final ServiceService serviceService;
@@ -91,4 +93,28 @@ public class ResortController {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/dimension/{resortId}")
+    public ResponseEntity<ApiResponseDTO<DimensionDTO>> getResortDimension(@PathVariable Long resortId){
+        DimensionDTO dimensionDTO = resortService.getResortDimension(resortId);
+        ApiResponseDTO<DimensionDTO> response = ApiResponseDTO.<DimensionDTO>builder()
+                .statusCode(200)
+                .message("Success in retrieving dimension of resort")
+                .data(dimensionDTO)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/pricing/{resortId}/{date}")
+    public ResponseEntity<ApiResponseDTO<PriceDTO>> getResortPricing(@PathVariable Long resortId, @PathVariable String date){
+        PriceDTO priceDTO = resortService.getResortPricing(resortId, LocalDate.parse(date));
+        ApiResponseDTO<PriceDTO> response = ApiResponseDTO.<PriceDTO>builder()
+                .statusCode(200)
+                .message("Success in retrieving pricing list of resort")
+                .data(priceDTO)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
 }

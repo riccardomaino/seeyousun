@@ -23,7 +23,7 @@ public class ResortReservationController {
     /*ottenere le informazioni necessarie per prenotare in un resort
     * posti occupati, grandezza della matrice di ombrelloni, costo delle rige degli ombrelloni, costo dei lettini
     * */
-    @GetMapping("/{resortId}/{date}")
+    @GetMapping("/information/{resortId}/{date}")
     public ReservationStateDTO getReservationInformation(@PathVariable Long resortId, @PathVariable String date) {
         try {
             return resortReservationService.getReservationInformation(resortId,LocalDate.parse(date));

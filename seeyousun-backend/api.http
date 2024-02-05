@@ -24,6 +24,9 @@ Content-Type: application/json
 //da Home 1.1 a ResortPage
 GET http://localhost:8080/resorts/v1/resort-by-id/2
 
+###
+GET http://localhost:8082/api/v1/resort-reservations/information/2/2024-01-16
+
 
 
 
