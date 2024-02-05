@@ -46,7 +46,13 @@ public class ResortReservationController {
     @PostMapping(path = "")
     public ResponseEntity<?> saveReservation (@RequestBody ReservationRequestDTO requestDTO){
         try {
-            return new ResponseEntity<>(resortReservationService.saveReservation(requestDTO), HttpStatus.CREATED) ;
+            resortReservationService.saveReservation(requestDTO);
+            ApiResponseDTO<ReservationRequestDTO> response = ApiResponseDTO.<ReservationRequestDTO>builder()
+                    .statusCode(201)
+                    .message("created successful")
+                    .data(null)
+                    .build();
+            return new ResponseEntity<>(response, HttpStatus.CREATED) ;
         } catch (ResortNotFoundException | NoSuchResortReservationException | UmbrellaAlreadyReservedException |
                  UmbrellaOutOfBound e) {
             return new ResponseEntity<>(e.getMessage() + e.getClass().getSimpleName(), HttpStatus.BAD_REQUEST);
