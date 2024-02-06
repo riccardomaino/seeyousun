@@ -1,18 +1,17 @@
 package com.taass.seeyousun.resortreservationservice.service;
 
+import com.taass.seeyousun.resortreservationservice.client.ResortClient;
 import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationRequestDTOmapper;
+import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
-import com.taass.seeyousun.resortreservationservice.model.ResortReservation;
-import com.taass.seeyousun.resortreservationservice.repositories.ResortClient;
 import com.taass.seeyousun.resortreservationservice.repositories.ResortReservationRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,59 +30,64 @@ public class ResortReservationService {
         this.resortClient = resortClient;
     }
 
-    public List<Reservation> saveReservation(ReservationRequestDTO requestDTO) throws ResortNotFoundException, NoSuchResortReservationException, UmbrellaAlreadyReservedException, UmbrellaOutOfBound {
-        //controlli
-        ResponseEntity<ApiResponseDTO<DimensionDTO>> response = resortClient.getResortDimension(requestDTO.getResort());
-        //TODO cambiare eccezione
-        if(response.getStatusCode() != HttpStatus.OK)throw new ResortNotFoundException("Client non ha funzionato" + response.getStatusCode());
+    public void createReservation(ReservationRequestDTO requestDTO)
+            throws ResortNotFoundException, DailyReservationNotFoundException,
+                UmbrellaAlreadyReservedException, UmbrellaOutOfBoundException {
+        // Effettuiamo chiamata REST al resort-service sincrona per prelevare le dimensioni della mappa del resort (linee x colonne)
+        ResponseEntity<ApiResponseDTO<DimensionDTO>> response = resortClient.getResortDimension(requestDTO.getResortId());
+        if(response.getStatusCode() != HttpStatus.OK)
+            throw new ServiceNotReachableException("Resort service is not reachable");
         DimensionDTO dimensionDTO = Objects.requireNonNull(response.getBody()).getData();
 
-        if(dimensionDTO.getTotalUmbrellaLine() <= requestDTO.getReservedUmbrellaLine() &&
-                dimensionDTO.getTotalUmbrellaColumn() <= requestDTO.getReservedUmbrellaColumn()) {
-            throw new UmbrellaOutOfBound();
+        // Effettuiamo un controllo sul rispetto dei limiti della mappa del resort
+        if(dimensionDTO.getTotalUmbrellaLine() <= requestDTO.getReservedUmbrellaLine() ||
+                dimensionDTO.getTotalUmbrellaColumn() <= requestDTO.getReservedUmbrellaColumn() ||
+                     requestDTO.getReservedUmbrellaLine()  < 0 ||
+                        requestDTO.getReservedUmbrellaColumn() < 0
+        ) {
+            throw new UmbrellaOutOfBoundException(
+                    String.format("This umbrella is out of bound: [%d, %d]", requestDTO.getReservedUmbrellaLine(), requestDTO.getReservedUmbrellaColumn()));
         }
 
-        List<ResortReservation> reservationList = resortReservationRepository.findByResortId(requestDTO.getResort())
+        // Ottiene la lista di tutti i dailyReservation in cui aggiungere la nuova prenotazione
+        List<DailyReservation> dailyReservationList = resortReservationRepository.findByResortId(requestDTO.getResortId())
                 .stream()
                 .filter(rr -> rr.isThisInPeriod(requestDTO.getInitialDate(),requestDTO.getFinalDate()))
                 .toList();
 
-        List<Reservation> result = new ArrayList<>();
-
-        for(ResortReservation resortReservation: reservationList){
+        for(DailyReservation dailyReservation : dailyReservationList){
             Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
-            resortReservation.addReservation(reservation);
-            resortReservationRepository.save(resortReservation);
-            result.add(reservation);
+            dailyReservation.addReservation(reservation);
+            resortReservationRepository.save(dailyReservation);
         }
-        return result;
     }
 
     public ReservationStateDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException, PriceNotSettedException {
-        /*interroga Resort chiedendo dimensioni mappa*/
+        // Effettuiamo chiamata REST al resort-service sincrona per prelevare le dimensions (linee x colonne) del resort
         ResponseEntity<ApiResponseDTO<DimensionDTO>> responseDimension = resortClient.getResortDimension(resortId);
-        //TODO cambiare eccezione
-        if(responseDimension.getStatusCode() != HttpStatus.OK) throw new ResortNotFoundException("Client non ha funzionato" + responseDimension.getStatusCode());
+        if(responseDimension.getStatusCode() != HttpStatus.OK)
+            throw new ServiceNotReachableException("Resort service is not reachable");
         DimensionDTO dimensionDTO = Objects.requireNonNull(responseDimension.getBody()).getData();
 
-        /*interroga Resort chiedendo listino*/
-        ResponseEntity<ApiResponseDTO<PriceDTO>> responsePriceList = resortClient.getResortPrice(resortId, date.toString());
-        if(responsePriceList.getStatusCode() != HttpStatus.OK) throw new ResortNotFoundException("Client non ha funzionato" + responsePriceList.getStatusCode());
-        PriceDTO priceDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
+        // Effettuiamo chiamata REST al resort-service sincrona per richiedere il listino prezzi
+        ResponseEntity<ApiResponseDTO<PriceListDTO>> responsePriceList = resortClient.getResortPrice(resortId, date.toString());
+        if(responsePriceList.getStatusCode() != HttpStatus.OK)
+            throw new ServiceNotReachableException("Resort service is not reachable");
+        PriceListDTO priceListDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
 
-        /*lista degli ombrelloni occupati*/
+        // Otteniamo la lista degli ombrelloni occupati
         List<UmbrellaDTO> reservedUmbrella = resortReservationRepository
                 .findByResortIdAndDate(resortId,date)
                 .getFirst()
                 .getReservation()
                         .stream()
-                        .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), r.getReservedUmbrellaColumn(), r.getPersistenceType()))
+                        .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), r.getReservedUmbrellaColumn(), r.getPersistenceTypeEnum()))
                         .toList();
 
 
         return ReservationStateDTO.builder()
                 .dimension(dimensionDTO)
-                .priceList(priceDTO)
+                .priceList(priceListDTO)
                 .reservedUmbrella(reservedUmbrella)
                 .build();
     }

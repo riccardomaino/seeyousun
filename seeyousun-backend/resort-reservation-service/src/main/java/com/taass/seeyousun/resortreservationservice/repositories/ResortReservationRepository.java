@@ -1,6 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.repositories;
 
-import com.taass.seeyousun.resortreservationservice.model.ResortReservation;
+import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface ResortReservationRepository extends JpaRepository<ResortReservation,Long> {
-    List<ResortReservation> findByResortIdAndDate(long resort, LocalDate date);
+public interface ResortReservationRepository extends JpaRepository<DailyReservation,Long> {
+    List<DailyReservation> findByResortIdAndDate(long resortId, LocalDate date);
 
-    List<ResortReservation> findByResortId(long resortId);
+    List<DailyReservation> findByResortId(long resortId);
 }

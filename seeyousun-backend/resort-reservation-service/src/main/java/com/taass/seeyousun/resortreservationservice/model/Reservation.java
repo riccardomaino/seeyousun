@@ -22,24 +22,25 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int numberOfSunbeds;
+    private Integer numberOfSunbeds;
 
-    private int reservedUmbrellaLine;
+    private Integer reservedUmbrellaLine;
 
-    private int reservedUmbrellaColumn;
+    private Integer reservedUmbrellaColumn;
 
     @ManyToOne
-    @JoinColumn(name = "resort_reservation_id")
+    @JoinColumn(name = "daily_reservation_id")
     @JsonBackReference
-    private ResortReservation resortReservation;
+    private DailyReservation dailyReservation;
 
-    private PersistenceType persistenceType;
+    @Enumerated(EnumType.STRING)
+    private PersistenceTypeEnum persistenceTypeEnum;
 
     public boolean isOverlapped(Reservation newReservation) {
-        return this.reservedUmbrellaLine == newReservation.reservedUmbrellaLine &&
-                this.reservedUmbrellaColumn == newReservation.reservedUmbrellaColumn &&
-                (this.persistenceType == PersistenceType.FULL_DAY ||
-                        newReservation.persistenceType == PersistenceType.FULL_DAY ||
-                                this.persistenceType == newReservation.persistenceType);
+        return this.reservedUmbrellaLine.equals(newReservation.reservedUmbrellaLine) &&
+                this.reservedUmbrellaColumn.equals(newReservation.reservedUmbrellaColumn) &&
+                (this.persistenceTypeEnum == PersistenceTypeEnum.FULL_DAY ||
+                        newReservation.persistenceTypeEnum == PersistenceTypeEnum.FULL_DAY ||
+                        this.persistenceTypeEnum == newReservation.persistenceTypeEnum);
     }
 }

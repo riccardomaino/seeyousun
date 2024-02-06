@@ -2,12 +2,12 @@ package com.taass.seeyousun.resortreservationservice.mappers.impl;
 
 import com.taass.seeyousun.resortreservationservice.dto.UmbrellaDTO;
 import com.taass.seeyousun.resortreservationservice.mappers.Mapper;
-import com.taass.seeyousun.resortreservationservice.model.ResortReservation;
+import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UmbrellaDTOmapper implements Mapper<UmbrellaDTO, ResortReservation> {
+public class UmbrellaDTOmapper implements Mapper<UmbrellaDTO, DailyReservation> {
 
     private final ModelMapper modelMapper;
 
@@ -16,12 +16,12 @@ public class UmbrellaDTOmapper implements Mapper<UmbrellaDTO, ResortReservation>
     }
 
     @Override
-    public ResortReservation mapTo(UmbrellaDTO umbrellaDTO) {
-        return modelMapper.map(umbrellaDTO, ResortReservation.class);
+    public DailyReservation mapTo(UmbrellaDTO umbrellaDTO) {
+        return modelMapper.map(umbrellaDTO, DailyReservation.class);
     }
 
     @Override
-    public UmbrellaDTO mapFrom(ResortReservation resortReservation) {
-        return modelMapper.map(resortReservation, UmbrellaDTO.class);
+    public UmbrellaDTO mapFrom(DailyReservation dailyReservation) {
+        return modelMapper.map(dailyReservation, UmbrellaDTO.class);
     }
 }

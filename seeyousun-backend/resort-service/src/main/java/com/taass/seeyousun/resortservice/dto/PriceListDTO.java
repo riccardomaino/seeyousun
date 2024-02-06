@@ -16,10 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PriceDTO {
+public class PriceListDTO {
     //lista ordinata per file dei prezzi degli ombrelloni:
     //[15,10,10] in prima fila si paga 15, in seconda 10 in terza 10
     private List<Integer> umbrellaPrice;
-
     private Integer sunbedPrice;
 }

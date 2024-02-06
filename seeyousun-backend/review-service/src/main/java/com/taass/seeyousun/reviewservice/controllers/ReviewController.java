@@ -13,8 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/reviews")
 public class ReviewController {
-
-
     private final ReviewService reviewService;
 
     public ReviewController(ReviewService reviewService) {
@@ -22,11 +20,11 @@ public class ReviewController {
     }
 
     @GetMapping("/{resortId}")
-    public ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> getReviewForResort(@PathVariable Long resortId){
+    public ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> getReviewsForResort(@PathVariable Long resortId){
         List<ReviewDTO> resultReviews = reviewService.getReviewForResort(resortId);
         ApiResponseDTO<List<ReviewDTO>> response = ApiResponseDTO.<List<ReviewDTO>>builder()
                 .statusCode(200)
-                .message("found successful")
+                .message("Review founded successfully")
                 .data(resultReviews)
                 .build();
 
@@ -34,15 +32,13 @@ public class ReviewController {
     }
 
     @PostMapping()
-    public ResponseEntity<ApiResponseDTO<ReviewDTO>> createReview(@RequestBody ReviewDTO reviewDTO){
+    public ResponseEntity<ApiResponseDTO<Object>> createReview(@RequestBody ReviewDTO reviewDTO){
         reviewService.createReview(reviewDTO);
-
-        ApiResponseDTO<ReviewDTO> response = ApiResponseDTO.<ReviewDTO>builder()
+        ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(201)
-                .message("created successful")
+                .message("Review created successfully")
                 .data(null)
                 .build();
-
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

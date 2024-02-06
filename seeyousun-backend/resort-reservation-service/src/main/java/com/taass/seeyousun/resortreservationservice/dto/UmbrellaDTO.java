@@ -1,7 +1,7 @@
 package com.taass.seeyousun.resortreservationservice.dto;
 
 
-import com.taass.seeyousun.resortreservationservice.model.PersistenceType;
+import com.taass.seeyousun.resortreservationservice.model.PersistenceTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +18,5 @@ import lombok.NoArgsConstructor;
 public class UmbrellaDTO {
     private int umbrellaLine;
     private int umbrellaColumn;
-    private PersistenceType persistenceType;
+    private PersistenceTypeEnum persistenceTypeEnum;
 }

@@ -1,7 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.dto;
-/*questa classe viene inviata dal front end in post per registrare una richiesta di prenotazione*/
 
-import com.taass.seeyousun.resortreservationservice.model.PersistenceType;
+import com.taass.seeyousun.resortreservationservice.model.PersistenceTypeEnum;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -16,11 +15,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class ReservationRequestDTO {
-    private long resort;
-    private int reservedUmbrellaLine;
-    private int reservedUmbrellaColumn;
-    private PersistenceType persistenceType;
-    private int numberOfSunbeds;
+    private Long resortId;
+    private Integer reservedUmbrellaLine;
+    private Integer reservedUmbrellaColumn;
+    private PersistenceTypeEnum persistenceTypeEnum;
+    private Integer numberOfSunbeds;
     @Temporal(TemporalType.DATE)
     private LocalDate initialDate;
     @Temporal(TemporalType.DATE)

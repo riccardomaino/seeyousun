@@ -143,7 +143,7 @@ public class ResortService {
         return new DimensionDTO(r.getTotalUmbrellaLine(),r.getTotalUmbrellaColumn());
     }
 
-    public PriceDTO getResortPricing(Long resortId, LocalDate date) {
+    public PriceListDTO getResortPricing(Long resortId, LocalDate date) {
         PricePeriod p = resortRepository.findById(resortId)
                 .orElseThrow()
                 .getPricePeriodList()
@@ -151,7 +151,7 @@ public class ResortService {
                 .filter(pricePeriod -> pricePeriod.isInPeriod(date))
                 .toList()
                 .getFirst();
-        return PriceDTO.builder()
+        return PriceListDTO.builder()
                 .sunbedPrice(p.getSunbedPrice())
                 .umbrellaPrice(p.getUmbrellaPrice())
                 .build();

@@ -2,10 +2,10 @@ package com.taass.seeyousun.resortreservationservice.exceptions;
 
 import java.io.Serial;
 
-public class PriceNotSettedException extends RuntimeException {
+public class DailyReservationNotFoundException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1;
-    public PriceNotSettedException(String message) {
+    public DailyReservationNotFoundException(String message) {
         super(message);
     }
 }

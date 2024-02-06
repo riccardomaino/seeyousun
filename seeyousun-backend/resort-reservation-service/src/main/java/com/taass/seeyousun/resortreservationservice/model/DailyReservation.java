@@ -21,19 +21,17 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "resort_reservations")
-public class ResortReservation {
-
+public class DailyReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Temporal(TemporalType.DATE)
     private LocalDate date;
 
     private Integer resortId;
 
-    @OneToMany(mappedBy = "resortReservation", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dailyReservation", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Reservation> reservation;
 
@@ -54,7 +52,7 @@ public class ResortReservation {
                 ") are already reserved");
 
         //controlli ok
-        newReservation.setResortReservation(this);
+        newReservation.setDailyReservation(this);
         reservation.add(newReservation);
     }
 }

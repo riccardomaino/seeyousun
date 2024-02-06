@@ -105,13 +105,16 @@ public class ResortController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/pricing/{resortId}/{date}")
-    public ResponseEntity<ApiResponseDTO<PriceDTO>> getResortPricing(@PathVariable Long resortId, @PathVariable String date){
-        PriceDTO priceDTO = resortService.getResortPricing(resortId, LocalDate.parse(date));
-        ApiResponseDTO<PriceDTO> response = ApiResponseDTO.<PriceDTO>builder()
+    @GetMapping("/pricing/{resortId}")
+    public ResponseEntity<ApiResponseDTO<PriceListDTO>> getResortPricing(
+            @PathVariable Long resortId,
+            @RequestParam String date
+    ){
+        PriceListDTO priceListDTO = resortService.getResortPricing(resortId, LocalDate.parse(date));
+        ApiResponseDTO<PriceListDTO> response = ApiResponseDTO.<PriceListDTO>builder()
                 .statusCode(200)
                 .message("Success in retrieving pricing list of resort")
-                .data(priceDTO)
+                .data(priceListDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

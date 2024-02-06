@@ -16,7 +16,7 @@ public class ReservationStateDTO {
 
     private DimensionDTO dimension;
 
-    private PriceDTO priceList;
+    private PriceListDTO priceList;
 
     private List<UmbrellaDTO> reservedUmbrella;
 
