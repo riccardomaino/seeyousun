@@ -2,7 +2,9 @@ package com.taass.seeyousun.resortservice.messaging;
 
 import com.taass.seeyousun.resortservice.services.ResortService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReviewMessageConsumer {
     private final ResortService resortService;
 

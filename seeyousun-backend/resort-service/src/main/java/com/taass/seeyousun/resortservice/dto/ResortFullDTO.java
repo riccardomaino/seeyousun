@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public class ResortFullDTO {
     private String name;
     private String location;
     private String description;
-    private Integer rating;
+    private BigDecimal rating;
     private List<String> information;
     private String photoCover;
     private List<String> photos;

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +16,6 @@ public class ResortDTO {
     private String name;
     private String location;
     private String description;
-    private Integer rating;
+    private BigDecimal rating;
     private String photoCover;
 }

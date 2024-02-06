@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -29,7 +31,7 @@ public class Resort {
     private String description;
 
     @Column(name = "rating")
-    private Double rating;
+    private BigDecimal rating;
 
     // Informazioni quali: numero di telefono, giorni di apertura e orario
     @ElementCollection
