@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 public class EventDTO {
     private Long id;
     private String name;
-    private LocalDateTime initialDate;
-    private LocalDateTime finalDate;
+    private LocalDateTime initialDateTime;
+    private Integer duration;
     private String description;
+    private Boolean isFull;
 }

@@ -64,15 +64,6 @@ INSERT INTO public.resorts_services (resort_id, service_id) VALUES (8, 3);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (8, 12);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (8, 16);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (8, 17);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (9, 3);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (9, 18);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (9, 20);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (9, 21);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (10, 22);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (10, 23);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (11, 3);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (11, 24);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (11, 25);
 
 INSERT INTO public.resorts_information (resort_id, information) VALUES (1, 'Lun - Dom');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (1, '7:30 - 19:00');

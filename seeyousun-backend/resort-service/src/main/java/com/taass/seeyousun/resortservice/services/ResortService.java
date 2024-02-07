@@ -1,5 +1,6 @@
 package com.taass.seeyousun.resortservice.services;
 
+import com.taass.seeyousun.resortservice.client.EventClient;
 import com.taass.seeyousun.resortservice.client.ReviewClient;
 import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
@@ -26,15 +27,19 @@ public class ResortService {
     private final Mapper<ResortDTO, Resort> resortMapper;
     private final Mapper<ResortFullDTO, Resort> resortFullMapper;
     private final ReviewClient reviewClient;
+    private final EventClient eventClient;
 
     public ResortService(
             ResortRepository resortRepository,
             Mapper<ResortDTO, Resort> resortMapper,
-            Mapper<ResortFullDTO, Resort> resortFullMapper, ReviewClient reviewClient) {
+            Mapper<ResortFullDTO, Resort> resortFullMapper,
+            ReviewClient reviewClient,
+            EventClient eventClient) {
         this.resortRepository = resortRepository;
         this.resortMapper = resortMapper;
         this.resortFullMapper = resortFullMapper;
         this.reviewClient = reviewClient;
+        this.eventClient = eventClient;
     }
 
     /**
@@ -78,10 +83,16 @@ public class ResortService {
                 .map(resortFullMapper::mapFrom)
                 .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
 
+        //cerca da event-service gli eventi del resort
+        ResponseEntity<ApiResponseDTO<List<EventDTO>>> responseEvent = eventClient.getEventForResort(resortId);
+        if(responseEvent.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Event service is not reachable");
+        List<EventDTO> eventsDTO = Objects.requireNonNull(responseEvent.getBody()).getData();
+        resortFullDTO.setEvents(eventsDTO);
+
         //cerca da review-service le review del resort
-        ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> response = reviewClient.getReviewsForResort(resortId);
-        if(response.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Review service is not reachable");
-        List<ReviewDTO> reviewDTO = Objects.requireNonNull(response.getBody()).getData();
+        ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> responseReview = reviewClient.getReviewsForResort(resortId);
+        if(responseReview.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Review service is not reachable");
+        List<ReviewDTO> reviewDTO = Objects.requireNonNull(responseReview.getBody()).getData();
         resortFullDTO.setReviews(reviewDTO);
         return resortFullDTO;
     }

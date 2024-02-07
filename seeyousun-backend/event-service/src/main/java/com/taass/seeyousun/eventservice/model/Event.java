@@ -37,12 +37,16 @@ public class Event {
 
     private Integer maxUser;
 
-    public Boolean getIsFull(){
-        return userSubscribed.size()==maxUser;
-    }
+    private Boolean isFull;
 
     public void reserveEvent(Long userId) {
-        if(userSubscribed.size() >= maxUser) throw new EventFullReservedException(name + " è già tutto riservato");
+        //controlla che l'evento non sia già tutto riservato
+        if(isFull)throw new EventFullReservedException(name + " è già tutto riservato");
+
+        //aggiunge l'utente
         userSubscribed.add(userId);
+        //controlla se si è raggiunto il massimo numero di utenti: se si mette isFull a true
+        if(userSubscribed.size() >= maxUser)
+            isFull = true;
     }
 }
