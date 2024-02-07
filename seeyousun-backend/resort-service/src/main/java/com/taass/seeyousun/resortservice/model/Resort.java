@@ -61,12 +61,6 @@ public class Resort {
     )
     private List<String> photos;
 
-    @OneToMany(mappedBy = "resort")
-    @JsonManagedReference
-    private List<Event> events;
-
-
-
     private int totalUmbrellaLine;
 
     private int totalUmbrellaColumn;

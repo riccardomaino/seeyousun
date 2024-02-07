@@ -192,10 +192,52 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_NAME=dbreview
 
+  # DATABASE RESORT-RESERVATION-SERVICE
+  db-postgres-event:
+    image: "postgres"
+    container_name: db-event-ctn
+    ports:
+      - "5004:5432"
+    volumes:
+      - db-data-event:/var/lib/postgresql/data
+    networks:
+      - event-net
+    environment:
+      POSTGRES_DB: dbevent
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      restart: unless-stopped
+
+  # RESORT-RESERVATION-SERVICE
+  event-service:
+    build: ./event-service
+    image: event-service-img
+    container_name: event-service-ctn
+    ports:
+      - "${EVENT_SERVICE_PORT}:${EVENT_SERVICE_PORT}"
+    depends_on:
+      - eureka-discovery-server
+      - api-gateway
+      - zipkin
+      - db-postgres-event
+    networks:
+      - event-net
+      - global-net
+    environment:
+      - EVENT_SERVICE_PORT=${EVENT_SERVICE_PORT}
+      - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
+      - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
+      - ZIPKIN_HOST=${ZIPKIN_HOST}
+      - ZIPKIN_PORT=${ZIPKIN_PORT}
+      - DATABASE_HOST=db-postgres-event
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=dbevent
+
 volumes:
   db-data-resort:
   db-data-resort-reservation:
   db-data-review:
+  db-data-event:
   data-rabbit-mq:
 networks:
   global-net:
@@ -205,4 +247,6 @@ networks:
   resort-reservation-net:
     driver: bridge
   review-net:
+    driver: bridge
+  event-net:
     driver: bridge
