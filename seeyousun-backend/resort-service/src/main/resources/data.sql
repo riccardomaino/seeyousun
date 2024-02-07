@@ -1,14 +1,19 @@
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (1, 'Il più bel lido che puoi trovare', 'Varigotti, Liguria', 'Baia dei Saraceni', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (2, 'Un luogo incantevole con acque cristalline e servizi di prima classe. Ideale per trascorrere una giornata rilassante sotto il sole salentino.', 'Gallipoli, Puglia', 'Lido Punta della Suina', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (3, 'Situato in una baia mozzafiato, questo lido offre paesaggi mozzafiato e una vasta gamma di attività acquatiche. Perfetto per famiglie e amanti del mare.', 'Otranto, Puglia', 'Lido Baia dei Turchi', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 5);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (4, 'Un oasi di tranquillità con acque termali naturali. Le piscine naturali rendono questo lido unico nel suo genere. Un luogo perfetto per rilassarsi e rigenerarsi.', 'Santa Cesarea Terme, Marche', 'Lido La Poesia', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 3);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (5, 'Un mix di divertimento e relax, con una spiaggia dorata e servizi moderni. Ideale per chi cerca una giornata di sole e mare senza rinunciare al comfort.', 'Porto Cesareo, Puglia', 'Lido Tabù', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (6, 'Una delle spiagge più famose della regione, con le sue imponenti scogliere e acque cristalline. Perfetto per gli amanti della natura e della tranquillità.', 'Torre dell''Orso, Puglia', 'Lido Le Orsette', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 5);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (7, 'Un lido ideale per le famiglie, con sabbia fine e acque poco profonde. Numerose attività per bambini e adulti rendono questo lido una scelta versatile per tutti.', 'Torre Lapillo, Puglia', 'Lido degli Angeli', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (8, 'Situato all''estremità meridionale del Salento, questo lido offre una vista mozzafiato e un''atmosfera unica. Perfetto per chi cerca un''esperienza autentica.', 'Leuca, Puglia', 'Lido Marina di Leuca', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 3);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (9, 'Un lido pittoresco con una lunga spiaggia dorata e acque cristalline. Ideale per chi ama lunghe passeggiate sulla spiaggia e tramonti indimenticabili.', 'Torre Pali, Liguria', 'Lido Pali', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 5);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (10, 'Situato in una delle zone più incontaminate del Salento, questo lido offre chilometri di spiagge di sabbia bianca. Perfetto per chi cerca tranquillità e bellezza naturale.', 'Punta Prosciutto, Puglia', 'Lido degli Achei', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 3);
-INSERT INTO public.resorts (id, description, location, name, photo_cover, rating) VALUES (11, 'Una destinazione amata da chi cerca una spiaggia meno affollata. Spiagge incontaminate e un''atmosfera rilassata fanno di questo lido una scelta perfetta per la fuga dal caos.', 'Noli, Liguria', 'Lido Le Vele', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (1, 'Il più bel lido che puoi trovare', 'Varigotti, Liguria', 'Baia dei Saraceni', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (2, 'Un luogo incantevole con acque cristalline e servizi di prima classe. Ideale per trascorrere una giornata rilassante sotto il sole salentino.', 'Gallipoli, Puglia', 'Lido Punta della Suina', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (3, 'Situato in una baia mozzafiato, questo lido offre paesaggi mozzafiato e una vasta gamma di attività acquatiche. Perfetto per famiglie e amanti del mare.', 'Otranto, Puglia', 'Lido Baia dei Turchi', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 5, 4, 6);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (4, 'Un oasi di tranquillità con acque termali naturali. Le piscine naturali rendono questo lido unico nel suo genere. Un luogo perfetto per rilassarsi e rigenerarsi.', 'Santa Cesarea Terme, Marche', 'Lido La Poesia', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 3, 4, 6);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (5, 'Un mix di divertimento e relax, con una spiaggia dorata e servizi moderni. Ideale per chi cerca una giornata di sole e mare senza rinunciare al comfort.', 'Porto Cesareo, Puglia', 'Lido Tabù', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (6, 'A serene oasis nestled along the Amalfi Coast, Lido del Sole offers breathtaking views of the azure Mediterranean. With 4-star amenities and a total of 6 umbrella lines, it''s the perfect spot for sun-soaked relaxation.', 'Positano, Campania', 'Lido del Sole', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (7, 'Discover paradise at Cala Luna Beach Club. Crystal-clear waters, white sandy beaches, and 6 umbrella columns await you. Ideal for families and couples seeking tranquility.', 'San Teodoro, Sardinia', 'Cala Luna Beach Club', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 5, 4, 6);
+INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
+VALUES (8, 'Unwind at Sunset Cove, where golden sands meet turquoise tides. Enjoy 4 umbrella lines and stunning sunsets. Perfect for beach lovers and sunset chasers.', 'Taormina, Sicily', 'Sunset Cove Resort', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
 
 INSERT INTO public.services (id, name, category) VALUES (1, 'spiaggie_accessibili_a_disabili', 'accessibilità');
 INSERT INTO public.services (id, name, category) VALUES (2, 'idromassaggio', 'benessere');
@@ -51,9 +56,6 @@ INSERT INTO public.resorts_services (resort_id, service_id) VALUES (4, 25);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (5, 3);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (5, 10);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (5, 19);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (6, 1);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (6, 2);
-INSERT INTO public.resorts_services (resort_id, service_id) VALUES (6, 11);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (7, 3);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (7, 13);
 INSERT INTO public.resorts_services (resort_id, service_id) VALUES (7, 14);
@@ -99,39 +101,6 @@ INSERT INTO public.events (id, description, final_date, initial_date, name, reso
 INSERT INTO public.events (id, description, final_date, initial_date, name, resort_id) VALUES (25, 'Beach Fashion Show', '2024-02-19', '2024-02-19 17:00:00.000000', 'Seaside Fashion Show', 10);
 INSERT INTO public.events (id, description, final_date, initial_date, name, resort_id) VALUES (26, 'Sailing Regatta', '2024-01-27', '2024-01-27 10:00:00.000000', 'Sailing Regatta', 11);
 
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (1, 'molto fantasioso', 4, 1);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (2, 'Buon cibo, ma servizio lento.', 3, 1);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (3, 'Vista spettacolare!', 5, 1);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (4, 'Stanze pulite e accoglienti.', 4, 1);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (5, 'Personale cordiale e disponibile.', 5, 1);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (6, 'Camere rumorose di notte.', 2, 1);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (7, 'Cibo mediocre, ma posizione fantastica.', 3, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (8, 'Servizio clienti pessimo.', 1, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (9, 'Atmosfera tranquilla e rilassante.', 5, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (10, 'Prezzi eccessivi per quello che offrono.', 2, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (11, 'Molte attività per tutta la famiglia.', 4, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (12, 'Bella piscina, ma sporca.', 2, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (13, 'Eccellente servizio e personale cortese.', 5, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (14, 'Mancanza di pulizia nelle camere.', 2, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (15, 'Colazione deliziosa con molte opzioni.', 4, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (16, 'Vicino a tutte le attrazioni principali.', 4, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (17, 'Bagni sporchi e mal mantenuti.', 1, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (18, 'Check-in veloce e processuale.', 5, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (19, 'Vicino a una bellissima spiaggia.', 5, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (20, 'Wifi instabile e lento.', 2, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (21, 'Rumori fastidiosi di notte.', 1, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (22, 'Prezzi ragionevoli e conveniente.', 4, 2);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (23, 'Personale gentile, ma stanze vecchie.', 3, 4);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (24, 'Bella vista dal balcone.', 5, 9);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (25, 'Ristorante con cibo delizioso.', 4, 8);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (26, 'Servizio in camera efficiente.', 4, 9);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (27, 'Piscina ben curata e pulita.', 5, 9);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (28, 'Rumori fastidiosi provenienti dalla strada.', 2, 9);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (29, 'Posizione comoda per i trasporti pubblici.', 3, 7);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (30, 'Colazione varia e abbondante.', 4, 11);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (31, 'Wifi gratuito ma instabile.', 2, 10);
-INSERT INTO public.reviews (id, description, rating, resort_id) VALUES (32, 'Personale disponibile a fornire informazioni turistiche.', 5, 6);
-
 INSERT INTO public.resorts_information (resort_id, information) VALUES (1, 'Lun - Dom');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (1, '7:30 - 19:00');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (1, '+39 3453773947');
@@ -150,7 +119,7 @@ INSERT INTO public.resorts_information (resort_id, information) VALUES (5, '+39 
 INSERT INTO public.resorts_information (resort_id, information) VALUES (6, 'Lun - Sab');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (6, '8:30 - 20:00');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (6, '+39 3664758782');
-INSERT INTO public.resorts_information (resort_id, information) VALUES (7, 'Mar - Dom');
+/*INSERT INTO public.resorts_information (resort_id, information) VALUES (7, 'Mar - Dom');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (7, '6:30 - 19:30');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (7, '+39 3346724153');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (8, 'Lun - Ven');
@@ -164,4 +133,4 @@ INSERT INTO public.resorts_information (resort_id, information) VALUES (10, '6:3
 INSERT INTO public.resorts_information (resort_id, information) VALUES (10, '+39 3234153245');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (11, 'Lun - Ven');
 INSERT INTO public.resorts_information (resort_id, information) VALUES (11, '9:30 - 13:00 e 14:00 - 19:00');
-INSERT INTO public.resorts_information (resort_id, information) VALUES (11, '+39 3245342534');
+INSERT INTO public.resorts_information (resort_id, information) VALUES (11, '+39 3245342534');*/

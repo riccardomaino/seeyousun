@@ -1,7 +1,9 @@
 package com.taass.seeyousun.resortservice.services;
 
+import com.taass.seeyousun.resortservice.client.ReviewClient;
 import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
+import com.taass.seeyousun.resortservice.exceptions.ServiceNotReachableException;
 import com.taass.seeyousun.resortservice.mappers.Mapper;
 import com.taass.seeyousun.resortservice.messaging.ReviewMessageDTO;
 import com.taass.seeyousun.resortservice.model.PricePeriod;
@@ -10,24 +12,29 @@ import com.taass.seeyousun.resortservice.repositories.ResortRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ResortService {
     private final ResortRepository resortRepository;
     private final Mapper<ResortDTO, Resort> resortMapper;
     private final Mapper<ResortFullDTO, Resort> resortFullMapper;
+    private final ReviewClient reviewClient;
 
     public ResortService(
             ResortRepository resortRepository,
             Mapper<ResortDTO, Resort> resortMapper,
-            Mapper<ResortFullDTO, Resort> resortFullMapper) {
+            Mapper<ResortFullDTO, Resort> resortFullMapper, ReviewClient reviewClient) {
         this.resortRepository = resortRepository;
         this.resortMapper = resortMapper;
         this.resortFullMapper = resortFullMapper;
+        this.reviewClient = reviewClient;
     }
 
     /**
@@ -61,14 +68,22 @@ public class ResortService {
      * Permette di ottenere un Resort con tutte le sue informazioni cercandolo attraverso l'id. Nel caso in cui venga
      * lanciata l'eccezione ResortNotFoundException, essa viene propagata al Controller e verra' catturata dal
      * GlobalExceptionHandler per indicare all'utente il problema.
-     * @param id è l'id del Resort che si desidera ottenere
+     * @param resortId è l'id del Resort che si desidera ottenere
      * @return un oggetto ResortFullDTO che contiene tutte le informazioni del Resort
      * @throws ResortNotFoundException se non viene trovato nessun Resort corrispondente
      */
-    public ResortFullDTO getResortById(Long id) throws ResortNotFoundException{
-        return resortRepository.findById(id)
+    public ResortFullDTO getResortById(Long resortId) throws ResortNotFoundException{
+        //cerca in repository il resort
+        ResortFullDTO resortFullDTO = resortRepository.findById(resortId)
                 .map(resortFullMapper::mapFrom)
-                .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", id)));
+                .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
+
+        //cerca da review-service le review del resort
+        ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> response = reviewClient.getReviewsForResort(resortId);
+        if(response.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Review service is not reachable");
+        List<ReviewDTO> reviewDTO = Objects.requireNonNull(response.getBody()).getData();
+        resortFullDTO.setReviews(reviewDTO);
+        return resortFullDTO;
     }
 
     /**

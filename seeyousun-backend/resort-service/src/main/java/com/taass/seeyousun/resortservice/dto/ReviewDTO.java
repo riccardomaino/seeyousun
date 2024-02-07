@@ -5,12 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class ReviewDTO {
     private Long id;
+    private Long resortId;
+    private String title;
     private String description;
-    private int rating;
+    private Integer rating;
+    private LocalDate date;
 }
