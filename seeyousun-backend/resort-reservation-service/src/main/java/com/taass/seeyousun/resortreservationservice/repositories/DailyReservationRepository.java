@@ -14,6 +14,6 @@ public interface DailyReservationRepository extends JpaRepository<DailyReservati
 
     List<DailyReservation> findByResortId(long resortId);
 
-    @Query("SELECT rr FROM DailyReservation rr join rr.reservation r WHERE r.userId = ?1")
+    @Query("SELECT rr FROM DailyReservation rr join rr.reservations r WHERE r.userId = ?1")
     List<DailyReservation> findByUser(Long userId);
 }
