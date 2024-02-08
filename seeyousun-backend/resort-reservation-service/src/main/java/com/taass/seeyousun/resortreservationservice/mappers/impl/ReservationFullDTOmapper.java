@@ -17,7 +17,7 @@ public class ReservationFullDTOmapper implements Mapper<ReservationFullDTO, Dail
 
     @Override
     public ReservationFullDTO mapFrom(DailyReservation dailyReservation) {
-        Reservation r = dailyReservation.getReservation().getFirst();
+        Reservation r = dailyReservation.getReservations().getFirst();
         return ReservationFullDTO.builder()
                 .resortId(dailyReservation.getResortId())
                 .date(dailyReservation.getDate())
