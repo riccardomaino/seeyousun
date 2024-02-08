@@ -1,7 +1,7 @@
-package com.taass.seeyousun.reviewservice.service;
+package com.taass.seeyousun.reviewservice.services;
 
 import com.taass.seeyousun.reviewservice.dto.ReviewDTO;
-import com.taass.seeyousun.reviewservice.mappers.Mapper;
+import com.taass.seeyousun.reviewservice.mappers.impl.ReviewMapper;
 import com.taass.seeyousun.reviewservice.messaging.ReviewMessageProducer;
 import com.taass.seeyousun.reviewservice.model.Review;
 import com.taass.seeyousun.reviewservice.repository.ReviewRepository;
@@ -13,21 +13,18 @@ import java.util.List;
 
 @Service
 public class ReviewService {
-
-
     private final ReviewRepository reviewRepository;
-    private final Mapper<ReviewDTO, Review> reviewMapper;
+    private final ReviewMapper reviewMapper;
     private final ReviewMessageProducer reviewMessageProducer;
 
     public ReviewService(
             ReviewRepository reviewRepository,
-            Mapper<ReviewDTO, Review> reviewMapper,
+            ReviewMapper reviewMapper,
             ReviewMessageProducer reviewMessageProducer) {
         this.reviewRepository = reviewRepository;
         this.reviewMapper = reviewMapper;
         this.reviewMessageProducer = reviewMessageProducer;
     }
-
 
     public List<ReviewDTO> getReviewForResort(Long resortId) {
         return reviewRepository.findByResortIdOrderByRating(resortId)

@@ -19,7 +19,6 @@ public class ReviewMessageProducer {
                 .resortId(resortId)
                 .averageRating(averageRating)
                 .build();
-        System.out.println(reviewMessageDTO);
         rabbitTemplate.convertAndSend(RabbitMQConfig.resortReviewQueue, reviewMessageDTO);
     }
 }

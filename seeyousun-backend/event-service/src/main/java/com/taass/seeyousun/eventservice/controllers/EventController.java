@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/events")
 public class EventController {
-
     private final EventService eventService;
 
     public EventController(EventService eventService) {
@@ -25,19 +24,18 @@ public class EventController {
         List<EventDTO> eventListDTO = eventService.getEventForResort(resortId);
         ApiResponseDTO<List<EventDTO>> response = ApiResponseDTO.<List<EventDTO>>builder()
                 .statusCode(200)
-                .message("Success in retrieving event for resort")
+                .message("Successo, ottenimento degli eventi per il resort effettuato correttamente")
                 .data(eventListDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
     @PostMapping("/subscription")
-    public ResponseEntity<ApiResponseDTO<Object>> subscribeToEvent(@RequestParam Long eventId, Long userId){
+    public ResponseEntity<ApiResponseDTO<Object>> subscribeToEvent(@RequestParam Long eventId, @RequestParam Long userId){
         eventService.subscribeToEvent(eventId, userId);
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(200)
-                .message("Success in subscribing user to the event")
+                .message("Successo, iscrizione dell'utente all'evento effettuata correttamente")
                 .data(null)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -48,7 +46,7 @@ public class EventController {
         List<EventDTO> eventList = eventService.getEventForUser(userId);
         ApiResponseDTO<List<EventDTO>> response = ApiResponseDTO.<List<EventDTO>>builder()
                 .statusCode(200)
-                .message("Success in retrieving the events for the user")
+                .message("Successo, ottenimento degli eventi dell'utente effettuato correttamente")
                 .data(eventList)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);

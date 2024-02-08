@@ -12,5 +12,5 @@ public interface EventRepository extends JpaRepository<Event,Long> {
     List<Event> findByResortId(Long resortId);
 
     @Query("FROM Event e WHERE :userId MEMBER OF e.userSubscribed")
-    List<Event> findByUSerId(Long userId);
+    List<Event> findByUserId(Long userId);
 }

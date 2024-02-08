@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class EventService {
-
     private final EventRepository  eventRepository;
     private final EventMapper eventMapper;
 
@@ -29,13 +28,13 @@ public class EventService {
 
     public void subscribeToEvent(Long eventId, Long userId) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(()-> new EventNotFoundException(String.format("Event not found with id: '%d'", eventId)));
+                .orElseThrow(()-> new EventNotFoundException(String.format("Nessun evento trovato con id: '%d'", eventId)));
         event.reserveEvent(userId);
         eventRepository.save(event);
     }
 
     public List<EventDTO> getEventForUser(Long userId) {
-        return eventRepository.findByUSerId(userId)
+        return eventRepository.findByUserId(userId)
                 .stream()
                 .map(eventMapper::mapFrom)
                 .toList();

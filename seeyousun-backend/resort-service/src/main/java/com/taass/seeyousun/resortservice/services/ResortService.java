@@ -5,7 +5,8 @@ import com.taass.seeyousun.resortservice.client.ReviewClient;
 import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
 import com.taass.seeyousun.resortservice.exceptions.ServiceNotReachableException;
-import com.taass.seeyousun.resortservice.mappers.Mapper;
+import com.taass.seeyousun.resortservice.mappers.impl.ResortFullMapper;
+import com.taass.seeyousun.resortservice.mappers.impl.ResortMapper;
 import com.taass.seeyousun.resortservice.messaging.ReviewMessageDTO;
 import com.taass.seeyousun.resortservice.model.PricePeriod;
 import com.taass.seeyousun.resortservice.model.Resort;
@@ -24,15 +25,15 @@ import java.util.Objects;
 @Service
 public class ResortService {
     private final ResortRepository resortRepository;
-    private final Mapper<ResortDTO, Resort> resortMapper;
-    private final Mapper<ResortFullDTO, Resort> resortFullMapper;
+    private final ResortMapper resortMapper;
+    private final ResortFullMapper resortFullMapper;
     private final ReviewClient reviewClient;
     private final EventClient eventClient;
 
     public ResortService(
             ResortRepository resortRepository,
-            Mapper<ResortDTO, Resort> resortMapper,
-            Mapper<ResortFullDTO, Resort> resortFullMapper,
+            ResortMapper resortMapper,
+            ResortFullMapper resortFullMapper,
             ReviewClient reviewClient,
             EventClient eventClient) {
         this.resortRepository = resortRepository;
@@ -57,7 +58,7 @@ public class ResortService {
         Page<Resort> resortPage = resortRepository.findByOrderByRatingDesc(pageable);
         List<ResortDTO> resortDtoList = resortPage.getContent().stream().map(resortMapper::mapFrom).toList();
         if(resortDtoList.isEmpty()){
-            throw new ResortNotFoundException("Popular resorts not found");
+            throw new ResortNotFoundException("Nessun resorts popolare trovato");
         }
         return PopularResortDTO.builder()
                 .popularResorts(resortDtoList)
@@ -78,20 +79,20 @@ public class ResortService {
      * @throws ResortNotFoundException se non viene trovato nessun Resort corrispondente
      */
     public ResortFullDTO getResortById(Long resortId) throws ResortNotFoundException{
-        //cerca in repository il resort
+        // Ottiene il Resort dal Database attraverso il repository "ResortRepository"
         ResortFullDTO resortFullDTO = resortRepository.findById(resortId)
                 .map(resortFullMapper::mapFrom)
-                .orElseThrow(() -> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
+                .orElseThrow(() -> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
 
         //cerca da event-service gli eventi del resort
         ResponseEntity<ApiResponseDTO<List<EventDTO>>> responseEvent = eventClient.getEventForResort(resortId);
-        if(responseEvent.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Event service is not reachable");
+        if(responseEvent.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("L'Event Service non è raggiungibile");
         List<EventDTO> eventsDTO = Objects.requireNonNull(responseEvent.getBody()).getData();
         resortFullDTO.setEvents(eventsDTO);
 
         //cerca da review-service le review del resort
         ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> responseReview = reviewClient.getReviewsForResort(resortId);
-        if(responseReview.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Review service is not reachable");
+        if(responseReview.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Il Review Service non è raggiungibile");
         List<ReviewDTO> reviewDTO = Objects.requireNonNull(responseReview.getBody()).getData();
         resortFullDTO.setReviews(reviewDTO);
         return resortFullDTO;
@@ -108,7 +109,7 @@ public class ResortService {
     public List<ResortDTO> getResortsByName(String name) throws ResortNotFoundException{
         List<Resort> resortList = resortRepository.findByNameContainingIgnoreCase(name);
         if(resortList.isEmpty()){
-            throw new ResortNotFoundException(String.format("Resorts not found with name: '%s'", name));
+            throw new ResortNotFoundException(String.format("Nessun resorts trovato con nome: '%s'", name));
         }
         return resortList
                 .stream()
@@ -127,7 +128,7 @@ public class ResortService {
     public List<ResortDTO> getResortsByLocation(String location) throws ResortNotFoundException{
         List<Resort> resortList = resortRepository.findByLocationContainingIgnoreCase(location);
         if(resortList.isEmpty()){
-            throw new ResortNotFoundException(String.format("Resorts not found with location: '%s'", location));
+            throw new ResortNotFoundException(String.format("Nessun resorts trovato con location: '%s'", location));
         }
         return resortList
                 .stream()
@@ -147,7 +148,7 @@ public class ResortService {
     public List<ResortDTO> getResortsByLocationAndServices(String location, List<String> services) throws ResortNotFoundException {
         List<Resort> resortList = resortRepository.findByLocationContainingAndServicesIn(location, services, services.size());
         if(resortList.isEmpty()){
-            throw new ResortNotFoundException(String.format("Resorts not found with location '%s' and services: %s", location, String.join(", ", services)));
+            throw new ResortNotFoundException(String.format("Nessun resorts trovato con location '%s' e con i seguenti servizi: %s", location, String.join(", ", services)));
         }
         return resortList
                 .stream()
@@ -158,7 +159,7 @@ public class ResortService {
     public void updateResortRating(ReviewMessageDTO reviewMessageDTO) {
         Long resortId = reviewMessageDTO.getResortId();
         Resort r = resortRepository.findById(resortId)
-                .orElseThrow(()-> new ResortNotFoundException(String.format("Resorts not found with id: '%d'", resortId)));
+                .orElseThrow(()-> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
         r.setRating(reviewMessageDTO.getAverageRating());
         resortRepository.save(r);
     }

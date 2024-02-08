@@ -11,6 +11,7 @@ services:
     networks:
       - global-net
     environment:
+      - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
 
   # API GATEWAY

@@ -8,25 +8,25 @@
         # Configurazione routes API Gateway: il traffico verra' indirizzato sulla base dell'uri e dei predicates (vengono aggiunti i filers)
         routes:
           - id: resort-route
-            uri: http://${RESORT_SERVICE_HOST:localhost}/${RESORT_SERVICE_PORT:8080}
+            uri: lb://${RESORT_SERVICE_HOST:localhost} # http://${RESORT_SERVICE_HOST:localhost}/${RESORT_SERVICE_PORT:8080}
             predicates:
               - Path=/resorts/**
             filters:
               - PrefixPath=/api/v1
           - id: resort-reservation-route
-            uri: http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
+            uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
             predicates:
               - Path=/resort-reservations/**
             filters:
               - PrefixPath=/api/v1
           - id: review-route
-            uri: http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
+            uri: lb://${REVIEW_SERVICE_HOST:localhost} # http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
             predicates:
               - Path=/reviews/**
             filters:
               - PrefixPath=/api/v1
           - id: event-route
-            uri: http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}
+            uri: lb://${EVENT_SERVICE_HOST:localhost} # http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}
             predicates:
               - Path=/events/**
             filters:
@@ -35,18 +35,17 @@
         discovery:
           locator:
             enabled: true
-    # Configurazione del Config Server: se non viene trovato salta questo passaggio senza crashare grazie ad "optional"
-    config:
-      import: optional:configserver:http://localhost:8888
+            lower-case-service-id: true
   # Configurazione Eureka Server ed Eureka Client
   eureka:
     instance:
       hostname: ${EUREKA_SERVER_HOST:localhost}
+      # prefer-ip-address: true
     client:
-      register-with-eureka: false
+      register-with-eureka: true
       fetch-registry: true
       service-url:
-        defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka/
+        defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
   # Configurazione Zipkin: utile per effettuare distributed tracing
   management:
     zipkin:
@@ -55,3 +54,7 @@
     tracing:
       sampling:
         probability: 1.0
+# Configurazione del Config Server: se non viene trovato salta questo passaggio senza crashare grazie ad "optional"
+# spring:
+#   config:
+#     import: optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:${CONFIG_SERVER_PORT:8888}

@@ -33,26 +33,27 @@ public class DailyReservation {
 
     @OneToMany(mappedBy = "dailyReservation", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Reservation> reservation;
-
+    private List<Reservation> reservations;
 
     public boolean isThisInPeriod(LocalDate initialDate, LocalDate finalDate){
-        return (initialDate.isBefore(this.date) && finalDate.isAfter(this.date))
-                ||
+        return (initialDate.isBefore(this.date) && finalDate.isAfter(this.date)) ||
                 (initialDate.isEqual(finalDate) && initialDate.isEqual(this.date));
     }
 
     public void addReservation(Reservation newReservation) throws UmbrellaAlreadyReservedException {
-
-        boolean isAlreadyReserved = reservation.stream()
+        boolean isAlreadyReserved = this.reservations.stream()
                 .anyMatch(r -> r.isOverlapped(newReservation));
-        if(isAlreadyReserved) throw new UmbrellaAlreadyReservedException(
-                "Umbrella (" +
-                newReservation.getReservedUmbrellaLine() + ", " + newReservation.getReservedUmbrellaColumn()+
-                ") are already reserved");
 
-        //controlli ok
+        // Controlla se l'ombrellone è già stato prenotato
+        if(isAlreadyReserved)
+            throw new UmbrellaAlreadyReservedException(
+                    String.format("L'ombrellone in posizione [%d, %d] è già stato prenotato",
+                            newReservation.getReservedUmbrellaLine(),
+                            newReservation.getReservedUmbrellaColumn())
+            );
+        // Aggiunti il riferimento alla DailyReservation per la newReservation
         newReservation.setDailyReservation(this);
-        reservation.add(newReservation);
+        // Aggiungi la newReservation alla lista della DailyReservation considerata
+        this.reservations.add(newReservation);
     }
 }

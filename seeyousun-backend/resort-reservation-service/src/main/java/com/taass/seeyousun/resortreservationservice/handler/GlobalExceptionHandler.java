@@ -1,10 +1,7 @@
 package com.taass.seeyousun.resortreservationservice.handler;
 
 import com.taass.seeyousun.resortreservationservice.dto.ApiErrorDTO;
-import com.taass.seeyousun.resortreservationservice.exceptions.DailyReservationNotFoundException;
-import com.taass.seeyousun.resortreservationservice.exceptions.ResortNotFoundException;
-import com.taass.seeyousun.resortreservationservice.exceptions.UmbrellaAlreadyReservedException;
-import com.taass.seeyousun.resortreservationservice.exceptions.UmbrellaOutOfBoundException;
+import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,7 +31,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(UmbrellaOutOfBoundException.class)
     public ResponseEntity<ApiErrorDTO> handleUmbrellaOutOfBoundException(UmbrellaOutOfBoundException e){
         ApiErrorDTO errorDto = ApiErrorDTO.builder()
@@ -53,5 +49,15 @@ public class GlobalExceptionHandler {
                 .timestamp(new Date())
                 .build();
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ServiceNotReachableException.class)
+    public ResponseEntity<ApiErrorDTO> handleServiceNotReachableException(ServiceNotReachableException e){
+        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+                .statusCode(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .message(e.getMessage())
+                .timestamp(new Date())
+                .build();
+        return new ResponseEntity<>(errorDto, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

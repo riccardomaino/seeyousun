@@ -4,7 +4,7 @@ import com.taass.seeyousun.resortreservationservice.dto.ApiResponseDTO;
 import com.taass.seeyousun.resortreservationservice.dto.ReservationFullDTO;
 import com.taass.seeyousun.resortreservationservice.dto.ReservationRequestDTO;
 import com.taass.seeyousun.resortreservationservice.dto.ReservationStateDTO;
-import com.taass.seeyousun.resortreservationservice.service.ResortReservationService;
+import com.taass.seeyousun.resortreservationservice.services.ResortReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class ResortReservationController {
         ReservationStateDTO reservationDTO = resortReservationService.getReservationInformation(resortId, LocalDate.parse(date));
         ApiResponseDTO<ReservationStateDTO> response = ApiResponseDTO.<ReservationStateDTO>builder()
                 .statusCode(200)
-                .message("Success in retrieving pricing list of resort")
+                .message("Successo, ottenimento del listino prezzi del resort effettuato correttamente")
                 .data(reservationDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -37,7 +37,7 @@ public class ResortReservationController {
         resortReservationService.createReservation(requestDTO);
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(201)
-                .message("Reservation created successfully")
+                .message("Successo, creazione della prenotazione effettuata correttamente")
                 .data(null)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.CREATED);

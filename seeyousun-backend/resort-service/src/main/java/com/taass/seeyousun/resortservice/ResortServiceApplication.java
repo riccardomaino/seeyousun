@@ -12,5 +12,4 @@ public class ResortServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ResortServiceApplication.class, args);
     }
-
 }

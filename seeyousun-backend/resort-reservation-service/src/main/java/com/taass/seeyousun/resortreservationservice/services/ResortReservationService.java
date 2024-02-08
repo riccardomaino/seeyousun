@@ -1,4 +1,4 @@
-package com.taass.seeyousun.resortreservationservice.service;
+package com.taass.seeyousun.resortreservationservice.services;
 
 import com.taass.seeyousun.resortreservationservice.client.ResortClient;
 import com.taass.seeyousun.resortreservationservice.dto.*;
@@ -40,9 +40,8 @@ public class ResortReservationService {
         // Effettuiamo chiamata REST al resort-service sincrona per prelevare le dimensioni della mappa del resort (linee x colonne)
         ResponseEntity<ApiResponseDTO<DimensionDTO>> response = resortClient.getResortDimension(requestDTO.getResortId());
         if(response.getStatusCode() != HttpStatus.OK)
-            throw new ServiceNotReachableException("Resort service is not reachable");
+            throw new ServiceNotReachableException("Il Resort Service non è raggiungibile");
         DimensionDTO dimensionDTO = Objects.requireNonNull(response.getBody()).getData();
-
         // Effettuiamo un controllo sul rispetto dei limiti della mappa del resort
         if(dimensionDTO.getTotalUmbrellaLine() <= requestDTO.getReservedUmbrellaLine() ||
                 dimensionDTO.getTotalUmbrellaColumn() <= requestDTO.getReservedUmbrellaColumn() ||
@@ -50,15 +49,17 @@ public class ResortReservationService {
                         requestDTO.getReservedUmbrellaColumn() < 0
         ) {
             throw new UmbrellaOutOfBoundException(
-                    String.format("This umbrella is out of bound: [%d, %d]", requestDTO.getReservedUmbrellaLine(), requestDTO.getReservedUmbrellaColumn()));
+                    String.format("L'ombrellone è fuori dai limiti della mappa del resort, posizione [%d, %d] inesistente",
+                            requestDTO.getReservedUmbrellaLine(),
+                            requestDTO.getReservedUmbrellaColumn())
+            );
         }
-
-        // Ottiene la lista di tutti i dailyReservation in cui aggiungere la nuova prenotazione
+        // Ottiene la lista di tutte le DailyReservation in cui aggiungere la nuova prenotazione (serve a salvare la Reservation in ogni giorno che è prenotata)
         List<DailyReservation> dailyReservationList = dailyReservationRepository.findByResortId(requestDTO.getResortId())
                 .stream()
                 .filter(rr -> rr.isThisInPeriod(requestDTO.getInitialDate(),requestDTO.getFinalDate()))
                 .toList();
-
+        // Per ognuna delle DailyReservation in cui aggiungere la Reservation, si va effettivamente ad aggiungere la Reservation
         for(DailyReservation dailyReservation : dailyReservationList){
             Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
             dailyReservation.addReservation(reservation);
@@ -66,29 +67,26 @@ public class ResortReservationService {
         }
     }
 
-    public ReservationStateDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException, PriceNotSettedException {
+    public ReservationStateDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException {
         // Effettuiamo chiamata REST al resort-service sincrona per prelevare le dimensions (linee x colonne) del resort
         ResponseEntity<ApiResponseDTO<DimensionDTO>> responseDimension = resortClient.getResortDimension(resortId);
         if(responseDimension.getStatusCode() != HttpStatus.OK)
-            throw new ServiceNotReachableException("Resort service is not reachable");
+            throw new ServiceNotReachableException("Il Resort Service non è raggiungibile");
         DimensionDTO dimensionDTO = Objects.requireNonNull(responseDimension.getBody()).getData();
-
         // Effettuiamo chiamata REST al resort-service sincrona per richiedere il listino prezzi
         ResponseEntity<ApiResponseDTO<PriceListDTO>> responsePriceList = resortClient.getResortPrice(resortId, date.toString());
         if(responsePriceList.getStatusCode() != HttpStatus.OK)
-            throw new ServiceNotReachableException("Resort service is not reachable");
+            throw new ServiceNotReachableException("Il Resort Service non è raggiungibile");
         PriceListDTO priceListDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
-
         // Otteniamo la lista degli ombrelloni occupati
         List<UmbrellaDTO> reservedUmbrella = dailyReservationRepository
                 .findByResortIdAndDate(resortId,date)
                 .getFirst()
-                .getReservation()
+                .getReservations()
                         .stream()
                         .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), r.getReservedUmbrellaColumn(), r.getPersistenceTypeEnum()))
                         .toList();
-
-
+        // Costruiamo un oggetto "ReservationStateDTO" con le informazioni della prenotazione
         return ReservationStateDTO.builder()
                 .dimension(dimensionDTO)
                 .priceList(priceListDTO)

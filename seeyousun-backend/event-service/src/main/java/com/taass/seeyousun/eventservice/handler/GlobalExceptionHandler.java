@@ -12,16 +12,14 @@ import java.util.Date;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-
     @ExceptionHandler(EventNotFoundException.class)
     public ResponseEntity<ApiErrorDTO> handleEventNotFoundException(EventNotFoundException e){
         ApiErrorDTO errorDto = ApiErrorDTO.builder()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .statusCode(HttpStatus.NOT_FOUND.value())
                 .message(e.getMessage())
                 .timestamp(new Date())
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(EventFullReservedException.class)
     public ResponseEntity<ApiErrorDTO> handleEventFullReservedException(EventFullReservedException e){

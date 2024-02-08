@@ -6,10 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Questa classe rappresenta un entity "Resort". Un Resort contiene tutte le informazioni relative del Resort.
+ * I servizi offerti dal Resort sono salvati in table separata, dove per ogni Resort (con riferimento al suo id) si prende
+ * nota dei servizi offerti (con riferimento all'id del servizio, in quanto vi sarà una table Services che conterrà tutti
+ * i tipi di servizi esistenti che possono essere offerti dai vari resorts)
+ * Osserviamo che sotto l'attributo "information" salviamo diversi tipi di informazioni in formato stringa, questo
+ * si traduce in una table nel Database con associa a un Resort delle stringhe che rappresentano ad esempio: numero di
+ * telefono, giorni di apertura e orario.
+ */
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,19 +29,14 @@ public class Resort {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "location")
     private String location;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "rating")
     private BigDecimal rating;
 
-    // Informazioni quali: numero di telefono, giorni di apertura e orario
     @ElementCollection
     @CollectionTable(
             name = "resorts_information",
@@ -50,8 +53,6 @@ public class Resort {
     @JsonManagedReference
     private List<Service> services;
 
-    //https://storage.googleapis.com/pod_public/1300/122734.jpg
-    @Column(name = "photo_cover")
     private String photoCover;
 
     @ElementCollection
@@ -61,9 +62,9 @@ public class Resort {
     )
     private List<String> photos;
 
-    private int totalUmbrellaLine;
+    private Integer totalUmbrellaLine;
 
-    private int totalUmbrellaColumn;
+    private Integer totalUmbrellaColumn;
 
     @OneToMany(mappedBy = "resort")
     @JsonManagedReference
