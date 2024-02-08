@@ -3,10 +3,11 @@ package com.taass.seeyousun.resortreservationservice.service;
 import com.taass.seeyousun.resortreservationservice.client.ResortClient;
 import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
+import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationFullDTOmapper;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
-import com.taass.seeyousun.resortreservationservice.repositories.ResortReservationRepository;
+import com.taass.seeyousun.resortreservationservice.repositories.DailyReservationRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,17 +18,20 @@ import java.util.Objects;
 
 @Service
 public class ResortReservationService {
-    private final ResortReservationRepository resortReservationRepository;
+    private final DailyReservationRepository dailyReservationRepository;
     private final ReservationRequestDTOmapper reservationRequestDTOmapper;
     private final ResortClient resortClient;
 
+    private final ReservationFullDTOmapper reservationFullDTOmapper;
+
     public ResortReservationService(
-            ResortReservationRepository resortReservationRepository,
+            DailyReservationRepository dailyReservationRepository,
             ReservationRequestDTOmapper reservationRequestDTOmapper,
-            ResortClient resortClient) {
-        this.resortReservationRepository = resortReservationRepository;
+            ResortClient resortClient, ReservationFullDTOmapper reservationFullDTOmapper) {
+        this.dailyReservationRepository = dailyReservationRepository;
         this.reservationRequestDTOmapper = reservationRequestDTOmapper;
         this.resortClient = resortClient;
+        this.reservationFullDTOmapper = reservationFullDTOmapper;
     }
 
     public void createReservation(ReservationRequestDTO requestDTO)
@@ -50,7 +54,7 @@ public class ResortReservationService {
         }
 
         // Ottiene la lista di tutti i dailyReservation in cui aggiungere la nuova prenotazione
-        List<DailyReservation> dailyReservationList = resortReservationRepository.findByResortId(requestDTO.getResortId())
+        List<DailyReservation> dailyReservationList = dailyReservationRepository.findByResortId(requestDTO.getResortId())
                 .stream()
                 .filter(rr -> rr.isThisInPeriod(requestDTO.getInitialDate(),requestDTO.getFinalDate()))
                 .toList();
@@ -58,7 +62,7 @@ public class ResortReservationService {
         for(DailyReservation dailyReservation : dailyReservationList){
             Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
             dailyReservation.addReservation(reservation);
-            resortReservationRepository.save(dailyReservation);
+            dailyReservationRepository.save(dailyReservation);
         }
     }
 
@@ -76,7 +80,7 @@ public class ResortReservationService {
         PriceListDTO priceListDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
 
         // Otteniamo la lista degli ombrelloni occupati
-        List<UmbrellaDTO> reservedUmbrella = resortReservationRepository
+        List<UmbrellaDTO> reservedUmbrella = dailyReservationRepository
                 .findByResortIdAndDate(resortId,date)
                 .getFirst()
                 .getReservation()
@@ -92,4 +96,10 @@ public class ResortReservationService {
                 .build();
     }
 
+    public List<ReservationFullDTO> getReservationForUser(Long userId) {
+        return dailyReservationRepository.findByUser(userId)
+                .stream()
+                .map(reservationFullDTOmapper::mapFrom)
+                .toList();
+    }
 }

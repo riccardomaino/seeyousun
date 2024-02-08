@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "resort_reservations")
+@Table(name = "daily_reservations")
 public class DailyReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class DailyReservation {
     @Temporal(TemporalType.DATE)
     private LocalDate date;
 
-    private Integer resortId;
+    private Long resortId;
 
     @OneToMany(mappedBy = "dailyReservation", cascade = CascadeType.ALL)
     @JsonManagedReference
