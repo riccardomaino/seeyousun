@@ -33,4 +33,11 @@ public class EventService {
         event.reserveEvent(userId);
         eventRepository.save(event);
     }
+
+    public List<EventDTO> getEventForUser(Long userId) {
+        return eventRepository.findByUSerId(userId)
+                .stream()
+                .map(eventMapper::mapFrom)
+                .toList();
+    }
 }

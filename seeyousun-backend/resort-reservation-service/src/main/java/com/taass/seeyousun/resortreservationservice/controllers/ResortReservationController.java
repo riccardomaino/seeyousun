@@ -44,7 +44,7 @@ public class ResortReservationController {
     }
 
     @GetMapping("reservation-for-user/{userId}")
-    public ResponseEntity<ApiResponseDTO<List<ReservationFullDTO>>> getReservationForUser(@PathVariable Long userId){
+    public ResponseEntity<ApiResponseDTO<List<ReservationFullDTO>>> getReservationsForUser(@PathVariable Long userId){
         List<ReservationFullDTO> reservation = resortReservationService.getReservationForUser(userId);
         ApiResponseDTO<List<ReservationFullDTO>> response = ApiResponseDTO.<List<ReservationFullDTO>>builder()
                 .statusCode(201)

@@ -42,4 +42,15 @@ public class EventController {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("events-for-user/{userId}")
+    public ResponseEntity<ApiResponseDTO<List<EventDTO>>> getEventsForUser(@PathVariable Long userId){
+        List<EventDTO> eventList = eventService.getEventForUser(userId);
+        ApiResponseDTO<List<EventDTO>> response = ApiResponseDTO.<List<EventDTO>>builder()
+                .statusCode(200)
+                .message("Success in retrieving the events for the user")
+                .data(eventList)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
