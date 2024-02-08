@@ -2,6 +2,7 @@ package com.taass.seeyousun.eventservice.controllers;
 
 import com.taass.seeyousun.eventservice.dto.ApiResponseDTO;
 import com.taass.seeyousun.eventservice.dto.EventDTO;
+import com.taass.seeyousun.eventservice.dto.EventSubscriptionRequestDTO;
 import com.taass.seeyousun.eventservice.services.EventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,8 @@ public class EventController {
     }
 
     @PostMapping("/subscription")
-    public ResponseEntity<ApiResponseDTO<Object>> subscribeToEvent(@RequestParam Long eventId, @RequestParam Long userId){
-        eventService.subscribeToEvent(eventId, userId);
+    public ResponseEntity<ApiResponseDTO<Object>> subscribeToEvent(@RequestBody EventSubscriptionRequestDTO eventRequest){
+        eventService.subscribeToEvent(eventRequest.getEventId(), eventRequest.getUserId());
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(200)
                 .message("Successo, iscrizione dell'utente all'evento effettuata correttamente")

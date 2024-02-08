@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/event-service/pom.xml" />
       </list>
     </option>
+    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="PWA">
     <option name="enabled" value="true" />
