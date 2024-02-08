@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "resort-service", url = "http://resort-service:8081/api/v1/resorts")
+@FeignClient(value = "resort-service")
 public interface ResortClient {
-    @GetMapping("/dimension/{resortId}")
+    @GetMapping("api/v1/resorts/dimension/{resortId}")
     ResponseEntity<ApiResponseDTO<DimensionDTO>> getResortDimension(@PathVariable long resortId);
 
-    @GetMapping("/pricing/{resortId}")
+    @GetMapping("api/v1/resorts/pricing/{resortId}")
     ResponseEntity<ApiResponseDTO<PriceListDTO>> getResortPrice(@PathVariable long resortId, @RequestParam String date);
 }

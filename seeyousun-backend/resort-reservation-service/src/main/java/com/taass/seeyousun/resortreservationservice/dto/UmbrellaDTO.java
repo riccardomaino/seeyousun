@@ -7,10 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Usato per ritornare informazioni sulla prenotazione degli ombrelloni
- */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

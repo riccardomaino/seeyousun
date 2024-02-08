@@ -13,11 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ReservationStateDTO {
-
     private DimensionDTO dimension;
-
     private PriceListDTO priceList;
-
     private List<UmbrellaDTO> reservedUmbrella;
-
 }

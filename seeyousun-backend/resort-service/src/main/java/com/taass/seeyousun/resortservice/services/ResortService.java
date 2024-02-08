@@ -84,15 +84,19 @@ public class ResortService {
                 .map(resortFullMapper::mapFrom)
                 .orElseThrow(() -> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
 
-        //cerca da event-service gli eventi del resort
+        // Effettuiamo chiamata REST al event-service sincrona per ottenere gli eventi del resort
         ResponseEntity<ApiResponseDTO<List<EventDTO>>> responseEvent = eventClient.getEventForResort(resortId);
-        if(responseEvent.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("L'Event Service non è raggiungibile");
+        if(responseEvent.getStatusCode() != HttpStatus.OK) {
+            throw new ServiceNotReachableException("L'Event Service non è raggiungibile");
+        }
         List<EventDTO> eventsDTO = Objects.requireNonNull(responseEvent.getBody()).getData();
         resortFullDTO.setEvents(eventsDTO);
 
-        //cerca da review-service le review del resort
+        // Effettuiamo chiamata REST al review-service sincrona per ottenere le reviews del resort
         ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> responseReview = reviewClient.getReviewsForResort(resortId);
-        if(responseReview.getStatusCode() != HttpStatus.OK)throw new ServiceNotReachableException("Il Review Service non è raggiungibile");
+        if(responseReview.getStatusCode() != HttpStatus.OK) {
+            throw new ServiceNotReachableException("Il Review Service non è raggiungibile");
+        }
         List<ReviewDTO> reviewDTO = Objects.requireNonNull(responseReview.getBody()).getData();
         resortFullDTO.setReviews(reviewDTO);
         return resortFullDTO;

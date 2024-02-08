@@ -8,7 +8,6 @@ import com.taass.seeyousun.reviewservice.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -36,13 +35,13 @@ public class ReviewService {
     public void createReview(ReviewDTO reviewDTO) {
         Review review = reviewMapper.mapTo(reviewDTO);
         reviewRepository.save(review);
-        Double averageRatingFromDatabase = getAverageRating(review.getResortId());
-        BigDecimal averageRating = new BigDecimal(averageRatingFromDatabase)
-                .setScale(1, RoundingMode.CEILING);
+        BigDecimal averageRating = getAverageRating(review.getResortId());
+//        BigDecimal averageRating = new BigDecimal(averageRatingFromDatabase)
+//                .setScale(1, RoundingMode.CEILING);
         reviewMessageProducer.sendMessage(review.getResortId(), averageRating);
     }
 
-    public Double getAverageRating(Long resortId){
+    public BigDecimal getAverageRating(Long resortId){
         return reviewRepository.findAverageRatingOfResort(resortId);
     }
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(value = "event-service", url = "http://event-service:8084/api/v1/events")
+@FeignClient(value = "event-service")
 public interface EventClient {
-    @GetMapping("/{resortId}")
+    @GetMapping("/api/v1/events/{resortId}")
     ResponseEntity<ApiResponseDTO<List<EventDTO>>> getEventForResort (@PathVariable Long resortId);
 }

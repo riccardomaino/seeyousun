@@ -39,7 +39,7 @@
   # Configurazione Eureka Server ed Eureka Client
   eureka:
     instance:
-      hostname: ${EUREKA_SERVER_HOST:localhost}
+      hostname: ${API_GATEWAY_HOST:localhost}
       # prefer-ip-address: true
     client:
       register-with-eureka: true

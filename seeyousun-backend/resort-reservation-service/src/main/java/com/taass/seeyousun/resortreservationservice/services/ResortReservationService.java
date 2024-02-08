@@ -27,7 +27,9 @@ public class ResortReservationService {
     public ResortReservationService(
             DailyReservationRepository dailyReservationRepository,
             ReservationRequestDTOmapper reservationRequestDTOmapper,
-            ResortClient resortClient, ReservationFullDTOmapper reservationFullDTOmapper) {
+            ResortClient resortClient,
+            ReservationFullDTOmapper reservationFullDTOmapper
+    ) {
         this.dailyReservationRepository = dailyReservationRepository;
         this.reservationRequestDTOmapper = reservationRequestDTOmapper;
         this.resortClient = resortClient;

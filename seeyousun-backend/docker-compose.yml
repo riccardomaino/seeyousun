@@ -29,6 +29,7 @@ services:
     networks:
       - global-net
     environment:
+      - API_GATEWAY_HOST=${API_GATEWAY_HOST}
       - API_GATEWAY_PORT=${API_GATEWAY_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
@@ -96,6 +97,7 @@ services:
       - resort-net
       - global-net
     environment:
+      - RESORT_SERVICE_HOST=${RESORT_SERVICE_HOST}
       - RESORT_SERVICE_PORT=${RESORT_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
@@ -141,6 +143,7 @@ services:
       - resort-reservation-net
       - global-net
     environment:
+      - RESORT_RESERVATION_SERVICE_HOST=${RESORT_RESERVATION_SERVICE_HOST}
       - RESORT_RESERVATION_SERVICE_PORT=${RESORT_RESERVATION_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
@@ -183,6 +186,7 @@ services:
       - review-net
       - global-net
     environment:
+      - REVIEW_SERVICE_HOST=${REVIEW_SERVICE_HOST}
       - REVIEW_SERVICE_PORT=${REVIEW_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}
@@ -196,7 +200,7 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_NAME=dbreview
 
-  # DATABASE RESORT-RESERVATION-SERVICE
+  # DATABASE EVENT-SERVICE
   db-postgres-event:
     image: "postgres"
     container_name: db-event-ctn
@@ -212,7 +216,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       restart: unless-stopped
 
-  # RESORT-RESERVATION-SERVICE
+  # EVENT-SERVICE
   event-service:
     build: ./event-service
     image: event-service-img
@@ -228,6 +232,7 @@ services:
       - event-net
       - global-net
     environment:
+      - EVENT_SERVICE_HOST=${EVENT_SERVICE_HOST}
       - EVENT_SERVICE_PORT=${EVENT_SERVICE_PORT}
       - EUREKA_SERVER_HOST=${EUREKA_SERVER_HOST}
       - EUREKA_SERVER_PORT=${EUREKA_SERVER_PORT}

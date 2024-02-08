@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(value = "review-service", url = "http://review-service:8083/api/v1/reviews")
+@FeignClient(value = "review-service")
 public interface ReviewClient {
 
-    @GetMapping("/{resortId}")
+    @GetMapping("/api/v1/reviews/{resortId}")
     ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> getReviewsForResort(@PathVariable Long resortId);
 }
