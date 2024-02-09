@@ -31,7 +31,7 @@ public class ResortController {
         PopularResortDTO popularResortDto = resortService.getPopularResorts(pageNr, pageSize);
         ApiResponseDTO<PopularResortDTO> response = ApiResponseDTO.<PopularResortDTO>builder()
                 .statusCode(200)
-                .message("Success in retrieving popular resorts")
+                .message("Successo, ottenimento dei resorts popolari avvenuto correttamente")
                 .data(popularResortDto)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -42,7 +42,7 @@ public class ResortController {
         ResortFullDTO resortFullDto = resortService.getResortById(id);
         ApiResponseDTO<ResortFullDTO> response = ApiResponseDTO.<ResortFullDTO>builder()
                 .statusCode(200)
-                .message("Success in retrieving the resort with that id")
+                .message("Successo, ottenimento dei resorts tramite id avvenuto correttamente")
                 .data(resortFullDto)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -53,7 +53,7 @@ public class ResortController {
         List<ResortDTO> resortDtoList = resortService.getResortsByName(name);
         ApiResponseDTO<List<ResortDTO>> response = ApiResponseDTO.<List<ResortDTO>>builder()
                 .statusCode(200)
-                .message("Success in retrieving resorts with that name")
+                .message("Successo, ottenimento dei resorts tramite nome avvenuto correttamente")
                 .data(resortDtoList)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -64,7 +64,7 @@ public class ResortController {
         List<ResortDTO> resortDtoList = resortService.getResortsByLocation(location);
         ApiResponseDTO<List<ResortDTO>> response = ApiResponseDTO.<List<ResortDTO>>builder()
                 .statusCode(200)
-                .message("Success in retrieving resorts with that location")
+                .message("Successo, ottenimento dei resorts tramite location avvenuto correttamente")
                 .data(resortDtoList)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -77,7 +77,7 @@ public class ResortController {
         List<ResortDTO> resortDtoList = resortService.getResortsByLocationAndServices(location, services);
         ApiResponseDTO<List<ResortDTO>> response = ApiResponseDTO.<List<ResortDTO>>builder()
                 .statusCode(200)
-                .message("Success in retrieving resorts")
+                .message("Successo, ottenimento dei resorts tramite location e servizi avvenuto correttamente")
                 .data(resortDtoList)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -88,7 +88,7 @@ public class ResortController {
         List<ServiceDTO> serviceDtoList = serviceService.getAllServices();
         ApiResponseDTO<List<ServiceDTO>> response = ApiResponseDTO.<List<ServiceDTO>>builder()
                 .statusCode(200)
-                .message("Success in retrieving all the kind of services")
+                .message("Successo, ottenimento di tutti i servizi avvenuto correttamente")
                 .data(serviceDtoList)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -99,7 +99,7 @@ public class ResortController {
         DimensionDTO dimensionDTO = resortService.getResortDimension(resortId);
         ApiResponseDTO<DimensionDTO> response = ApiResponseDTO.<DimensionDTO>builder()
                 .statusCode(200)
-                .message("Success in retrieving dimension of resort")
+                .message("Successo, ottenimento delle dimensioni della mappa del resort avvenuto correttamente")
                 .data(dimensionDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -113,7 +113,7 @@ public class ResortController {
         PriceListDTO priceListDTO = resortService.getResortPricing(resortId, LocalDate.parse(date));
         ApiResponseDTO<PriceListDTO> response = ApiResponseDTO.<PriceListDTO>builder()
                 .statusCode(200)
-                .message("Success in retrieving pricing list of resort")
+                .message("Successo, ottenimento del listino prezzi del resort avvenuto con successo")
                 .data(priceListDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
