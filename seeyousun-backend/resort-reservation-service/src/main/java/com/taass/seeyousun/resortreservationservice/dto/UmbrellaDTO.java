@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UmbrellaDTO {
-    private int umbrellaLine;
-    private int umbrellaColumn;
+    private int reservedUmbrellaLine;
+    private int reservedUmbrellaColumn;
     private PersistenceTypeEnum persistenceTypeEnum;
 }

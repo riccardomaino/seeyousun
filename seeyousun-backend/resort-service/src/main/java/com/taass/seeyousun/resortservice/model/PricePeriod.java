@@ -43,7 +43,7 @@ public class PricePeriod {
     private Integer sunbedPrice;
 
     @Temporal(TemporalType.DATE)
-    private LocalDate periodIntitalDate;
+    private LocalDate periodInitialDate;
 
     @Temporal(TemporalType.DATE)
     private LocalDate periodFinalDate;
@@ -54,6 +54,6 @@ public class PricePeriod {
     private Resort resort;
 
     public boolean isInPeriod(LocalDate date) {
-        return periodIntitalDate.isBefore(date) && periodFinalDate.isAfter(date);
+        return periodInitialDate.isBefore(date) && periodFinalDate.isAfter(date);
     }
 }

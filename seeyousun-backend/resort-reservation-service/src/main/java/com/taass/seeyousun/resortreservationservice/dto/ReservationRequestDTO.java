@@ -24,5 +24,6 @@ public class ReservationRequestDTO {
     private LocalDate initialDate;
     @Temporal(TemporalType.DATE)
     private LocalDate finalDate;
+    private Long user;
 }
 

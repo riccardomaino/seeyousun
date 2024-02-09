@@ -23,3 +23,8 @@ INSERT INTO public.events (id, description, duration, initial_date_time, max_use
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (23, 'Seashell Collection Fair', 60, '2024-02-15 15:00:00.000000', null, 'Seashell Fair', 8, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (25, 'Beach Fashion Show', 60, '2024-02-19 17:00:00.000000', null, 'Seaside Fashion Show', 10, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (22, 'Beachside Karaoke Night', 60, '2024-02-13 19:00:00.000000', null, 'Karaoke by the Shore', 7, false);
+
+
+INSERT INTO public.events_reservations (event_id, user_subscribed) VALUES (2, 1);
+INSERT INTO public.events_reservations (event_id, user_subscribed) VALUES (3, 1);
+INSERT INTO public.events_reservations (event_id, user_subscribed) VALUES (4, 2);

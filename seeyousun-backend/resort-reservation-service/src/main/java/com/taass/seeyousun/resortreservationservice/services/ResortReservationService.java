@@ -5,6 +5,7 @@ import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationFullDTOmapper;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationRequestDTOmapper;
+import com.taass.seeyousun.resortreservationservice.mappers.impl.UmbrellaDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
 import com.taass.seeyousun.resortreservationservice.repositories.DailyReservationRepository;
@@ -23,6 +24,7 @@ public class ResortReservationService {
     private final ResortClient resortClient;
 
     private final ReservationFullDTOmapper reservationFullDTOmapper;
+    private UmbrellaDTOmapper umbrellaMapper;
 
     public ResortReservationService(
             DailyReservationRepository dailyReservationRepository,
@@ -57,10 +59,7 @@ public class ResortReservationService {
             );
         }
         // Ottiene la lista di tutte le DailyReservation in cui aggiungere la nuova prenotazione (serve a salvare la Reservation in ogni giorno che è prenotata)
-        List<DailyReservation> dailyReservationList = dailyReservationRepository.findByResortId(requestDTO.getResortId())
-                .stream()
-                .filter(rr -> rr.isThisInPeriod(requestDTO.getInitialDate(),requestDTO.getFinalDate()))
-                .toList();
+        List<DailyReservation> dailyReservationList = dailyReservationRepository.findDistinctByDateBetweenAndResortId(requestDTO.getInitialDate(), requestDTO.getFinalDate(), requestDTO.getResortId());
         // Per ognuna delle DailyReservation in cui aggiungere la Reservation, si va effettivamente ad aggiungere la Reservation
         for(DailyReservation dailyReservation : dailyReservationList){
             Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
@@ -80,14 +79,13 @@ public class ResortReservationService {
         if(responsePriceList.getStatusCode() != HttpStatus.OK)
             throw new ServiceNotReachableException("Il Resort Service non è raggiungibile");
         PriceListDTO priceListDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
+
         // Otteniamo la lista degli ombrelloni occupati
-        List<UmbrellaDTO> reservedUmbrella = dailyReservationRepository
-                .findByResortIdAndDate(resortId,date)
-                .getFirst()
-                .getReservations()
-                        .stream()
-                        .map(r -> new UmbrellaDTO(r.getReservedUmbrellaLine(), r.getReservedUmbrellaColumn(), r.getPersistenceTypeEnum()))
-                        .toList();
+        List<UmbrellaDTO> reservedUmbrella = dailyReservationRepository.findReservedPlaceOfResortInDate(resortId, date)
+                .stream()
+                .map(umbrellaMapper::mapFrom)
+                .toList();
+
         // Costruiamo un oggetto "ReservationStateDTO" con le informazioni della prenotazione
         return ReservationStateDTO.builder()
                 .dimension(dimensionDTO)

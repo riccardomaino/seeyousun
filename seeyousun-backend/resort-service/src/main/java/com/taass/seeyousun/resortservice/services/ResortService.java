@@ -5,12 +5,14 @@ import com.taass.seeyousun.resortservice.client.ReviewClient;
 import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
 import com.taass.seeyousun.resortservice.exceptions.ServiceNotReachableException;
+import com.taass.seeyousun.resortservice.mappers.impl.PriceListDTOmapper;
 import com.taass.seeyousun.resortservice.mappers.impl.ResortFullMapper;
 import com.taass.seeyousun.resortservice.mappers.impl.ResortMapper;
 import com.taass.seeyousun.resortservice.messaging.ReviewMessageDTO;
 import com.taass.seeyousun.resortservice.model.PricePeriod;
 import com.taass.seeyousun.resortservice.model.Resort;
 import com.taass.seeyousun.resortservice.repositories.ResortRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,18 +31,24 @@ public class ResortService {
     private final ResortFullMapper resortFullMapper;
     private final ReviewClient reviewClient;
     private final EventClient eventClient;
+    private final PriceListDTOmapper priceMapper;
+    private final ModelMapper modelMapper;
 
     public ResortService(
             ResortRepository resortRepository,
             ResortMapper resortMapper,
             ResortFullMapper resortFullMapper,
             ReviewClient reviewClient,
-            EventClient eventClient) {
+            EventClient eventClient,
+            PriceListDTOmapper priceMapper,
+            ModelMapper modelMapper) {
         this.resortRepository = resortRepository;
         this.resortMapper = resortMapper;
         this.resortFullMapper = resortFullMapper;
         this.reviewClient = reviewClient;
         this.eventClient = eventClient;
+        this.priceMapper = priceMapper;
+        this.modelMapper = modelMapper;
     }
 
     /**
@@ -171,20 +179,11 @@ public class ResortService {
     public DimensionDTO getResortDimension(Long resortId) {
         Resort r = resortRepository.findById(resortId)
                 .orElseThrow();
-        return new DimensionDTO(r.getTotalUmbrellaLine(),r.getTotalUmbrellaColumn());
+        return modelMapper.map(r, DimensionDTO.class);
     }
 
     public PriceListDTO getResortPricing(Long resortId, LocalDate date) {
-        PricePeriod p = resortRepository.findById(resortId)
-                .orElseThrow()
-                .getPricePeriodList()
-                .stream()
-                .filter(pricePeriod -> pricePeriod.isInPeriod(date))
-                .toList()
-                .getFirst();
-        return PriceListDTO.builder()
-                .sunbedPrice(p.getSunbedPrice())
-                .umbrellaPrice(p.getUmbrellaPrice())
-                .build();
+        PricePeriod p = resortRepository.findPricePeriod(resortId, date);
+        return priceMapper.mapFrom(p);
     }
 }

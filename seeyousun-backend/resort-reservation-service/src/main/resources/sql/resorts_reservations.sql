@@ -21,3 +21,4 @@ INSERT INTO public.daily_reservations (id, date, resort_id) VALUES (82, '2024-01
 INSERT INTO public.daily_reservations (id, date, resort_id) VALUES (83, '2024-01-22', 2);
 INSERT INTO public.daily_reservations (id, date, resort_id) VALUES (84, '2024-01-23', 2);
 INSERT INTO public.daily_reservations (id, date, resort_id) VALUES (85, '2024-01-24', 2);
+

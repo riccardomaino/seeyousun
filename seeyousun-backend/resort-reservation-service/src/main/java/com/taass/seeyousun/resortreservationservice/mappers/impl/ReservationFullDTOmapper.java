@@ -17,6 +17,7 @@ public class ReservationFullDTOmapper implements Mapper<ReservationFullDTO, Dail
 
     @Override
     public ReservationFullDTO mapFrom(DailyReservation dailyReservation) {
+        //TODO fare sta cazzata che non funziona perche pijo sempre la prima entry
         Reservation r = dailyReservation.getReservations().getFirst();
         return ReservationFullDTO.builder()
                 .resortId(dailyReservation.getResortId())

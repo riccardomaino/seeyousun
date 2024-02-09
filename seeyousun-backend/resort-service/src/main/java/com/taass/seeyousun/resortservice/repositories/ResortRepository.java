@@ -1,5 +1,6 @@
 package com.taass.seeyousun.resortservice.repositories;
 
+import com.taass.seeyousun.resortservice.model.PricePeriod;
 import com.taass.seeyousun.resortservice.model.Resort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +20,9 @@ public interface ResortRepository extends JpaRepository<Resort, Long> {
     List<Resort> findByNameContainingIgnoreCase(String name);
 
     List<Resort> findByLocationContainingIgnoreCase(String location);
+
+    @Query("SELECT p FROM Resort r JOIN r.pricePeriodList p WHERE r.id = :resortId and (:date BETWEEN p.periodInitialDate AND p.periodFinalDate) ")
+    PricePeriod findPricePeriod(Long resortId, LocalDate date);
 
     @Query("SELECT r FROM Resort r JOIN r.services s " +
             "WHERE lower(r.location) LIKE lower(concat('%', :location, '%')) AND s.name IN :services " +
