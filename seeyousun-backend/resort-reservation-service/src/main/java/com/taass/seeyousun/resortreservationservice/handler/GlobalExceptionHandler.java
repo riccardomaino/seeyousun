@@ -1,7 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.handler;
 
 import com.taass.seeyousun.resortreservationservice.dto.ApiErrorDTO;
-import com.taass.seeyousun.resortreservationservice.dto.ApiResponseDTO;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
@@ -66,7 +65,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(FeignException.class)
     public ResponseEntity<ApiErrorDTO> handleFeignException(FeignException e){
         ApiErrorDTO errorDto = ApiErrorDTO.builder()
-                .statusCode(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .statusCode(e.status())
                 .message(e.getMessage())
                 .timestamp(new Date())
                 .build();

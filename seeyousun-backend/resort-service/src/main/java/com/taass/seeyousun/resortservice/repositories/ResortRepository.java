@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ResortRepository extends JpaRepository<Resort, Long> {
@@ -22,7 +23,7 @@ public interface ResortRepository extends JpaRepository<Resort, Long> {
     List<Resort> findByLocationContainingIgnoreCase(String location);
 
     @Query("SELECT p FROM Resort r JOIN r.pricePeriodList p WHERE r.id = :resortId and (:date BETWEEN p.periodInitialDate AND p.periodFinalDate) ")
-    PricePeriod findPricePeriod(Long resortId, LocalDate date);
+    Optional<PricePeriod> findPricePeriod(Long resortId, LocalDate date);
 
     @Query("SELECT r FROM Resort r JOIN r.services s " +
             "WHERE lower(r.location) LIKE lower(concat('%', :location, '%')) AND s.name IN :services " +
@@ -32,4 +33,5 @@ public interface ResortRepository extends JpaRepository<Resort, Long> {
             @Param("location") String location,
             @Param("services") Collection<String> services,
             @Param("numServices") Integer numServices);
+
 }

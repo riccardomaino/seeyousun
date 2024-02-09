@@ -35,7 +35,7 @@ public class Resort {
 
     private String description;
 
-    @Column(columnDefinition = "DECIMAL(10,1) DEFAULT '0.0'")
+    @Column(columnDefinition = "NUMERIC(2,1) DEFAULT 0.0", nullable = false)
     private BigDecimal rating;
 
     @ElementCollection

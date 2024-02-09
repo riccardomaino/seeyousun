@@ -3,9 +3,7 @@ package com.taass.seeyousun.resortreservationservice.services;
 import com.taass.seeyousun.resortreservationservice.client.ResortClient;
 import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
-import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationFullDTOmapper;
 import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationRequestDTOmapper;
-import com.taass.seeyousun.resortreservationservice.mappers.impl.UmbrellaDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
 import com.taass.seeyousun.resortreservationservice.repositories.DailyReservationRepository;
@@ -23,19 +21,14 @@ public class ResortReservationService {
     private final ReservationRequestDTOmapper reservationRequestDTOmapper;
     private final ResortClient resortClient;
 
-    private final ReservationFullDTOmapper reservationFullDTOmapper;
-    private UmbrellaDTOmapper umbrellaMapper;
-
     public ResortReservationService(
             DailyReservationRepository dailyReservationRepository,
             ReservationRequestDTOmapper reservationRequestDTOmapper,
-            ResortClient resortClient,
-            ReservationFullDTOmapper reservationFullDTOmapper
+            ResortClient resortClient
     ) {
         this.dailyReservationRepository = dailyReservationRepository;
         this.reservationRequestDTOmapper = reservationRequestDTOmapper;
         this.resortClient = resortClient;
-        this.reservationFullDTOmapper = reservationFullDTOmapper;
     }
 
     public void createReservation(ReservationRequestDTO requestDTO)
@@ -81,10 +74,7 @@ public class ResortReservationService {
         PriceListDTO priceListDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
 
         // Otteniamo la lista degli ombrelloni occupati
-        List<UmbrellaDTO> reservedUmbrella = dailyReservationRepository.findReservedPlaceOfResortInDate(resortId, date)
-                .stream()
-                .map(umbrellaMapper::mapFrom)
-                .toList();
+        List<UmbrellaDTO> reservedUmbrella = dailyReservationRepository.findReservedPlaceOfResortInDate(resortId, date);
 
         // Costruiamo un oggetto "ReservationStateDTO" con le informazioni della prenotazione
         return ReservationStateDTO.builder()
@@ -95,9 +85,6 @@ public class ResortReservationService {
     }
 
     public List<ReservationFullDTO> getReservationForUser(Long userId) {
-        return dailyReservationRepository.findByUser(userId)
-                .stream()
-                .map(reservationFullDTOmapper::mapFrom)
-                .toList();
+        return dailyReservationRepository.findByUser(userId);
     }
 }

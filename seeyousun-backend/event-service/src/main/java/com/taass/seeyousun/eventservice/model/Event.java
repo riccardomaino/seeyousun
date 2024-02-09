@@ -36,6 +36,7 @@ public class Event {
     private List<Long> userSubscribed;
 
     private Integer maxUser;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT 'FALSE'")
     private Boolean isFull;
 
     public void reserveEvent(Long userId) {
