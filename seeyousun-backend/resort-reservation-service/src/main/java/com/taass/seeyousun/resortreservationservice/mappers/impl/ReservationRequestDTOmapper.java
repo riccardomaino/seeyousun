@@ -15,8 +15,10 @@ public class ReservationRequestDTOmapper implements Mapper<ReservationRequestDTO
     }
 
     @Override
-    public Reservation mapTo(ReservationRequestDTO singleReservationRequestDTO) {
-        return modelMapper.map(singleReservationRequestDTO, Reservation.class);
+    public Reservation mapTo(ReservationRequestDTO reservationRequestDTO) {
+        Reservation r = modelMapper.map(reservationRequestDTO, Reservation.class);
+        r.setUserId(reservationRequestDTO.getUser());
+        return r;
     }
 
     @Override

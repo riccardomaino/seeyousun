@@ -7,6 +7,7 @@ import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationRequ
 import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
 import com.taass.seeyousun.resortreservationservice.repositories.DailyReservationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class ResortReservationService {
         this.resortClient = resortClient;
     }
 
+    @Transactional
     public void createReservation(ReservationRequestDTO requestDTO)
             throws ResortNotFoundException, DailyReservationNotFoundException,
                 UmbrellaAlreadyReservedException, UmbrellaOutOfBoundException {
@@ -57,6 +59,8 @@ public class ResortReservationService {
         for(DailyReservation dailyReservation : dailyReservationList){
             Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
             dailyReservation.addReservation(reservation);
+            System.out.println("a");
+            System.out.println(dailyReservation.getReservations().size());
             dailyReservationRepository.save(dailyReservation);
         }
     }
