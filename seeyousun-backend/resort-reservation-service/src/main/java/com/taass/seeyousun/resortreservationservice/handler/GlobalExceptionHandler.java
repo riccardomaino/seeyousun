@@ -1,6 +1,9 @@
 package com.taass.seeyousun.resortreservationservice.handler;
 
-import com.taass.seeyousun.resortreservationservice.dto.ApiErrorDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.taass.seeyousun.resortreservationservice.dto.ApiResponseDTO;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
@@ -13,62 +16,82 @@ import java.util.Date;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResortNotFoundException.class)
-    public ResponseEntity<ApiErrorDTO> handleResortNotFoundException(ResortNotFoundException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+    public ResponseEntity<ApiResponseDTO<Object>> handleResortNotFoundException(ResortNotFoundException e){
+        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
+                .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
+                .data(null)
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(DailyReservationNotFoundException.class)
-    public ResponseEntity<ApiErrorDTO> handleDailyReservationNotFoundException(DailyReservationNotFoundException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+    public ResponseEntity<ApiResponseDTO<Object>> handleDailyReservationNotFoundException(DailyReservationNotFoundException e){
+        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
+                .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
+                .data(null)
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UmbrellaOutOfBoundException.class)
-    public ResponseEntity<ApiErrorDTO> handleUmbrellaOutOfBoundException(UmbrellaOutOfBoundException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+    public ResponseEntity<ApiResponseDTO<Object>> handleUmbrellaOutOfBoundException(UmbrellaOutOfBoundException e){
+        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
+                .data(null)
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UmbrellaAlreadyReservedException.class)
-    public ResponseEntity<ApiErrorDTO> handleUmbrellaAlreadyReservedException(UmbrellaAlreadyReservedException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+    public ResponseEntity<ApiResponseDTO<Object>> handleUmbrellaAlreadyReservedException(UmbrellaAlreadyReservedException e){
+        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
+                .data(null)
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ServiceNotReachableException.class)
-    public ResponseEntity<ApiErrorDTO> handleServiceNotReachableException(ServiceNotReachableException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+    public ResponseEntity<ApiResponseDTO<Object>> handleServiceNotReachableException(ServiceNotReachableException e){
+        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
+                .data(null)
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
     @ExceptionHandler(FeignException.class)
-    public ResponseEntity<ApiErrorDTO> handleFeignException(FeignException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
-                .statusCode(e.status())
-                .message(e.getMessage())
-                .timestamp(new Date())
-                .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.SERVICE_UNAVAILABLE);
+    public ResponseEntity<ApiResponseDTO<Object>> handleFeignException(FeignException e) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String strErrorDTO = e.contentUTF8();
+        ApiResponseDTO<Object> errorResponseDto;
+        try {
+            TypeReference<ApiResponseDTO<Object>> typeRef = new TypeReference<>() {};
+            errorResponseDto = objectMapper.readValue(strErrorDTO, typeRef);
+        } catch (JsonProcessingException ex) {
+            errorResponseDto = ApiResponseDTO.builder()
+                    .statusCode(e.status())
+                    .success(false)
+                    .message(e.getMessage())
+                    .timestamp(new Date())
+                    .data(null)
+                    .build();
+        }
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.valueOf(e.status()));
     }
 }

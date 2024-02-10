@@ -1,11 +1,10 @@
-package com.taass.seeyousun.resortservice.handler;
+package com.taass.seeyousun.reviewservice.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.taass.seeyousun.resortservice.dto.ApiResponseDTO;
-import com.taass.seeyousun.resortservice.exceptions.PriceNotFoundException;
-import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
+import com.taass.seeyousun.reviewservice.dto.ApiResponseDTO;
+import com.taass.seeyousun.reviewservice.exceptions.ResortNotFoundException;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +17,6 @@ import java.util.Date;
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResortNotFoundException.class)
     public ResponseEntity<ApiResponseDTO<Object>> handleResortNotFoundException(ResortNotFoundException e){
-        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
-                .statusCode(HttpStatus.NOT_FOUND.value())
-                .success(false)
-                .message(e.getMessage())
-                .timestamp(new Date())
-                .data(null)
-                .build();
-        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(PriceNotFoundException.class)
-    public ResponseEntity<ApiResponseDTO<Object>> handlePriceNotFoundException(PriceNotFoundException e){
         ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .success(false)

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "resort-service")
 public interface ResortClient {
     @GetMapping("api/v1/resorts/dimension/{resortId}")
-    ResponseEntity<ApiResponseDTO<DimensionDTO>> getResortDimension(@PathVariable long resortId);
+    ResponseEntity<ApiResponseDTO<DimensionDTO>> getResortDimension(@PathVariable Long resortId);
 
     @GetMapping("api/v1/resorts/pricing/{resortId}")
-    ResponseEntity<ApiResponseDTO<PriceListDTO>> getResortPrice(@PathVariable long resortId, @RequestParam String date);
+    ResponseEntity<ApiResponseDTO<PriceListDTO>> getResortPrice(@PathVariable Long resortId, @RequestParam String date);
 }

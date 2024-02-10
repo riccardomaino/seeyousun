@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ResortService {
@@ -165,14 +166,6 @@ public class ResortService {
                 .toList();
     }
 
-    public void updateResortRating(ReviewMessageDTO reviewMessageDTO) {
-        Long resortId = reviewMessageDTO.getResortId();
-        Resort r = resortRepository.findById(resortId)
-                .orElseThrow(()-> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
-        r.setRating(reviewMessageDTO.getAverageRating());
-        resortRepository.save(r);
-    }
-
     public DimensionDTO getResortDimension(Long resortId) {
         Resort r = resortRepository.findById(resortId)
                 .orElseThrow(()-> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
@@ -186,5 +179,21 @@ public class ResortService {
         PricePeriod p = resortRepository.findPricePeriod(resortId, date)
                 .orElseThrow(()-> new PriceNotFoundException(String.format("Nessun listino prezzo trovato per il resort %d in data %s", resortId,date)));
         return priceMapper.mapFrom(p);
+    }
+
+    public void updateResortRating(ReviewMessageDTO reviewMessageDTO) {
+        Long resortId = reviewMessageDTO.getResortId();
+        // Resort r = resortRepository.findById(resortId).orElseThrow(()-> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
+        Optional<Resort> opt = resortRepository.findById(resortId);
+        if(opt.isPresent()){
+            Resort r = opt.get();
+            r.setRating(reviewMessageDTO.getAverageRating());
+            resortRepository.save(r);
+        }
+    }
+
+    public Boolean checkResortById(Long resortId){
+        Optional<Resort> opt = resortRepository.findById(resortId);
+        return opt.isPresent();
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,7 +26,9 @@ public class EventController {
         List<EventDTO> eventListDTO = eventService.getEventForResort(resortId);
         ApiResponseDTO<List<EventDTO>> response = ApiResponseDTO.<List<EventDTO>>builder()
                 .statusCode(200)
+                .success(true)
                 .message("Successo, ottenimento degli eventi per il resort effettuato correttamente")
+                .timestamp(new Date())
                 .data(eventListDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -36,7 +39,9 @@ public class EventController {
         eventService.subscribeToEvent(eventRequest.getEventId(), eventRequest.getUserId());
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(200)
+                .success(true)
                 .message("Successo, iscrizione dell'utente all'evento effettuata correttamente")
+                .timestamp(new Date())
                 .data(null)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -47,7 +52,9 @@ public class EventController {
         List<EventDTO> eventList = eventService.getEventForUser(userId);
         ApiResponseDTO<List<EventDTO>> response = ApiResponseDTO.<List<EventDTO>>builder()
                 .statusCode(200)
+                .success(true)
                 .message("Successo, ottenimento degli eventi dell'utente effettuato correttamente")
+                .timestamp(new Date())
                 .data(eventList)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);

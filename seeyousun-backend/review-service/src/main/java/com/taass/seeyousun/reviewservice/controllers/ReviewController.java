@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,9 @@ public class ReviewController {
         List<ReviewDTO> resultReviews = reviewService.getReviewForResort(resortId);
         ApiResponseDTO<List<ReviewDTO>> response = ApiResponseDTO.<List<ReviewDTO>>builder()
                 .statusCode(200)
+                .success(true)
                 .message("Successo, ottenimento delle reviews effettuato correttamente")
+                .timestamp(new Date())
                 .data(resultReviews)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -35,7 +38,9 @@ public class ReviewController {
         reviewService.createReview(reviewDTO);
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(201)
+                .success(true)
                 .message("Successo, creazione della review effettuata correttamente")
+                .timestamp(new Date())
                 .data(null)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.CREATED);

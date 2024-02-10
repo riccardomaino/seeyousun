@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,9 @@ public class ResortReservationController {
         ReservationStateDTO reservationDTO = resortReservationService.getReservationInformation(resortId, LocalDate.parse(date));
         ApiResponseDTO<ReservationStateDTO> response = ApiResponseDTO.<ReservationStateDTO>builder()
                 .statusCode(200)
-                .message("Successo, ottenimento del listino prezzi del resort effettuato correttamente")
+                .success(true)
+                .message("Successo, ottenimento del listino prezzi del resort avvenuto correttamente")
+                .timestamp(new Date())
                 .data(reservationDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -37,7 +40,9 @@ public class ResortReservationController {
         resortReservationService.createReservation(requestDTO);
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(201)
-                .message("Successo, creazione della prenotazione effettuata correttamente")
+                .success(true)
+                .message("Successo, creazione della prenotazione avvenuta correttamente")
+                .timestamp(new Date())
                 .data(null)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -48,7 +53,9 @@ public class ResortReservationController {
         List<ReservationFullDTO> reservation = resortReservationService.getReservationForUser(userId);
         ApiResponseDTO<List<ReservationFullDTO>> response = ApiResponseDTO.<List<ReservationFullDTO>>builder()
                 .statusCode(201)
-                .message("Reservation retrieved successfully")
+                .success(true)
+                .message("Successo, ottenimento delle prenotazioni dell'utente avvenuto correttamente")
+                .timestamp(new Date())
                 .data(reservation)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);

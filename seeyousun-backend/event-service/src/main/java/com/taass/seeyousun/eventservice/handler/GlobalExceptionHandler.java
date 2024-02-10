@@ -1,6 +1,6 @@
 package com.taass.seeyousun.eventservice.handler;
 
-import com.taass.seeyousun.eventservice.dto.ApiErrorDTO;
+import com.taass.seeyousun.eventservice.dto.ApiResponseDTO;
 import com.taass.seeyousun.eventservice.exception.EventFullReservedException;
 import com.taass.seeyousun.eventservice.exception.EventNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -13,21 +13,25 @@ import java.util.Date;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(EventNotFoundException.class)
-    public ResponseEntity<ApiErrorDTO> handleEventNotFoundException(EventNotFoundException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+    public ResponseEntity<ApiResponseDTO<Object>> handleEventNotFoundException(EventNotFoundException e){
+        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
+                .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
+                .data(null)
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(EventFullReservedException.class)
-    public ResponseEntity<ApiErrorDTO> handleEventFullReservedException(EventFullReservedException e){
-        ApiErrorDTO errorDto = ApiErrorDTO.builder()
+    public ResponseEntity<ApiResponseDTO<Object>> handleEventFullReservedException(EventFullReservedException e){
+        ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
+                .data(null)
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 }
