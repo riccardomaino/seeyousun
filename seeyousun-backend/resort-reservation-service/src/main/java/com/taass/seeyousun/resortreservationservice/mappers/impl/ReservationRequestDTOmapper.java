@@ -14,9 +14,11 @@ public class ReservationRequestDTOmapper implements Mapper<ReservationRequestDTO
         this.modelMapper = modelMapper;
     }
 
+    //model mapper mappava ReservationRequest.resortId -> Reservation.Id
     @Override
     public Reservation mapTo(ReservationRequestDTO reservationRequestDTO) {
         Reservation r = modelMapper.map(reservationRequestDTO, Reservation.class);
+        r.setId(null);
         r.setUserId(reservationRequestDTO.getUser());
         return r;
     }

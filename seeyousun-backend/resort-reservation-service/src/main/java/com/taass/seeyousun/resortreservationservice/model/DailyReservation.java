@@ -35,14 +35,16 @@ public class DailyReservation {
     @JsonManagedReference
     private List<Reservation> reservations;
 
-    public boolean isThisInPeriod(LocalDate initialDate, LocalDate finalDate){
-        return (initialDate.isBefore(this.date) && finalDate.isAfter(this.date)) ||
-                (initialDate.isEqual(finalDate) && initialDate.isEqual(this.date));
-    }
-
     public void addReservation(Reservation newReservation) throws UmbrellaAlreadyReservedException {
-        boolean isAlreadyReserved = this.reservations.stream()
-                .anyMatch(r -> r.isOverlapped(newReservation));
+        boolean isAlreadyReserved = false;
+        for(Reservation r : this.reservations){
+            System.out.println(r);
+            System.out.println(newReservation);
+            if(r.isOverlapped(newReservation)){
+                isAlreadyReserved = true;
+                break;
+            }
+        }
 
         // Controlla se l'ombrellone è già stato prenotato
         if(isAlreadyReserved)

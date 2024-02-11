@@ -59,9 +59,9 @@ public class ResortReservationService {
         for(DailyReservation dailyReservation : dailyReservationList){
             Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
             dailyReservation.addReservation(reservation);
-            System.out.println("a");
+            System.out.println("id: "+ reservation.getId());
             System.out.println(dailyReservation.getReservations().size());
-            dailyReservationRepository.save(dailyReservation);
+            dailyReservationRepository.saveAndFlush(dailyReservation);
         }
     }
 
