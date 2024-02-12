@@ -23,7 +23,9 @@ public class ResortReservationController {
     }
 
     @GetMapping("/information/{resortId}")
-    public ResponseEntity<ApiResponseDTO<ReservationStateDTO>> getReservationInformation(@PathVariable Long resortId, @RequestParam String date) {
+    public ResponseEntity<ApiResponseDTO<ReservationStateDTO>> getReservationInformation(
+            @PathVariable Long resortId,
+            @RequestParam String date) {
         ReservationStateDTO reservationDTO = resortReservationService.getReservationInformation(resortId, LocalDate.parse(date));
         ApiResponseDTO<ReservationStateDTO> response = ApiResponseDTO.<ReservationStateDTO>builder()
                 .statusCode(200)
@@ -35,8 +37,12 @@ public class ResortReservationController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping(path = "")
-    public ResponseEntity<ApiResponseDTO<Object>> createReservation(@RequestBody ReservationRequestDTO requestDTO){
+    @PostMapping(path = "book")
+    public ResponseEntity<ApiResponseDTO<Object>> createReservation(
+            @RequestBody ReservationRequestDTO requestDTO,
+            @RequestHeader(name = "X-User-UID") String userUid
+    ){
+        requestDTO.setUserUid(userUid);
         resortReservationService.createReservation(requestDTO);
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(201)
@@ -48,9 +54,9 @@ public class ResortReservationController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("reservation-for-user/{userId}")
-    public ResponseEntity<ApiResponseDTO<List<ReservationFullDTO>>> getReservationsForUser(@PathVariable Long userId){
-        List<ReservationFullDTO> reservation = resortReservationService.getReservationForUser(userId);
+    @GetMapping("reservation-for-user")
+    public ResponseEntity<ApiResponseDTO<List<ReservationFullDTO>>> getReservationsForUser(@RequestHeader(name = "X-User-UID") String userUid){
+        List<ReservationFullDTO> reservation = resortReservationService.getReservationForUser(userUid);
         ApiResponseDTO<List<ReservationFullDTO>> response = ApiResponseDTO.<List<ReservationFullDTO>>builder()
                 .statusCode(201)
                 .success(true)

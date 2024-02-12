@@ -84,7 +84,7 @@ public class ResortReservationService {
                 .build();
     }
 
-    public List<ReservationFullDTO> getReservationForUser(Long userId) {
-        return dailyReservationRepository.findByUser(userId);
+    public List<ReservationFullDTO> getReservationForUser(String userUid) {
+        return dailyReservationRepository.findByUser(userUid);
     }
 }

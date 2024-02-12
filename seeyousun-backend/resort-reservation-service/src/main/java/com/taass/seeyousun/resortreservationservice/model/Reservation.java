@@ -36,7 +36,7 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private PersistenceTypeEnum persistenceTypeEnum;
 
-    private Long userId;
+    private String userUid;
 
     public boolean isOverlapped(Reservation newReservation) {
         return this.reservedUmbrellaLine.equals(newReservation.reservedUmbrellaLine) &&

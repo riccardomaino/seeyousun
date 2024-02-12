@@ -26,7 +26,7 @@ public class ReservationFullDTOmapper implements Mapper<ReservationFullDTO, Dail
                 .persistenceTypeEnum(r.getPersistenceTypeEnum())
                 .ReservedUmbrellaLine(r.getReservedUmbrellaLine())
                 .ReservedUmbrellaColumn(r.getReservedUmbrellaColumn())
-                .userId(r.getUserId())
+                .userUid(r.getUserUid())
                 .reservationId(r.getId())
                 .DailyReservationId(dailyReservation.getId())
                 .build();
