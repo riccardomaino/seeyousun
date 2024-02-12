@@ -2,10 +2,7 @@ package com.taass.seeyousun.resortreservationservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 /*
@@ -31,6 +28,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "daily_reservation_id")
     @JsonBackReference
+    @ToString.Exclude
     private DailyReservation dailyReservation;
 
     @Enumerated(EnumType.STRING)
@@ -39,10 +37,19 @@ public class Reservation {
     private String userUid;
 
     public boolean isOverlapped(Reservation newReservation) {
+        return  isSamePlace(newReservation)
+                &&
+                isSameDayPeriod(newReservation);
+    }
+
+    private boolean isSameDayPeriod(Reservation newReservation) {
+        return (this.persistenceTypeEnum == PersistenceTypeEnum.FULL_DAY ||
+                newReservation.persistenceTypeEnum == PersistenceTypeEnum.FULL_DAY ||
+                this.persistenceTypeEnum == newReservation.persistenceTypeEnum);
+    }
+
+    public boolean isSamePlace(Reservation newReservation){
         return this.reservedUmbrellaLine.equals(newReservation.reservedUmbrellaLine) &&
-                this.reservedUmbrellaColumn.equals(newReservation.reservedUmbrellaColumn) &&
-                (this.persistenceTypeEnum == PersistenceTypeEnum.FULL_DAY ||
-                        newReservation.persistenceTypeEnum == PersistenceTypeEnum.FULL_DAY ||
-                        this.persistenceTypeEnum == newReservation.persistenceTypeEnum);
+                this.reservedUmbrellaColumn.equals(newReservation.reservedUmbrellaColumn);
     }
 }
