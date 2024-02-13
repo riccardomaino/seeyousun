@@ -49,6 +49,14 @@ public class ResortReservationService {
                             requestDTO.getReservedUmbrellaColumn())
             );
         }
+
+        if(requestDTO.getNumberOfSunbeds()<1){
+            throw new SunbedNotValidException("I lettini devono essere almeno 1");
+        }
+        if(requestDTO.getNumberOfSunbeds() > 3){
+            throw new SunbedNotValidException("I lettini devono essere al massimo 3");
+        }
+
         // Ottiene la lista di tutte le DailyReservation in cui aggiungere la nuova prenotazione (serve a salvare la Reservation in ogni giorno che è prenotata)
         List<DailyReservation> dailyReservationList = dailyReservationRepository.findDistinctByDateBetweenAndResortId(requestDTO.getInitialDate(), requestDTO.getFinalDate(), requestDTO.getResortId());
         // Per ognuna delle DailyReservation in cui aggiungere la Reservation, si va effettivamente ad aggiungere la Reservation
@@ -70,13 +78,10 @@ public class ResortReservationService {
     public ReservationStateDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException {
         // Effettuiamo chiamata REST al resort-service sincrona per prelevare le dimensions (linee x colonne) del resort
         ResponseEntity<ApiResponseDTO<DimensionDTO>> responseDimension = resortClient.getResortDimension(resortId);
-        if(responseDimension.getStatusCode() != HttpStatus.OK)
-            throw new ServiceNotReachableException("Il Resort Service non è raggiungibile");
         DimensionDTO dimensionDTO = Objects.requireNonNull(responseDimension.getBody()).getData();
+
         // Effettuiamo chiamata REST al resort-service sincrona per richiedere il listino prezzi
         ResponseEntity<ApiResponseDTO<PriceListDTO>> responsePriceList = resortClient.getResortPrice(resortId, date.toString());
-        if(responsePriceList.getStatusCode() != HttpStatus.OK)
-            throw new ServiceNotReachableException("Il Resort Service non è raggiungibile");
         PriceListDTO priceListDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
 
         // Otteniamo la lista degli ombrelloni occupati
