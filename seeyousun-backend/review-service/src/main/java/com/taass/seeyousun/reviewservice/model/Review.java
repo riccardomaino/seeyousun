@@ -20,10 +20,12 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String userUid;
+
     private String title;
 
     @Length(max=2000)
-    private String description;
+    private String bodyReview;
 
     private Integer rating;
 

@@ -8,6 +8,7 @@
           <option value="resort-service" />
           <option value="resort-service" />
           <option value="event-service" />
+          <option value="auth-service" />
         </list>
       </option>
       <option name="ignoredPackages">
@@ -15,10 +16,12 @@
           <option value="org.springframework:spring-core:6.1.2" />
           <option value="com.jayway.jsonpath:json-path:2.8.0" />
           <option value="com.jayway.jsonpath:json-path:2.8.0" />
+          <option value="com.jayway.jsonpath:json-path:2.8.0" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />

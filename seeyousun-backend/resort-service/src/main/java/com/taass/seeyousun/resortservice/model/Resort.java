@@ -40,10 +40,17 @@ public class Resort {
 
     @ElementCollection
     @CollectionTable(
-            name = "resorts_information",
+            name = "phone_numbers",
             joinColumns = @JoinColumn(name = "resort_id")
     )
-    private List<String> information;
+    private List<String> phoneNumbers;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "time_tables",
+            joinColumns = @JoinColumn(name = "resort_id")
+    )
+    private List<String> timeTables;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

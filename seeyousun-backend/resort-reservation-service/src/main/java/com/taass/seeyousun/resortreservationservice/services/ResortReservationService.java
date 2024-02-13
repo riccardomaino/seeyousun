@@ -3,7 +3,6 @@ package com.taass.seeyousun.resortreservationservice.services;
 import com.taass.seeyousun.resortreservationservice.client.ResortClient;
 import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.exceptions.*;
-import com.taass.seeyousun.resortreservationservice.mappers.impl.ReservationRequestDTOmapper;
 import com.taass.seeyousun.resortreservationservice.model.DailyReservation;
 import com.taass.seeyousun.resortreservationservice.model.Reservation;
 import com.taass.seeyousun.resortreservationservice.repositories.DailyReservationRepository;
@@ -19,16 +18,13 @@ import java.util.Objects;
 @Service
 public class ResortReservationService {
     private final DailyReservationRepository dailyReservationRepository;
-    private final ReservationRequestDTOmapper reservationRequestDTOmapper;
     private final ResortClient resortClient;
 
     public ResortReservationService(
             DailyReservationRepository dailyReservationRepository,
-            ReservationRequestDTOmapper reservationRequestDTOmapper,
             ResortClient resortClient
     ) {
         this.dailyReservationRepository = dailyReservationRepository;
-        this.reservationRequestDTOmapper = reservationRequestDTOmapper;
         this.resortClient = resortClient;
     }
 
@@ -57,7 +53,13 @@ public class ResortReservationService {
         List<DailyReservation> dailyReservationList = dailyReservationRepository.findDistinctByDateBetweenAndResortId(requestDTO.getInitialDate(), requestDTO.getFinalDate(), requestDTO.getResortId());
         // Per ognuna delle DailyReservation in cui aggiungere la Reservation, si va effettivamente ad aggiungere la Reservation
         for(DailyReservation dailyReservation : dailyReservationList){
-            Reservation reservation = reservationRequestDTOmapper.mapTo(requestDTO);
+            Reservation reservation = Reservation.builder()
+                    .numberOfSunbeds(requestDTO.getNumberOfSunbeds())
+                    .reservedUmbrellaLine(requestDTO.getReservedUmbrellaLine())
+                    .reservedUmbrellaColumn(requestDTO.getReservedUmbrellaColumn())
+                    .persistenceTypeEnum(requestDTO.getPersistenceTypeEnum())
+                    .userUid(requestDTO.getUserUid())
+                    .build();
             dailyReservation.addReservation(reservation);
             System.out.println("id: "+ reservation.getId());
             System.out.println(dailyReservation.getReservations().size());
