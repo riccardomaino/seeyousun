@@ -24,7 +24,6 @@ public class ReservationRequestDTO {
     private LocalDate initialDate;
     @Temporal(TemporalType.DATE)
     private LocalDate finalDate;
-    //LASCIATE user perché UserId fa impazzire lombok: conflitto con resortId
-    private Long user;
+    private String userUid;
 }
 

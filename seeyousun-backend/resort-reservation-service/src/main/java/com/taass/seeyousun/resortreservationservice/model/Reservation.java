@@ -34,12 +34,10 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private PersistenceTypeEnum persistenceTypeEnum;
 
-    private Long userId;
+    private String userUid;
 
     public boolean isOverlapped(Reservation newReservation) {
-        return  isSamePlace(newReservation)
-                &&
-                isSameDayPeriod(newReservation);
+        return isSamePlace(newReservation) && isSameDayPeriod(newReservation);
     }
 
     private boolean isSameDayPeriod(Reservation newReservation) {

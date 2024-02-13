@@ -1,59 +1,68 @@
-  server:
-    port: ${API_GATEWAY_PORT:8080}
-  spring:
-    application:
-      name: api-gateway
-    cloud:
-      gateway:
-        # Configurazione routes API Gateway: il traffico verra' indirizzato sulla base dell'uri e dei predicates (vengono aggiunti i filers)
-        routes:
-          - id: resort-route
-            uri: lb://${RESORT_SERVICE_HOST:localhost} # http://${RESORT_SERVICE_HOST:localhost}/${RESORT_SERVICE_PORT:8080}
-            predicates:
-              - Path=/resorts/**
-            filters:
-              - PrefixPath=/api/v1
-          - id: resort-reservation-route
-            uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
-            predicates:
-              - Path=/resort-reservations/**
-            filters:
-              - PrefixPath=/api/v1
-          - id: review-route
-            uri: lb://${REVIEW_SERVICE_HOST:localhost} # http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
-            predicates:
-              - Path=/reviews/**
-            filters:
-              - PrefixPath=/api/v1
-          - id: event-route
-            uri: lb://${EVENT_SERVICE_HOST:localhost} # http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}
-            predicates:
-              - Path=/events/**
-            filters:
-              - PrefixPath=/api/v1
-        # Configurazione dell'utilizzo di Eureka per implementare il dynamic routing
-        discovery:
-          locator:
-            enabled: true
-            lower-case-service-id: true
-  # Configurazione Eureka Server ed Eureka Client
-  eureka:
-    instance:
-      hostname: ${API_GATEWAY_HOST:localhost}
-      # prefer-ip-address: true
-    client:
-      register-with-eureka: true
-      fetch-registry: true
-      service-url:
-        defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
-  # Configurazione Zipkin: utile per effettuare distributed tracing
-  management:
-    zipkin:
-      tracing:
-        endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+server:
+  port: ${API_GATEWAY_PORT:8080}
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      # Configurazione routes API Gateway: il traffico verra' indirizzato sulla base dell'uri e dei predicates (vengono aggiunti i filers)
+      routes:
+        - id: resort-route
+          uri: lb://${RESORT_SERVICE_HOST:localhost} # http://${RESORT_SERVICE_HOST:localhost}/${RESORT_SERVICE_PORT:8080}
+          predicates:
+            - Path=/resorts/**
+          filters:
+            - PrefixPath=/api/v1
+        - id: resort-reservation-route
+          uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
+          predicates:
+            - Path=/resort-reservations/information/**
+          filters:
+            - PrefixPath=/api/v1
+        - id: resort-reservation-auth-route
+          uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
+          predicates:
+            - Path=/resort-reservations/book, /resort-reservations/reservation-for-user
+          filters:
+            - PrefixPath=/api/v1
+        - id: review-route
+          uri: lb://${REVIEW_SERVICE_HOST:localhost} # http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
+          predicates:
+            - Path=/reviews/**
+          filters:
+            - PrefixPath=/api/v1
+        - id: event-route
+          uri: lb://${EVENT_SERVICE_HOST:localhost} # http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}
+          predicates:
+            - Path=/events/**
+          filters:
+            - PrefixPath=/api/v1
+      # Configurazione dell'utilizzo di Eureka per implementare il dynamic routing
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+# Configurazione Eureka Server ed Eureka Client
+eureka:
+  instance:
+    hostname: ${API_GATEWAY_HOST:localhost}
+    # prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
+# Configurazione Zipkin: utile per effettuare distributed tracing
+management:
+  zipkin:
     tracing:
-      sampling:
-        probability: 1.0
+      endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:info}
 # Configurazione del Config Server: se non viene trovato salta questo passaggio senza crashare grazie ad "optional"
 # spring:
 #   config:

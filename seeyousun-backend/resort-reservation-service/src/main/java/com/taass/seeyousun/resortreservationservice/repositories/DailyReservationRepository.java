@@ -21,7 +21,7 @@ public interface DailyReservationRepository extends JpaRepository<DailyReservati
 
 
     @Query("SELECT new com.taass.seeyousun.resortreservationservice.dto.ReservationFullDTO(d.resortId,d.date,r.numberOfSunbeds, " +
-            "r.persistenceTypeEnum,r.reservedUmbrellaLine,r.reservedUmbrellaColumn,r.userId,r.id,d.id) " +
-            "FROM DailyReservation d join d.reservations r WHERE r.userId = :userId")
-    List<ReservationFullDTO> findByUser(Long userId);
+            "r.persistenceTypeEnum,r.reservedUmbrellaLine,r.reservedUmbrellaColumn,r.userUid,r.id,d.id) " +
+            "FROM DailyReservation d join d.reservations r WHERE r.userUid = :userUid")
+    List<ReservationFullDTO> findByUser(String userUid);
 }

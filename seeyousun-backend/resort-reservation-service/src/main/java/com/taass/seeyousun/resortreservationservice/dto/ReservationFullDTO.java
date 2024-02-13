@@ -24,7 +24,7 @@ public class ReservationFullDTO {
     private PersistenceTypeEnum persistenceTypeEnum;
     private Integer ReservedUmbrellaLine;
     private Integer ReservedUmbrellaColumn;
-    private Long userId;
+    private String userUid;
     private Long reservationId;
     private Long DailyReservationId;
 }
