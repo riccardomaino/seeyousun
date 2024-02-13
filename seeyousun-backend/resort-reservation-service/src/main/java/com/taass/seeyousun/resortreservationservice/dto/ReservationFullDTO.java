@@ -1,6 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.dto;
 
-import com.taass.seeyousun.resortreservationservice.model.PersistenceTypeEnum;
+import com.taass.seeyousun.resortreservationservice.enums.PersistenceTypeEnum;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 
-/*USATO PER RESTITUIRE LE INFORAMZIONI SUUNA PRENOTAZIONE DI UN UTENTE*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

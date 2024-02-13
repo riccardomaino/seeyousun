@@ -30,7 +30,7 @@ public class ResortReservationController {
         ApiResponseDTO<ReservationStateDTO> response = ApiResponseDTO.<ReservationStateDTO>builder()
                 .statusCode(200)
                 .success(true)
-                .message("Successo, ottenimento del listino prezzi del resort avvenuto correttamente")
+                .message("Successo, ottenimento delle informazioni degli ombrelloni prenotati avvenuto correttamente")
                 .timestamp(new Date())
                 .data(reservationDTO)
                 .build();

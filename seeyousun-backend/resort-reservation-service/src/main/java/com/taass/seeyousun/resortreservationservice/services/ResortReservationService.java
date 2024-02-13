@@ -69,30 +69,12 @@ public class ResortReservationService {
                     .userUid(requestDTO.getUserUid())
                     .build();
             dailyReservation.addReservation(reservation);
-            System.out.println("id: "+ reservation.getId());
-            System.out.println(dailyReservation.getReservations().size());
             dailyReservationRepository.saveAndFlush(dailyReservation);
         }
     }
 
-    public ReservationStateDTO getReservationInformation(long resortId, LocalDate date) throws ResortNotFoundException {
-        // Effettuiamo chiamata REST al resort-service sincrona per prelevare le dimensions (linee x colonne) del resort
-        ResponseEntity<ApiResponseDTO<DimensionDTO>> responseDimension = resortClient.getResortDimension(resortId);
-        DimensionDTO dimensionDTO = Objects.requireNonNull(responseDimension.getBody()).getData();
-
-        // Effettuiamo chiamata REST al resort-service sincrona per richiedere il listino prezzi
-        ResponseEntity<ApiResponseDTO<PriceListDTO>> responsePriceList = resortClient.getResortPrice(resortId, date.toString());
-        PriceListDTO priceListDTO = Objects.requireNonNull(responsePriceList.getBody()).getData();
-
-        // Otteniamo la lista degli ombrelloni occupati
-        List<UmbrellaDTO> reservedUmbrella = dailyReservationRepository.findReservedPlaceOfResortInDate(resortId, date);
-
-        // Costruiamo un oggetto "ReservationStateDTO" con le informazioni della prenotazione
-        return ReservationStateDTO.builder()
-                .dimension(dimensionDTO)
-                .priceList(priceListDTO)
-                .reservedUmbrella(reservedUmbrella)
-                .build();
+   public List<UmbrellaDTO> getReservedUmbrellaInformation(Long resortId, LocalDate date){
+        return dailyReservationRepository.findReservedPlaceOfResortInDate(resortId, date);
     }
 
     public List<ReservationFullDTO> getReservationForUser(String userUid) {

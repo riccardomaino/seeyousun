@@ -196,4 +196,24 @@ public class ResortService {
         Optional<Resort> opt = resortRepository.findById(resortId);
         return opt.isPresent();
     }
+
+    public ReservationStateDTO getReservationInformation(Long resortId, LocalDate date) {
+        // Otteniamo le dimensioni (linee x colonne) del resort
+        DimensionDTO dimensionDTO = this.getResortDimension(resortId);
+
+        // Otteniamo il listino dei prezzi del resort
+        PriceListDTO priceListDTO = this.getResortPricing(resortId,date);
+
+        // Effettuiamo una chiamata REST sincrona al resort-reservation-service per ottenere le informazioni sugli ombrelloni occupati
+        List<UmbrellaDTO> reservedUmbrella = Objects.requireNonNull(resortReservationClient
+                .getReservedUmbrellaForResortAndDate(resortId, date.toString())
+                .getBody()).getData();
+
+        // Costruiamo un oggetto "ReservationStateDTO" con le informazioni della prenotazione
+        return ReservationStateDTO.builder()
+                .dimension(dimensionDTO)
+                .priceList(priceListDTO)
+                .reservedUmbrella(reservedUmbrella)
+                .build();
+    }
 }

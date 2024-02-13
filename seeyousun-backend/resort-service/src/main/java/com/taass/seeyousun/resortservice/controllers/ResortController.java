@@ -139,6 +139,21 @@ public class ResortController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/information/{resortId}")
+    public ResponseEntity<ApiResponseDTO<ReservationStateDTO>> getReservationInformation(
+            @PathVariable Long resortId,
+            @RequestParam String date) {
+        ReservationStateDTO reservationDTO = resortService.getReservationInformation(resortId, LocalDate.parse(date));
+        ApiResponseDTO<ReservationStateDTO> response = ApiResponseDTO.<ReservationStateDTO>builder()
+                .statusCode(200)
+                .success(true)
+                .message("Successo, ottenimento del listino prezzi del resort avvenuto correttamente")
+                .timestamp(new Date())
+                .data(reservationDTO)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/exists/{id}")
     public ResponseEntity<ApiResponseDTO<Boolean>> checkResortById(@PathVariable Long id){
         Boolean isPresent = resortService.checkResortById(id);
