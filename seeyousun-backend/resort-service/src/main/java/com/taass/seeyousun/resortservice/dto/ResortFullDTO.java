@@ -20,7 +20,8 @@ public class ResortFullDTO {
     private String location;
     private String description;
     private BigDecimal rating;
-    private List<String> information;
+    private List<String> phoneNumbers;
+    private List<String> timeTables;
     private String photoCover;
     private List<String> photos;
     private Set<Service> services;
