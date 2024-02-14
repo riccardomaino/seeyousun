@@ -13,9 +13,10 @@ import java.time.LocalDate;
 @Builder
 public class ReviewDTO {
     private Long id;
-    private Long resortId;
+    private String username;
     private String title;
-    private String description;
+    private String bodyReview;
     private Integer rating;
     private LocalDate date;
+    private Long resortId;
 }

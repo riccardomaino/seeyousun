@@ -6,7 +6,7 @@ import com.taass.seeyousun.resortservice.client.ReviewClient;
 import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.exceptions.PriceNotFoundException;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
-import com.taass.seeyousun.resortservice.mappers.impl.PriceListDTOmapper;
+import com.taass.seeyousun.resortservice.mappers.impl.PriceListMapper;
 import com.taass.seeyousun.resortservice.mappers.impl.ResortFullMapper;
 import com.taass.seeyousun.resortservice.mappers.impl.ResortMapper;
 import com.taass.seeyousun.resortservice.messaging.ReviewMessageDTO;
@@ -30,7 +30,7 @@ public class ResortService {
     private final ResortFullMapper resortFullMapper;
     private final ReviewClient reviewClient;
     private final EventClient eventClient;
-    private final PriceListDTOmapper priceMapper;
+    private final PriceListMapper priceListMapper;
     private final ResortReservationClient resortReservationClient;
 
     public ResortService(
@@ -39,14 +39,14 @@ public class ResortService {
             ResortFullMapper resortFullMapper,
             ReviewClient reviewClient,
             EventClient eventClient,
-            PriceListDTOmapper priceMapper,
+            PriceListMapper priceListMapper,
             ResortReservationClient reservationClient) {
         this.resortRepository = resortRepository;
         this.resortMapper = resortMapper;
         this.resortFullMapper = resortFullMapper;
         this.reviewClient = reviewClient;
         this.eventClient = eventClient;
-        this.priceMapper = priceMapper;
+        this.priceListMapper = priceListMapper;
         this.resortReservationClient = reservationClient;
     }
 
@@ -174,12 +174,11 @@ public class ResortService {
     public PriceListDTO getResortPricing(Long resortId, LocalDate date) {
         PricePeriod p = resortRepository.findPricePeriod(resortId, date)
                 .orElseThrow(()-> new PriceNotFoundException(String.format("Nessun listino prezzo trovato per il resort %d in data %s", resortId,date)));
-        return priceMapper.mapFrom(p);
+        return priceListMapper.mapFrom(p);
     }
 
     public void updateResortRating(ReviewMessageDTO reviewMessageDTO) {
         Long resortId = reviewMessageDTO.getResortId();
-        // Resort r = resortRepository.findById(resortId).orElseThrow(()-> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
         Optional<Resort> opt = resortRepository.findById(resortId);
         if(opt.isPresent()){
             Resort r = opt.get();

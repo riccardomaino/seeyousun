@@ -11,9 +11,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReviewDTO {
+public class ReviewFullDTO {
     private Long id;
     private String username;
+    private String userUid;
     private String title;
     private String bodyReview;
     private Integer rating;

@@ -2,7 +2,11 @@ package com.taass.seeyousun.eventservice.controllers;
 
 import com.taass.seeyousun.eventservice.dto.ApiResponseDTO;
 import com.taass.seeyousun.eventservice.dto.EventDTO;
-import com.taass.seeyousun.eventservice.dto.EventSubscriptionRequestDTO;
+import com.taass.seeyousun.eventservice.dto.EventRequestDTO;
+import com.taass.seeyousun.eventservice.exception.EventAlreadyReservedException;
+import com.taass.seeyousun.eventservice.exception.EventFullReservedException;
+import com.taass.seeyousun.eventservice.exception.EventNotFoundException;
+import com.taass.seeyousun.eventservice.exception.EventNotReservedException;
 import com.taass.seeyousun.eventservice.services.EventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +39,11 @@ public class EventController {
     }
 
     @PostMapping("/subscription")
-    public ResponseEntity<ApiResponseDTO<Object>> subscribeToEvent(@RequestBody EventSubscriptionRequestDTO eventRequest){
-        eventService.subscribeToEvent(eventRequest.getEventId(), eventRequest.getUserId());
+    public ResponseEntity<ApiResponseDTO<Object>> subscribeToEvent(
+            @RequestBody EventRequestDTO eventRequest,
+            @RequestHeader("X-User-UID") String userUid
+    ) throws EventNotFoundException, EventFullReservedException, EventAlreadyReservedException {
+        eventService.subscribeToEvent(eventRequest.getEventId(), userUid);
         ApiResponseDTO<Object> response = ApiResponseDTO.builder()
                 .statusCode(200)
                 .success(true)
@@ -47,9 +54,25 @@ public class EventController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("events-for-user/{userId}")
-    public ResponseEntity<ApiResponseDTO<List<EventDTO>>> getEventsForUser(@PathVariable Long userId){
-        List<EventDTO> eventList = eventService.getEventForUser(userId);
+    @PostMapping("/unsubscription")
+    public ResponseEntity<ApiResponseDTO<Object>> unsubscribeToEvent(
+            @RequestBody EventRequestDTO eventRequest,
+            @RequestHeader("X-User-UID") String userUid
+    ) throws EventNotFoundException, EventNotReservedException {
+        eventService.unsubscribeToEvent(eventRequest.getEventId(), userUid);
+        ApiResponseDTO<Object> response = ApiResponseDTO.builder()
+                .statusCode(200)
+                .success(true)
+                .message("Successo, disiscrizione dell'utente all'evento effettuata correttamente")
+                .timestamp(new Date())
+                .data(null)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("events-for-user")
+    public ResponseEntity<ApiResponseDTO<List<EventDTO>>> getEventsForUser(@RequestHeader("X-User-UID") String userUid){
+        List<EventDTO> eventList = eventService.getEventForUser(userUid);
         ApiResponseDTO<List<EventDTO>> response = ApiResponseDTO.<List<EventDTO>>builder()
                 .statusCode(200)
                 .success(true)

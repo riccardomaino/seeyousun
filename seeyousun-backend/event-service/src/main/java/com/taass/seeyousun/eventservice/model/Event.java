@@ -1,6 +1,8 @@
 package com.taass.seeyousun.eventservice.model;
 
+import com.taass.seeyousun.eventservice.exception.EventAlreadyReservedException;
 import com.taass.seeyousun.eventservice.exception.EventFullReservedException;
+import com.taass.seeyousun.eventservice.exception.EventNotReservedException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,20 +35,34 @@ public class Event {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "events_reservations", joinColumns = @JoinColumn(name = "event_id"))
-    private List<Long> userSubscribed;
+    private List<String> userSubscribed;
 
     private Integer maxUser;
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT 'FALSE'")
     private Boolean isFull;
 
-    public void reserveEvent(Long userId) {
+    public void reserveEvent(String userUid) {
         // Controlla che l'evento non sia già tutto riservato
-        if(isFull)
+        if(this.isFull)
             throw new EventFullReservedException(String.format("L'evento %s è al completo", this.name));
+        // Controlla se l'utente è già iscritto all'evento
+        if(this.userSubscribed.contains(userUid))
+            throw new EventAlreadyReservedException(String.format("L'evento %s è già stato prenotato dall'utente", this.name));
         // Aggiunge l'utente e salva sul Database l'aggiunta
-        this.userSubscribed.add(userId);
-        // Controlla se si è stato raggiunto il massimo numero di iscritti: se si mette "isFull" a true
-        if(this.userSubscribed.size() >= this.maxUser)
+        this.userSubscribed.add(userUid);
+        // Controlla se è stato raggiunto il massimo numero di iscritti (se gli iscritto sono infiniti maxUser sarà null): se si è raggiunto si mette "isFull" a true
+        if(this.maxUser != null && this.userSubscribed.size() >= this.maxUser)
             this.isFull = true;
+    }
+
+    public void unreserveEvent(String userUid) {
+        // Controlla se l'utente è effettivamente iscritto all'evento
+        if(!this.userSubscribed.contains(userUid))
+            throw new EventNotReservedException(String.format("L'evento %s non è stato prenotato dall'utente", this.name));
+        // Rimuove l'utente e salva sul Database la rimozione
+        this.userSubscribed.remove(userUid);
+        // Aggiornamento di "isFull" se l'evento non ha numero infinito di partecipanti (indicato attraverso null) ed era pieno
+        if(this.maxUser != null && this.isFull)
+            this.isFull = false;
     }
 }

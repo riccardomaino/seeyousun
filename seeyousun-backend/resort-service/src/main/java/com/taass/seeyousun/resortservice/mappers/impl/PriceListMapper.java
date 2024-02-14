@@ -7,10 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PriceListDTOmapper implements Mapper<PriceListDTO, PricePeriod> {
+public class PriceListMapper implements Mapper<PriceListDTO, PricePeriod> {
     private final ModelMapper modelMapper;
 
-    public PriceListDTOmapper(ModelMapper modelMapper) {
+    public PriceListMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

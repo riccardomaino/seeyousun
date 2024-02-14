@@ -1,7 +1,7 @@
-INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (6, 'Football Tournament', 60, '2024-01-13 14:00:00.000000', null, 'Beach Football Tournament', 7, false);
+INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (6, 'Football Tournament', 60, '2024-01-13 14:00:00.000000', 50, 'Beach Football Tournament', 7, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (19, 'Sustainable Beach Cleanup', 60, '2024-02-07 08:30:00.000000', null, 'Beach Cleanup Day', 4, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (10, 'Live Music on the Shore', 60, '2024-01-20 19:30:00.000000', null, 'Seaside Concert', 4, false);
-INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (11, 'Family Picnic by the Sea', 60, '2024-01-22 11:00:00.000000', null, 'Family Picnic', 5, false);
+INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (11, 'Family Picnic by the Sea', 60, '2024-01-22 11:00:00.000000', 11, 'Family Picnic', 5, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (16, 'Salsa Dance Party', 60, '2024-02-01 21:00:00.000000', null, 'Beach Salsa Party', 10, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (8, 'Sunset Yoga Session', 60, '2024-01-16 17:00:00.000000', null, 'Beach Yoga', 2, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (2, 'Aperitivo on the Beach', 60, '2024-01-09 17:00:00.000000', 50, 'Beach Aperitif', 3, false);
@@ -21,8 +21,8 @@ INSERT INTO public.events (id, description, duration, initial_date_time, max_use
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (24, 'Sunrise Meditation Session', 60, '2024-02-17 05:00:00.000000', null, 'Meditation at Sunrise', 9, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (20, 'Seaside Wine Tasting', 60, '2024-02-09 17:00:00.000000', null, 'Wine by the Waves', 5, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (23, 'Seashell Collection Fair', 60, '2024-02-15 15:00:00.000000', null, 'Seashell Fair', 8, false);
-INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (25, 'Beach Fashion Show', 60, '2024-02-19 17:00:00.000000', null, 'Seaside Fashion Show', 10, false);
-INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (22, 'Beachside Karaoke Night', 60, '2024-02-13 19:00:00.000000', null, 'Karaoke by the Shore', 7, false);
+INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (25, 'Beach Fashion Show', 60, '2024-02-19 17:00:00.000000', 2, 'Seaside Fashion Show', 10, false);
+INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (22, 'Beachside Karaoke Night', 60, '2024-02-13 19:00:00.000000', 10, 'Karaoke by the Shore', 7, false);
 
 
 INSERT INTO public.events_reservations (event_id, user_subscribed) VALUES (2, 1);

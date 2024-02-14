@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EventSubscriptionRequestDTO {
+public class EventRequestDTO {
     private Long eventId;
-    private Long userId;
 }

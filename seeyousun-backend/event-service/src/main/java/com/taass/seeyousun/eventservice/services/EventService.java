@@ -1,7 +1,10 @@
 package com.taass.seeyousun.eventservice.services;
 
 import com.taass.seeyousun.eventservice.dto.EventDTO;
+import com.taass.seeyousun.eventservice.exception.EventAlreadyReservedException;
+import com.taass.seeyousun.eventservice.exception.EventFullReservedException;
 import com.taass.seeyousun.eventservice.exception.EventNotFoundException;
+import com.taass.seeyousun.eventservice.exception.EventNotReservedException;
 import com.taass.seeyousun.eventservice.mappers.impl.EventMapper;
 import com.taass.seeyousun.eventservice.model.Event;
 import com.taass.seeyousun.eventservice.repository.EventRepository;
@@ -26,17 +29,24 @@ public class EventService {
                 .toList();
     }
 
-    public void subscribeToEvent(Long eventId, Long userId) {
+    public void subscribeToEvent(Long eventId, String userUid) throws EventNotFoundException, EventFullReservedException, EventAlreadyReservedException {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(()-> new EventNotFoundException(String.format("Nessun evento trovato con id: '%d'", eventId)));
-        event.reserveEvent(userId);
+        event.reserveEvent(userUid);
         eventRepository.save(event);
     }
 
-    public List<EventDTO> getEventForUser(Long userId) {
-        return eventRepository.findByUserId(userId)
+    public List<EventDTO> getEventForUser(String userUid) {
+        return eventRepository.findByUserId(userUid)
                 .stream()
                 .map(eventMapper::mapFrom)
                 .toList();
+    }
+
+    public void unsubscribeToEvent(Long eventId, String userUid) throws EventNotFoundException, EventNotReservedException {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(()-> new EventNotFoundException(String.format("Nessun evento trovato con id: '%d'", eventId)));
+        event.unreserveEvent(userUid);
+        eventRepository.save(event);
     }
 }

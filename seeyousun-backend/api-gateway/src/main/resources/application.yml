@@ -10,15 +10,24 @@ spring:
         - id: resort-route
           uri: lb://${RESORT_SERVICE_HOST:localhost} # http://${RESORT_SERVICE_HOST:localhost}/${RESORT_SERVICE_PORT:8080}
           predicates:
+            - Method=GET
             - Path=/resorts/**
           filters:
             - PrefixPath=/api/v1
         - id: resort-reservation-auth-route
           uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
           predicates:
-            - Path=/resort-reservations/**
+            - Method=GET,POST
+            - Path=/resort-reservations/book,/resort-reservations/reservation-for-user
           filters:
             - FirebaseToken
+            - PrefixPath=/api/v1
+        - id: resort-reservation-route
+          uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
+          predicates:
+            - Method=GET
+            - Path=/resort-reservations/umbrella/{resortId}
+          filters:
             - PrefixPath=/api/v1
         - id: review-auth-route
           uri: lb://${REVIEW_SERVICE_HOST:localhost} # http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
@@ -31,20 +40,23 @@ spring:
         - id: review-route
           uri: lb://${REVIEW_SERVICE_HOST:localhost} # http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
           predicates:
-            - Path=/reviews/**
+            - Method=GET
+            - Path=/reviews/{resortId}
           filters:
             - PrefixPath=/api/v1
         - id: event-auth-route
           uri: lb://${EVENT_SERVICE_HOST:localhost} # http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}
           predicates:
-            - Path=/events/subscription,/events/events-for-user
+            - Method=GET,POST
+            - Path=/events/subscription,/events/unsubscription,/events/events-for-user
           filters:
             - FirebaseToken
             - PrefixPath=/api/v1
         - id: event-route
           uri: lb://${EVENT_SERVICE_HOST:localhost} # http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}
           predicates:
-            - Path=/events/**
+            - Method=GET
+            - Path=/events/{resortId}
           filters:
             - PrefixPath=/api/v1
       # Configurazione dell'utilizzo di Eureka per implementare il dynamic routing

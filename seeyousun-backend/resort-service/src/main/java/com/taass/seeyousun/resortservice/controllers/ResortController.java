@@ -3,7 +3,6 @@ package com.taass.seeyousun.resortservice.controllers;
 import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.services.ResortService;
 import com.taass.seeyousun.resortservice.services.ServiceService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/v1/resorts")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -28,10 +26,8 @@ public class ResortController {
     @GetMapping("/popular")
     public ResponseEntity<ApiResponseDTO<PopularResortDTO>> getPopularResorts(
             @RequestParam(name = "pageNr", defaultValue = "0", required = false) int pageNr,
-            @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @RequestHeader(name = "X-User-UID") String userUid
+            @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize
     ){
-        log.info("User ID: " + userUid);
         PopularResortDTO popularResortDto = resortService.getPopularResorts(pageNr, pageSize);
         ApiResponseDTO<PopularResortDTO> response = ApiResponseDTO.<PopularResortDTO>builder()
                 .statusCode(200)
