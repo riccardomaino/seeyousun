@@ -13,23 +13,33 @@ spring:
             - Path=/resorts/**
           filters:
             - PrefixPath=/api/v1
-        - id: resort-reservation-route
-          uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
-          predicates:
-            - Path=/resort-reservations/information/**
-          filters:
-            - PrefixPath=/api/v1
         - id: resort-reservation-auth-route
           uri: lb://${RESORT_RESERVATION_SERVICE_HOST:localhost} # http://${RESORT_RESERVATION_SERVICE_HOST:localhost}/${RESORT_RESERVATION_SERVICE_PORT:8080}
           predicates:
-            - Path=/resort-reservations/book, /resort-reservations/reservation-for-user
+            - Path=/resort-reservations/**
           filters:
+            - FirebaseToken
+            - PrefixPath=/api/v1
+        - id: review-auth-route
+          uri: lb://${REVIEW_SERVICE_HOST:localhost} # http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
+          predicates:
+            - Method=POST
+            - Path=/reviews
+          filters:
+            - FirebaseToken
             - PrefixPath=/api/v1
         - id: review-route
           uri: lb://${REVIEW_SERVICE_HOST:localhost} # http://${REVIEW_SERVICE_HOST:localhost}/${REVIEW_SERVICE_PORT:8080}
           predicates:
             - Path=/reviews/**
           filters:
+            - PrefixPath=/api/v1
+        - id: event-auth-route
+          uri: lb://${EVENT_SERVICE_HOST:localhost} # http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}
+          predicates:
+            - Path=/events/subscription,/events/events-for-user
+          filters:
+            - FirebaseToken
             - PrefixPath=/api/v1
         - id: event-route
           uri: lb://${EVENT_SERVICE_HOST:localhost} # http://${EVENT_SERVICE_HOST:localhost}/${EVENT_SERVICE_PORT:8080}

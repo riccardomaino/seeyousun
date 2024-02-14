@@ -42,7 +42,11 @@ public class FirebaseTokenGatewayFilterFactory extends AbstractGatewayFilterFact
                 throw new InvalidAuthenticationTokenException("Fallimento, token di autenticazione non valido o scaduto. Riprovare.");
             }
             String uid = decodedToken.getUid();
-            ServerHttpRequest request = exchange.getRequest().mutate().header("X-User-UID", uid).build();
+            String name = decodedToken.getName();
+            ServerHttpRequest request = exchange.getRequest().mutate()
+                    .header("X-User-UID", uid)
+                    .header("X-User-Name", name)
+                    .build();
             return chain.filter(exchange.mutate().request(request).build());
         };
     }
