@@ -1,6 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.dto;
 
-import com.taass.seeyousun.resortreservationservice.model.PersistenceTypeEnum;
+import com.taass.seeyousun.resortreservationservice.enums.PersistenceTypeEnum;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;

@@ -48,7 +48,6 @@ public class ReviewService {
             Review review = reviewMapper.mapTo(reviewDTO);
             reviewRepository.save(review);
             BigDecimal averageRating = getAverageRating(review.getResortId());
-            // BigDecimal averageRating = new BigDecimal(averageRatingFromDatabase).setScale(1, RoundingMode.CEILING);
             reviewMessageProducer.sendMessage(review.getResortId(), averageRating);
         }else{
             throw new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", reviewDTO.getResortId()));

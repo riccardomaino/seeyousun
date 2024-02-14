@@ -1,9 +1,6 @@
 package com.taass.seeyousun.resortreservationservice.controllers;
 
-import com.taass.seeyousun.resortreservationservice.dto.ApiResponseDTO;
-import com.taass.seeyousun.resortreservationservice.dto.ReservationFullDTO;
-import com.taass.seeyousun.resortreservationservice.dto.ReservationRequestDTO;
-import com.taass.seeyousun.resortreservationservice.dto.ReservationStateDTO;
+import com.taass.seeyousun.resortreservationservice.dto.*;
 import com.taass.seeyousun.resortreservationservice.services.ResortReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,17 +19,17 @@ public class ResortReservationController {
         this.resortReservationService = resortReservationService;
     }
 
-    @GetMapping("/information/{resortId}")
-    public ResponseEntity<ApiResponseDTO<ReservationStateDTO>> getReservationInformation(
+    @GetMapping("/umbrella/{resortId}")
+    public ResponseEntity<ApiResponseDTO<List<UmbrellaDTO>>> getReservationInformation(
             @PathVariable Long resortId,
             @RequestParam String date) {
-        ReservationStateDTO reservationDTO = resortReservationService.getReservationInformation(resortId, LocalDate.parse(date));
-        ApiResponseDTO<ReservationStateDTO> response = ApiResponseDTO.<ReservationStateDTO>builder()
+        List<UmbrellaDTO> umbrellaDTO = resortReservationService.getReservedUmbrellaInformation(resortId, LocalDate.parse(date));
+        ApiResponseDTO<List<UmbrellaDTO>> response = ApiResponseDTO.<List<UmbrellaDTO>>builder()
                 .statusCode(200)
                 .success(true)
                 .message("Successo, ottenimento delle informazioni degli ombrelloni prenotati avvenuto correttamente")
                 .timestamp(new Date())
-                .data(reservationDTO)
+                .data(umbrellaDTO)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

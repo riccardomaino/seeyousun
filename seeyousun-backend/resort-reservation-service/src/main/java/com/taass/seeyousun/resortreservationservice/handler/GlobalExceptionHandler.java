@@ -63,16 +63,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ServiceNotReachableException.class)
-    public ResponseEntity<ApiResponseDTO<Object>> handleServiceNotReachableException(ServiceNotReachableException e){
+    @ExceptionHandler(SunbedNotValidException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleSunbedNotValidException(SunbedNotValidException e){
         ApiResponseDTO<Object> errorResponseDto = ApiResponseDTO.builder()
-                .statusCode(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
                 .success(false)
                 .message(e.getMessage())
                 .timestamp(new Date())
                 .data(null)
                 .build();
-        return new ResponseEntity<>(errorResponseDto, HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(FeignException.class)

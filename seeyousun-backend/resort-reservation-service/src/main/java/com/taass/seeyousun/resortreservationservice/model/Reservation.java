@@ -1,6 +1,7 @@
 package com.taass.seeyousun.resortreservationservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.taass.seeyousun.resortreservationservice.enums.PersistenceTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

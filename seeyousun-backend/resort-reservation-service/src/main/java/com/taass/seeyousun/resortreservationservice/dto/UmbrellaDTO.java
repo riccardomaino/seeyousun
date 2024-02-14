@@ -1,7 +1,7 @@
 package com.taass.seeyousun.resortreservationservice.dto;
 
 
-import com.taass.seeyousun.resortreservationservice.model.PersistenceTypeEnum;
+import com.taass.seeyousun.resortreservationservice.enums.PersistenceTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

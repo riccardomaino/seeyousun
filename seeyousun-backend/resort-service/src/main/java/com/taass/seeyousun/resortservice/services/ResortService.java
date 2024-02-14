@@ -1,11 +1,11 @@
 package com.taass.seeyousun.resortservice.services;
 
 import com.taass.seeyousun.resortservice.client.EventClient;
+import com.taass.seeyousun.resortservice.client.ResortReservationClient;
 import com.taass.seeyousun.resortservice.client.ReviewClient;
 import com.taass.seeyousun.resortservice.dto.*;
 import com.taass.seeyousun.resortservice.exceptions.PriceNotFoundException;
 import com.taass.seeyousun.resortservice.exceptions.ResortNotFoundException;
-import com.taass.seeyousun.resortservice.exceptions.ServiceNotReachableException;
 import com.taass.seeyousun.resortservice.mappers.impl.PriceListDTOmapper;
 import com.taass.seeyousun.resortservice.mappers.impl.ResortFullMapper;
 import com.taass.seeyousun.resortservice.mappers.impl.ResortMapper;
@@ -16,8 +16,6 @@ import com.taass.seeyousun.resortservice.repositories.ResortRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,6 +31,7 @@ public class ResortService {
     private final ReviewClient reviewClient;
     private final EventClient eventClient;
     private final PriceListDTOmapper priceMapper;
+    private final ResortReservationClient resortReservationClient;
 
     public ResortService(
             ResortRepository resortRepository,
@@ -40,13 +39,15 @@ public class ResortService {
             ResortFullMapper resortFullMapper,
             ReviewClient reviewClient,
             EventClient eventClient,
-            PriceListDTOmapper priceMapper) {
+            PriceListDTOmapper priceMapper,
+            ResortReservationClient reservationClient) {
         this.resortRepository = resortRepository;
         this.resortMapper = resortMapper;
         this.resortFullMapper = resortFullMapper;
         this.reviewClient = reviewClient;
         this.eventClient = eventClient;
         this.priceMapper = priceMapper;
+        this.resortReservationClient = reservationClient;
     }
 
     /**
@@ -91,20 +92,15 @@ public class ResortService {
                 .orElseThrow(() -> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
 
         // Effettuiamo chiamata REST al event-service sincrona per ottenere gli eventi del resort
-        ResponseEntity<ApiResponseDTO<List<EventDTO>>> responseEvent = eventClient.getEventForResort(resortId);
-        if(responseEvent.getStatusCode() != HttpStatus.OK) {
-            throw new ServiceNotReachableException("L'Event Service non è raggiungibile");
-        }
-        List<EventDTO> eventsDTO = Objects.requireNonNull(responseEvent.getBody()).getData();
+        List<EventDTO> eventsDTO = Objects.requireNonNull(eventClient.getEventForResort(resortId)
+                        .getBody()).getData();
         resortFullDTO.setEvents(eventsDTO);
 
         // Effettuiamo chiamata REST al review-service sincrona per ottenere le reviews del resort
-        ResponseEntity<ApiResponseDTO<List<ReviewDTO>>> responseReview = reviewClient.getReviewsForResort(resortId);
-        if(responseReview.getStatusCode() != HttpStatus.OK) {
-            throw new ServiceNotReachableException("Il Review Service non è raggiungibile");
-        }
-        List<ReviewDTO> reviewDTO = Objects.requireNonNull(responseReview.getBody()).getData();
+        List<ReviewDTO> reviewDTO = Objects.requireNonNull(reviewClient.getReviewsForResort(resortId)
+                .getBody()).getData();
         resortFullDTO.setReviews(reviewDTO);
+
         return resortFullDTO;
     }
 
@@ -205,8 +201,7 @@ public class ResortService {
         PriceListDTO priceListDTO = this.getResortPricing(resortId,date);
 
         // Effettuiamo una chiamata REST sincrona al resort-reservation-service per ottenere le informazioni sugli ombrelloni occupati
-        List<UmbrellaDTO> reservedUmbrella = Objects.requireNonNull(resortReservationClient
-                .getReservedUmbrellaForResortAndDate(resortId, date.toString())
+        List<UmbrellaDTO> reservedUmbrella = Objects.requireNonNull(resortReservationClient.getReservedUmbrellaForResortAndDate(resortId, date.toString())
                 .getBody()).getData();
 
         // Costruiamo un oggetto "ReservationStateDTO" con le informazioni della prenotazione
