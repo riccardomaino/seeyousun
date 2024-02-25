@@ -5,13 +5,17 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      # Configurazione routes API Gateway: il traffico verra' indirizzato sulla base dell'uri e dei predicates (vengono aggiunti i filers)
+      # Configurazione CORS policy
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
       globalcors:
         cors-configurations:
           '[/**]':
-            allowed-origins: '*'
+            allowed-origins: 'http://localhost:4200'
             allowed-headers: '*'
             allowed-methods: '*'
+        add-to-simple-url-handler-mapping: true
+      # Configurazione routes API Gateway: il traffico verra' indirizzato sulla base dell'uri e dei predicates (vengono aggiunti i filers)
       routes:
         - id: resort-route
           uri: lb://${RESORT_SERVICE_HOST:localhost} # http://${RESORT_SERVICE_HOST:localhost}/${RESORT_SERVICE_PORT:8080}
