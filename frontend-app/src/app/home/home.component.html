@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="video-background">
+    <video autoplay loop muted>
+      <source src="assets/dynamicbg.mov" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="welcome-message">
+      <h1 class="mb-3">Search, Book, Relax.</h1>
+      <h2 class="mb-3">Benvenuto in SeeYouSun, un nuovo modo di prenotare il tuo ombrellone, partecipare ad eventi presso le nostre strutture balneari e molto altro.</h2>
+
+      <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Quando?</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date">
+                <input matEndDate placeholder="End date">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Dove vuoi andare?</mat-label>
+              <input matInput placeholder="">
+              <mat-icon matSuffix>location_on</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aggiungi questo solo se stai usando Angular Material Datepicker -->
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+
+    <div class="explore-section text-center">
+      <div class="explore-text">
+        Esplora
+      </div>
+      <!-- Aggiorna la sezione di esplorazione nel tuo HTML -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none" (click)="navigateToExplore()">
+        <path d="M4.16658 16.7187L7.8645 13.0208L24.9999 30.1562L42.1353 13.0208L45.8333 16.7187L24.9999 37.552L4.16658 16.7187Z" fill="white"/>
+      </svg>
+    </div>
+
+    <div class="navbar-container">
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,141 @@
+.navbar {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(50px);
+  background-color: transparent !important;
+  display: flex;
+  align-items: center;
+  height: 75px;
+}
+
+/* Nuova regola per garantire che la larghezza sia al 100% */
+.search-container {
+  width: 100%;
+}
+
+
+h1 {
+    color: #000000;
+    font-family: Raleway;
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.logo {
+    background-image: url('../../assets/navbar/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.form-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 12px;
+    color: #FFFFFF;
+
+    input[type="text"] {
+        background-color: #FFF;
+        border: none;
+        border-radius: 20px;
+        color: #FFF;
+        font-size: 1rem;
+        padding: 10px 20px 10px 40px;
+        width: 200px;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.input-group {
+    border: none; /* Rimuovi il bordo dall'intero gruppo di input */
+  }
+  
+  .input-group-append,
+  .input-group-prepend {
+    border: none; /* Rimuovi il bordo dagli elementi di estensione (icona) */
+  }
+  
+  .input-group-text {
+    border: none; /* Rimuovi il bordo dall'elemento di testo nell'input group */
+    background-color: transparent; /* Rimuovi il colore di sfondo */
+    color: #D24C00;
+    font-family: Raleway;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .search-text {
+    color: #0b0000;
+    font-family: 'Raleway';
+    font-size: 16px;
+    font-style: bold;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .form-control {
+    border: none; /* Rimuovi il bordo dall'input */
+    box-shadow: none; /* Rimuovi l'ombra (se presente) */
+    background-color: transparent; /* Rimuovi il colore di sfondo */
+  }
+
+
+.search-wrapper {
+  color: #FFFFFF;
+  width: 300px; /* Larghezza del rettangolo */
+  margin: 0 auto; /* Centra il rettangolo nella pagina */
+  border: 1px solid var(--Arancione-Scuro, #D24C00); /* Aggiunge un bordo al rettangolo (opzionale) */
+  border-radius: 20px; /* Aggiunge bordi arrotondati al rettangolo */
+  overflow: hidden; /* Nasconde eventuali contenuti che fuoriescono dal rettangolo */
+  fill: linear-gradient(180deg, #FFF 0%, rgba(239, 239, 239, 0.00) 100%);
+  stroke-width: 1px;
+  stroke: var(--Arancione-Scuro, #D24C00);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center; /* Centra verticalmente gli elementi all'interno di .nav-item */
+  }
+
+.nav-divisor {
+   
+     /* Aggiungi il divisore verticale */
+    border-right: 2px solid var(--Arancione-Scuro, #D24C00);
+    height: 1.5rem; /* Altezza del divisore, regola secondo le tue preferenze */
+    margin: 0 10px; /* Spaziatura a sinistra e a destra del divisore, regola secondo le tue preferenze */
+}
+
+.nav-link:active {
+  color: #555; /* Cambia il colore quando l'utente fa clic sull'elemento */
+}
+
+.button:active {
+  background-color: #ddd; /* Cambia il colore di sfondo quando l'utente fa clic sul pulsante */
+}
+
+/* Aggiungiamo un colore di sfondo quando l'utente passa sopra l'elemento */
+.nav-link:hover {
+  background-color: #f0f0f0;
+  cursor: pointer; /* Cambiamo il cursore per indicare che l'elemento è cliccabile */
+}
+
+.nav-link:hover {
+  color: #D24C00;
+}
+
+/* Aggiungiamo una transizione fluida per una migliore esperienza utente */
+.nav-link {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+
+

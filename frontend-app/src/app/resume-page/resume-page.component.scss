@@ -1,0 +1,147 @@
+body {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1728 1117" fill="none"><g filter="url(%23filter0_f_509_1005)"><circle cx="1029" cy="737" r="489" fill="%23D24C00"/></g><g filter="url(%23filter1_f_509_1005)"><circle cx="1465" cy="602" r="274" fill="%23B83B5E"/></g><defs><filter id="filter0_f_509_1005" x="-10" y="-302" width="2078" height="2078" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="275" result="effect1_foregroundBlur_509_1005"/></filter><filter id="filter1_f_509_1005" x="891" y="28" width="1148" height="1148" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_509_1005"/></filter></defs></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    overflow-y: auto; /* o scroll */
+}
+
+.navbar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3; /* Assicura che la navbar sia sopra la sfocatura */
+  }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Centra verticalmente il contenuto nella parte inferiore */
+}
+
+.card-wrapper {
+    width: 18rem;
+    margin: 0 auto; /* Centra orizzontalmente la card view */
+    margin-bottom: 3rem; /* Spazio inferiore tra la card view e il bordo inferiore della viewport */
+}
+
+.title {
+    color: #000;
+    font-family: Raleway;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.subtitle {
+    color: #000;
+    font-family: Raleway;
+    font-size: 1.0rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.r1 {
+    width: 60%; //
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 0.9375rem;
+    background: #FFF;
+    box-shadow: 6px 6px 30px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.profile-name {
+    color: #000;
+    font-family: Raleway;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.vertical-center {
+    min-height: 100%; /* Fai sì che il contenitore abbia almeno l'altezza dell'intera finestra del browser */
+    display: flex;
+    align-items: center; /* Centra verticalmente il contenuto */
+}
+
+.button-google {
+    display: flex;
+    width: 272px;
+    height: 3.375rem;
+    color: #1C1C1C;
+    font-family: Raleway;
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 0.625rem;
+    border-radius: 0.625rem;
+    background: linear-gradient(135deg, #FCF9FF 0%, #E4E1E8 100%);
+    box-shadow: 5px 5px 13px 0px rgba(216, 213, 220, 0.90), -5px -5px 10px 0px rgba(255, 255, 255, 0.90), 5px -5px 10px 0px rgba(216, 213, 220, 0.20), -5px 5px 10px 0px rgba(216, 213, 220, 0.20), -1px -1px 2px 0px rgba(216, 213, 220, 0.50) inset, 1px 1px 2px 0px rgba(255, 255, 255, 0.30) inset;
+}
+
+.button-login {
+    display: flex;
+    width: 272px;
+    height: 3.375rem;
+    padding: 1rem 5.9375rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    background: linear-gradient(92deg, #B83B5E 9.9%, #D24C00 95.39%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    font-family: Raleway;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.button-modifica {   
+    display: flex;
+    width: 116px;
+    height: 2.375rem;
+    padding: 0rem 2rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    background: linear-gradient(92deg, #B83B5E 9.9%, #D24C00 95.39%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    font-family: Raleway;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+}
+
+
+/* Aggiungi regole per adattare il contenuto su schermi più piccoli */
+@media (max-width: 430px) {
+    .container{
+        margin-top: 278px;
+    }
+}
+
+@media (max-width: 375px) {
+    .container{
+        margin-top: 420px;
+    }
+}

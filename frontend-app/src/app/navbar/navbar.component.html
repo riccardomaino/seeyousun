@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-md">
+    <div class="container-fluid">
+      <img class="logo">
+      <a class="navbar-brand p-3" href="#">
+        <h1>SeeYouSun</h1>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="d-flex align-items-center ms-auto">
+          <div class="input-group search-wrapper">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="material-icons">search</i></span>
+            </div>
+            <input type="text" class="form-control search-text" placeholder="Cerca uno stabilimento">
+          </div>
+        </form>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link search-text" href="#">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-divisor" href="#"></a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="!isUserLoggedIn" class="nav-link search-text" (click)="openLoginPage()">Login</a>
+            <a *ngIf="isUserLoggedIn" class="nav-link search-text" (click)="openProfilePage()">{{user}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

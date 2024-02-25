@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>Filtri</h1>
+<div mat-dialog-content>
+  <mat-label>Servizi</mat-label>
+  <!-- <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" >Cabine</mat-chip-option>
+    <mat-chip-option color="accent" >Accesso animali</mat-chip-option>
+    <mat-chip-option color="accent" >Doccia calda</mat-chip-option>
+    <mat-chip-option color="accent" >Posto barca</mat-chip-option>
+    <mat-chip-option color="accent" >Wi-fi</mat-chip-option>
+    <mat-chip-option color="accent" >TV</mat-chip-option>
+    <mat-chip-option color="accent" >Giochi da tavolo</mat-chip-option>
+    <mat-chip-option color="accent" >Carte</mat-chip-option>
+    <mat-chip-option color="accent" >Videogiochi</mat-chip-option>
+    <mat-chip-option color="accent" >Piscina</mat-chip-option>
+  </mat-chip-listbox>
+
+  <mat-label>Servizi per famiglie</mat-label>
+  <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" >Animazione</mat-chip-option>
+    <mat-chip-option color="accent" >Area giochi</mat-chip-option>
+  </mat-chip-listbox>
+
+  <mat-label>Accessibilità</mat-label>
+  <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" >Spiagge accessibili a disabili</mat-chip-option>
+  </mat-chip-listbox>
+
+  <mat-label>Ristorazione</mat-label>
+  <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" >Bar</mat-chip-option>
+    <mat-chip-option color="accent" >Ristorante</mat-chip-option>
+  </mat-chip-listbox>
+
+  <mat-label>Benessere</mat-label>
+  <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" >Idromassaggio</mat-chip-option>
+  </mat-chip-listbox>
+  
+  <mat-label>Sport e attività</mat-label>
+  <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" >Palestra</mat-chip-option>
+    <mat-chip-option color="accent" >Beach volley</mat-chip-option>
+    <mat-chip-option color="accent" >Calcio balilla</mat-chip-option>
+    <mat-chip-option color="accent" >Pedalò</mat-chip-option>
+    <mat-chip-option color="accent" >Canoe</mat-chip-option>
+    <mat-chip-option color="accent" >Corsi di windsurf</mat-chip-option>
+    <mat-chip-option color="accent" >Corsi di kitesurfing</mat-chip-option>
+    <mat-chip-option color="accent" >Corso vela</mat-chip-option>
+  </mat-chip-listbox>
+ -->
+  <mat-label>Test</mat-label>
+  <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" *ngFor="let service of services">{{ service.name }}</mat-chip-option>
+  </mat-chip-listbox>
+
+  
+
+
+  
+
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onNoClick()">Cancella tutto</button>
+  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+</div>

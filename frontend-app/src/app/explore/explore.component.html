@@ -1,0 +1,38 @@
+<!-- new-page.component.html -->
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
+        <!-- Titolo in alto a sinistra -->
+        <h1>Popolari in Italia</h1>
+    
+        <!-- Bottone per aprire i filtri in alto a destra -->
+        <button class="btn btn-primary" (click)="openDialog()">Apri Filtri</button>
+        
+    </div>
+  
+    <!-- Griglia di card views -->
+    <div class="row">
+      <div *ngFor="let rP of resortPresentation" class="col-lg-4 col-md-6 col-sm-12 mt-4">
+        <div class="card" (click)="isSelected(rP)">
+          <img class="card-img-top" src="{{ rP.photoCover }}" alt="Immagine Spiaggia">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h5 class="card-title">{{ rP.name }}</h5>  
+              </div>
+              <div class="col-6 d-flex justify-content-end align-items-center">
+                <div class="row">
+                  <mat-icon class="me-1 align-middle star-icon">star</mat-icon>
+                  <p class="card-text mb-0">{{ rP.rating }}</p>
+                </div>
+              </div>
+            </div>
+            <p class="card-text">{{ rP.description }}</p>
+            <!-- Aggiungi altre informazioni sulla spiaggia secondo le tue esigenze -->
+          </div>
+        </div>
+      </div>
+  
+      <!-- Altre card views... -->
+    </div>
+  </div>
+  

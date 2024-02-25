@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="card-body align-items-center justify-content-between">
+      <div class="row">
+        <h2 class="card-title">Ombrellone {{ data.umbrella }}</h2>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+            <mat-label> {{ data.date }}</mat-label>
+            <input matInput [matDatepicker]="dp1" disabled [value]="data.date">
+            <mat-datepicker-toggle matIconSuffix [for]="dp1"></mat-datepicker-toggle>
+            <mat-datepicker #dp1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Select</mat-label>
+            <mat-select [value]="'one'">
+              <mat-option value="one">Mattina 15€</mat-option>
+              <mat-option value="two">Pomeriggio 15€</mat-option>
+              <mat-option value="two">Giornata intera 30€</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <p class="card-text">Lettini</p>
+        </div>
+        <div class="col-auto d-flex align-items-center">
+          <div class="counter-container">
+            <button mat-icon-button (click)="decrementSB()">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <input matInput [(ngModel)]="count" readonly>
+            <button mat-icon-button (click)="incrementSB()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="button-select onclick-btn mt-4" style="width: auto;">
+        <div class="btn d-flex align-items-center justify-content-center button-text" (click)="onSubmit()">Conferma</div>
+      </div>
+    </div>

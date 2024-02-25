@@ -1,0 +1,146 @@
+/* styles.scss o nel tuo file CSS */
+
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Impedisce lo scroll */
+}
+
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.96;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(54.25%); /* Regola la quantità di sfocatura desiderata */
+  background: radial-gradient(45.77% 45.75% at 49.36% 54.25%, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.00) 100%);
+  z-index: 2; /* Assicura che la sfocatura sia sopra il video */
+}
+
+.navbar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3; /* Assicura che la navbar sia sopra la sfocatura */
+}
+
+.welcome-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2; /* Assicura che il messaggio sia sopra l'effetto di sfocatura */
+}
+
+h1 {
+  color: #FFF;
+  justify-content: center;
+  font-family: 'Raleway';
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0%;
+}
+
+h2 {
+  color: #FFF;
+  text-align: center;
+  font-family: Raleway;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+
+
+
+/* Aggiungi media query per gestire la disposizione su schermi più larghi */
+@media (min-width: 768px) {
+  .input-group {
+      flex-direction: row; /* Disposizione in riga per schermi più larghi */
+  }
+
+  .input-group > .input-prepend {
+      margin-right: 10px; /* Aggiungi uno spazio tra gli input */
+  }
+}
+
+/* home.component.scss */
+.explore-button {
+  background-color: #D24C00;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Aggiungi questo al tuo file di stili (styles.scss o styles.css) */
+h1 {
+  color: #FFF;
+  justify-content: center;
+  font-family: 'Raleway';
+  flex-direction: column;
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal; /* 0rem */
+}
+
+h2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: Raleway;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+/* Aggiungi questo al tuo file di stili (styles.scss o styles.css) */
+.explore-section {
+  position: fixed;
+  bottom: 20px; /* Posiziona la sezione sopra il fondo con uno spazio dal basso */
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 100; /* Assicura che sia sopra gli altri elementi */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.explore-icon {
+  font-size: 48px !important; /* Aumenta la dimensione dell'icona */
+  color: #FFF; /* Colore dell'icona */
+}
+
+.explore-text {
+  font-size: 18px;
+  color: #FFF; /* Colore del testo */
+  margin-top: 8px; /* Spazio tra l'icona e il testo */
+}
+

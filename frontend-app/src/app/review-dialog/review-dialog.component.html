@@ -1,0 +1,25 @@
+<div class="center-content"  style="padding: 0 20px;">
+    <form class="form mt-3"> <!-- Aggiungi classe mt-3 al form -->
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <h2>Aggiungi una valutazione</h2>
+            </div>
+            <div class="col">
+                <div class="rating-container">
+                    <mat-icon class="star" *ngFor="let star of stars" (click)="setRating(star)" [style.color]="star <= currentRating ? 'gold' : 'gray'">star</mat-icon>
+                </div>
+            </div>
+        </div>        
+        <mat-form-field class="full-width mt-2" appearance="outline">
+            <mat-label>Titolo recensione</mat-label>
+            <input matInput placeholder="Inserisci un titolo per la recensione">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Corpo della recensione</mat-label>
+            <textarea matInput placeholder="Descrivi la tua esperienza"></textarea>
+        </mat-form-field>
+        <div class="button-select"> <!-- Rimuovi classe mt-auto dal bottone -->
+            <div class="btn d-flex align-items-center justify-content-center button-text">Invia</div>
+        </div>
+    </form>
+</div>

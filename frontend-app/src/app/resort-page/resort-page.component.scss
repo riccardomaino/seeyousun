@@ -1,0 +1,383 @@
+  
+  .navbar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3; /* Assicura che la navbar sia sopra la sfocatura */
+  }
+  
+  
+  .image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .lead {
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 2.0rem;
+  }
+  
+  .list-unstyled {
+    margin-left: 0;
+  }
+  
+  
+  h2 {
+    color: black;
+    font-family: 'Raleway';
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+
+  .title {
+    color: #000;
+    font-family: Raleway;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .section-title {
+    color: #000;
+    font-family: 'Raleway';
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  .img-container {
+    max-width: 165px;
+    max-height: 165px;
+  }
+
+  .img-container-lg {
+    max-width: 330px;
+    max-height: 330px;
+  }
+
+  .image-container-lg img {
+    width: 330px;
+    height: 330px;
+  }
+
+  .image-container-sm img {
+    width: 165px;
+    height: 165px;
+  } 
+
+/* nome-componente.component.css o styles.css */
+
+/* Selettore per il componente mat-form-field */
+mat-form-field {
+
+  /* Stile degli input all'interno di mat-form-field */
+  input {
+    border: none;
+    outline: none;
+  }
+
+  /* Stile del mat-hint */
+  mat-hint {
+    color: #FFA500; /* Colore arancione */
+  }
+
+  /* Stile del mat-datepicker-toggle */
+  mat-datepicker-toggle {
+    color: #FFA500; /* Colore arancione */
+  }
+}
+
+/* styles.css o il tuo file di stile */
+
+.input-group {
+  margin-top: 20px;
+}
+
+.btn {
+  font-size: 1.5rem;
+}
+
+.form-control {
+  width: 100px;
+  font-size: 1.2rem;
+}
+
+/* counter.component.css */
+.counter-container {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  margin: 0 8px;
+}
+
+input {
+  width: 50px;
+  text-align: center;
+}
+
+.button-select {
+  display: flex;
+  width: 4rem;
+  height: 2.4rem;
+  padding: 1rem 3rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  border-radius: 0.425rem;
+  background: linear-gradient(91deg, #B83B5E 8.37%, #D24C00 100%);
+  box-shadow: 2px 5px 30px 0px rgba(0, 0, 0, 0.25);
+}
+
+.button-text {
+  color: #FFF;
+  font-family: Raleway;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.sticky-column {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+
+//recensioni card
+.card {
+  background-image: linear-gradient(to bottom, #f7f7f7, #fafafa);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-subtitle {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.card-text {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+
+/* Form scrivi una recensione */
+
+/* Nuova regola per garantire che la larghezza sia al 100% */
+.search-container {
+  width: 100%;
+}
+
+.form-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: 12px;
+  color: #FFFFFF;
+
+  input[type="text"] {
+      background-color: #FFF;
+      border: none;
+      border-radius: 20px;
+      color: #FFF;
+      font-size: 1rem;
+      padding: 10px 20px 10px 40px;
+      width: 200px;
+      &:focus {
+          outline: none;
+      }
+  }
+}
+
+.input-group {
+  border: none; /* Rimuovi il bordo dall'intero gruppo di input */
+}
+
+.input-group-append,
+.input-group-prepend {
+  border: none; /* Rimuovi il bordo dagli elementi di estensione (icona) */
+}
+
+.input-group-text {
+  border: none; /* Rimuovi il bordo dall'elemento di testo nell'input group */
+  background-color: transparent; /* Rimuovi il colore di sfondo */
+  color: #D24C00;
+  font-family: Raleway;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.search-text {
+  color: #0b0000;
+  font-family: 'Raleway';
+  font-size: 16px;
+  font-style: bold;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form-control {
+  border: none; /* Rimuovi il bordo dall'input */
+  box-shadow: none; /* Rimuovi l'ombra (se presente) */
+  background-color: transparent; /* Rimuovi il colore di sfondo */
+}
+
+
+.search-wrapper {
+color: #FFFFFF;
+width: 600px; /* Larghezza del rettangolo */
+margin: 0 auto; /* Centra il rettangolo nella pagina */
+border: 1px solid var(--Arancione-Scuro, #D24C00); /* Aggiunge un bordo al rettangolo (opzionale) */
+border-radius: 20px; /* Aggiunge bordi arrotondati al rettangolo */
+overflow: hidden; /* Nasconde eventuali contenuti che fuoriescono dal rettangolo */
+fill: linear-gradient(180deg, #FFF 0%, rgba(239, 239, 239, 0.00) 100%);
+stroke-width: 1px;
+stroke: var(--Arancione-Scuro, #D24C00);
+}
+
+.custom-navbar {
+  background-color: white; /* Imposta lo sfondo bianco */
+  border-top: 1px solid #dee2e6; /* Aggiunge una sottile linea superiore */
+  padding-top: 10px; /* Aggiunge un po' di spazio superiore */
+  padding-bottom: 10px; /* Aggiunge un po' di spazio inferiore */
+}
+
+.custom-navbar h3 {
+  margin-top: 5px; /* Aggiunge spazio sopra ai titoli */
+  margin-bottom: 5px; /* Aggiunge spazio sotto ai titoli */
+}
+
+.custom-navbar .container {
+  max-width: 1200px; /* Limita la larghezza della barra */
+}
+
+
+
+
+/* Nascondi la colonna sticky su schermi con larghezza massima di 984px */
+@media screen and (max-width: 984px) {
+  .sticky-column {
+    display: none;
+  }
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border-top: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px; /* Ridotta spaziatura interna */
+}
+
+.bottom-bar-item {
+  display: flex;
+  align-items: center; /* Centrato verticalmente */
+}
+
+/* Stile per il date picker */
+.mat-form-field {
+  width: 100%;
+}
+
+/* Stile per il counter */
+.counter-container {
+  display: flex;
+  align-items: center;
+}
+
+.counter-container button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.counter-container input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  margin: 0 5px;
+}
+
+.review-username {
+  color: #000;
+  font-family: Raleway;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.review-date {
+  color: #000;
+  font-family: Raleway;
+  font-size: 0.9375rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.review-text {
+  color: #000;
+  font-family: Raleway;
+  font-size: 0.9375rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+
+
+@media screen and (min-width: 985px) {
+  .bottom-bar {
+    display: none   !important;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .counter-container {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 354px) {
+  .date-picker {
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+

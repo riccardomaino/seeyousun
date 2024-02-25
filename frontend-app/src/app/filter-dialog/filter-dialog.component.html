@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Filtri</h1>
+<div mat-dialog-content>
+  <mat-label>Test</mat-label>
+  <mat-chip-listbox aria-label="Servizi" multiple>
+    <mat-chip-option color="accent" *ngFor="let service of services" (click)="toggleSelection(service)">{{ service.name }}</mat-chip-option>
+  </mat-chip-listbox>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onNoClick()">Cancella tutto</button>
+  <button mat-button (click)="closeDialog()" [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+</div>

@@ -1,0 +1,138 @@
+
+
+body {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1728 1117" fill="none"><g filter="url(%23filter0_f_509_1005)"><circle cx="1029" cy="737" r="489" fill="%23D24C00"/></g><g filter="url(%23filter1_f_509_1005)"><circle cx="1465" cy="602" r="274" fill="%23B83B5E"/></g><defs><filter id="filter0_f_509_1005" x="-10" y="-302" width="2078" height="2078" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="275" result="effect1_foregroundBlur_509_1005"/></filter><filter id="filter1_f_509_1005" x="891" y="28" width="1148" height="1148" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_509_1005"/></filter></defs></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.central-card {
+    width: 72.625rem;
+    height: 46.5625rem;
+    flex-shrink: 0;
+    border-radius: 1.5625rem;
+    background: linear-gradient(135deg, #E8E8E8 0%, #FFF 100%);
+    z-index: 2;
+}
+
+.right-col {
+    border-radius: 0rem 1.5625rem 1.5625rem 0rem;
+    background: linear-gradient(180deg, #B83B5E 0%, rgba(184, 59, 94, 0.00) 100%);
+    width: 36.3125rem;
+    height: 46.5625rem;
+    flex-shrink: 0;
+}
+
+
+.title {
+    color: #000;
+    font-family: Raleway;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.button-login {
+    display: flex;
+    width: 272px;
+    height: 3.375rem;
+    padding: 1rem 5.9375rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    background: linear-gradient(92deg, #B83B5E 9.9%, #D24C00 95.39%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    font-family: Raleway;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.button-google {
+    display: flex;
+    width: 272px;
+    height: 3.375rem;
+    color: #1C1C1C;
+    font-family: Raleway;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 0.625rem;
+    border-radius: 0.625rem;
+    background: linear-gradient(135deg, #FCF9FF 0%, #E4E1E8 100%);
+    box-shadow: 5px 5px 13px 0px rgba(216, 213, 220, 0.90), -5px -5px 10px 0px rgba(255, 255, 255, 0.90), 5px -5px 10px 0px rgba(216, 213, 220, 0.20), -5px 5px 10px 0px rgba(216, 213, 220, 0.20), -1px -1px 2px 0px rgba(216, 213, 220, 0.50) inset, 1px 1px 2px 0px rgba(255, 255, 255, 0.30) inset;
+}
+
+.button-text {
+    display: flex; /* Utilizza Flexbox per il layout */
+    align-items: center; /* Centra verticalmente gli elementi */
+    flex-grow: 1; /* Per far espandere il testo e centrarlo verticalmente */
+}
+
+.icon-container {
+    width: 1.80288rem;
+    height: 1.875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    background: lightgray 50% / cover no-repeat;
+}
+
+.vertical-center {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.onclick:hover {
+    color: #D24C00;
+    cursor: pointer
+}
+
+.onclick {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+/* Regole CSS da applicare per dispositivi mobili */
+@media screen and (max-width: 1182px) {
+    .container {
+        padding: 20px !important; /* Aumenta il padding intorno al contenitore */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important; /* Centra verticalmente gli elementi */
+        height: 100vh !important;
+    }
+    .central-card {
+        width: 80% !important; /* Aumenta la larghezza della card */
+        max-width: 500px !important; /* Imposta una larghezza massima per la card */
+        min-width: 350px !important;
+        height: 500px !important;
+        margin: 20px !important; /* Aggiungi del margine intorno alla card */
+        border-radius: 1.5625rem !important; /* Ripristina il bordo arrotondato */
+        margin-bottom: 20px !important; /* Aggiungi margine sotto la card */
+    }
+    .right-col {
+        display: none !important;
+    }
+}

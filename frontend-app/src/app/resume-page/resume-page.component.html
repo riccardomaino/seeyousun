@@ -1,0 +1,183 @@
+<body>
+    <div class="navbar-container" #navbar>
+        <app-navbar></app-navbar>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center vh-100" >
+
+        <div class="row gx-5 p-3 mt-5 justify-content-center">
+
+        <!-- Questa sopra -->
+            <div class="row">
+                <div class="col p-3 mb-2">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="title">Frescura</div>
+                            </div>
+                            <div class="row">
+                                <div class="subtitle">Santa Caterina</div>
+                            </div>
+                        </div>
+                        <!-- <div class="col align-items-center justify-content-center img-fluid">
+                            <div class="row">
+                                <img src="../../assets/timeline.png">
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+                
+        
+            
+            
+            <div class="row">
+                <div class="col-auto  mt-3 p-3 card mx-auto d-flex flex-column">
+                    <div class="row">
+                        <div class="col mb-3 d-flex justify-content-between">
+                            <div class="profile-name">Pagamento</div>
+                            <div class="">
+                                <div class="btn button-modifica d-flex align-items-center justify-content-center button-text"> Modifica </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col mt-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label> 15/02/2024</mat-label>
+                                <input matInput [matDatepicker]="dp1" disabled [value]="15/02/2024">
+                                <mat-datepicker-toggle matIconSuffix [for]="dp1"></mat-datepicker-toggle>
+                                <mat-datepicker #dp1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ombrellone 6</mat-label>
+                                <input matInput placeholder="La tua mail" disabled>
+                                <mat-icon matSuffix>beach_access</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Lettini</mat-label>
+                                <mat-select [value]="'one'" disabled>
+                                  <mat-option value="one">1</mat-option>
+                                  <mat-option value="two">2</mat-option>
+                                  <mat-option value="two">3</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Periodo</mat-label>
+                                <mat-select [value]="'one'" disabled>
+                                  <mat-option value="one">Mattina 15€</mat-option>
+                                  <mat-option value="two">Pomeriggio 15€</mat-option>
+                                  <mat-option value="two">Giornata intera 30€</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-auto">
+                            <mat-radio-group aria-label="Select an option">
+                                <mat-label>Aggiungere il parcheggio?</mat-label>
+                                <mat-radio-button value="1">Si</mat-radio-button>
+                                <mat-radio-button value="2">No</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg  mt-3 p-3 card mx-auto d-flex flex-column">
+                    <div class="row">
+                        <div class="profile-name">Riepilogo</div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-auto">
+                            <mat-radio-group aria-label="Select an option">
+                                <mat-radio-button value="1">Paga subito</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                          
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Numero carta</mat-label>
+                                <input matInput type="number" placeholder="1234 5678 9012 3456">
+                                <mat-icon matSuffix>dialpad</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label> Scadenza</mat-label>
+                                <input matInput [matDatepicker]="dp1" [value]="">
+                                <mat-datepicker-toggle matIconSuffix [for]="dp1"></mat-datepicker-toggle>
+                                <mat-datepicker #dp1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>CVV</mat-label>
+                                <input matInput type="number" placeholder="000">
+                                <mat-icon matSuffix>confirmation_number</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <p>Altri metodi</p>
+                    </div>
+                    <div class="row mt-3">
+
+                        <div class="col mt-2">
+                            <div class="btn button-text button-google d-flex align-items-center justify-content-center ">
+                                <div class="con-container col-auto">
+                                    <img class="" src="../../assets/Icon.png" class="mr-2">
+                                </div>
+                                <div class="col-auto text-pay">
+                                    Pay
+                                </div>
+                            </div>     
+                        </div>
+
+                        <div class="col mt-2">
+                            <div class="btn button-text button-google d-flex align-items-center justify-content-center ">
+                                <div class="con-container col-auto">
+                                    <img class="" src="../../assets/apple-logo-6-1024x1024.png" class="mr-2" style="width: 30px;">
+                                </div>
+                                <div class="col-auto text-pay">
+                                    Pay
+                                </div>
+                            </div>     
+                        </div>
+
+                        <div class="col mt-2">
+                            <div class="btn button-text button-google d-flex align-items-center justify-content-center ">
+                                <div class="con-container col-auto">
+                                    <img class="" src="../../assets/paypal.png" class="mr-2" style="height: 30px;">
+                                </div>
+                            </div>     
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-auto">
+                            <mat-radio-group aria-label="Select an option" default="2">
+                                <mat-radio-button value="2">Paga in struttura</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mt-4">
+                                <div class="btn button-login d-flex align-items-center justify-content-center button-text">Conferma</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,105 @@
+<body>
+    <div class="navbar-container">
+        <app-navbar></app-navbar>
+    </div>
+  
+    <div class="container vertical-center d-flex align-items-center justify-content-center">
+        <div class="row row-cols-md-2 gx-md-5">
+            <!-- Left col -->
+            <div class="hidden-on-mobile col-md mt-5 left-col card d-flex flex-column justify-content-between align-items-center"> 
+                <div class="row mt-5">
+                    <div class="profile-img"></div>
+                </div>
+                <div class="row">
+                    <div class="profile-name"> <div class="profile-surname"> {{ userName }}</div></div>
+                </div>
+                <div class="row">
+                    <div class="profile-email">{{ userMail }}</div>
+                </div>
+                <div class="row">
+                    <div class="button-assistence mt-3">Contattaci</div>
+                </div>
+                <div class="row mt-3 mb-5">
+                    <div class="button-logout" (click)="logOut()">Logout</div>
+                </div>
+
+            </div>
+            <!-- Right col -->
+            <div class="col-md mt-5">
+                <div class="row r1 mb-3">
+                    <div class="col-sm  ml-md-auto">
+                        <div class="row mt-2">
+                            <div class="profile-name">Le mie <div class="profile-surname"> Prenotazioni</div></div>
+                        </div>
+                        <!-- Qui ngFor -->
+                        <div class="row item-event mt-2 mb-2">
+                            <div class="col-auto">
+                                <img src="../../assets/icon _pending_.svg" alt="booking" class="booking-img">
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>place</mat-icon>
+                                Frescura
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>calendar_month</mat-icon>
+                                01/01/2021
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>beach_access</mat-icon>
+                                Posto 12
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>spa</mat-icon>
+                                Lettini: 2
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>local_parking</mat-icon>
+                                Si
+                            </div>
+                        </div>
+                        <div class="row item-event mt-2 mb-2">
+                            <div class="col-auto">
+                                <img src="../../assets/icon _pending_.svg" alt="booking" class="booking-img">
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>place</mat-icon>
+                                Frescura
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>calendar_month</mat-icon>
+                                01/01/2021
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>beach_access</mat-icon>
+                                Posto 12
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>spa</mat-icon>
+                                Lettini: 2
+                            </div>
+                            <div class="col-auto">
+                                <mat-icon>local_parking</mat-icon>
+                                Si
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                
+                <div class="row r1">
+                    <div class="col">
+                        <div class="row mt-2">
+                            <div class="profile-name">I miei <div class="profile-surname"> Eventi</div></div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</body>

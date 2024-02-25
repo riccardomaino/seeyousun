@@ -1,0 +1,180 @@
+<div class="container-fluid">
+  <div class="navbar-container">
+      <app-navbar></app-navbar>
+  </div>
+
+  <div class="row justify-content-center mt-5">
+      <div class="col-lg-8">
+          <!-- Title -->
+          <div class="row">
+              <div class="col">
+                  <h1>{{ resortFull.name }}</h1>
+              </div>
+          </div>
+
+          <!-- Location and Rating -->
+          <div class="row mt-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                  <div class="d-flex align-items-center">
+                      <mat-icon matSuffix>location_on</mat-icon>
+                      <p class="mb-0 ms-2">{{ resortFull.location }}</p>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="d-flex align-items-center">
+                      <mat-icon>star</mat-icon>
+                      <p class="mb-0 ms-2">{{ resortFull.rating }}</p>
+                  </div>
+                  <div><u>Leggi recensioni</u></div>
+              </div>
+          </div>
+
+          <!-- Main Image -->
+          <div class="row mt-5">
+              <div class="col">
+                  <img src="https://www.frescura.life/templates/yootheme/cache/0P5A2609-984a5af2.jpeg" class="img-fluid rounded" alt="...">
+              </div>
+          </div>
+
+          <!-- Image Gallery -->
+          <div class="row mt-5">
+              <div class="col">
+                  <div class="row row-cols-2 g-3">
+                      <div class="col">
+                          <img src="https://www.frescura.life/templates/yootheme/cache/0P5A2609-984a5af2.jpeg" class="img-fluid rounded" alt="...">
+                      </div>
+                      <div class="col">
+                          <img src="https://www.frescura.life/templates/yootheme/cache/0P5A2609-984a5af2.jpeg" class="img-fluid rounded" alt="...">
+                      </div>
+                      <div class="col">
+                          <img src="https://www.frescura.life/templates/yootheme/cache/0P5A2609-984a5af2.jpeg" class="img-fluid rounded" alt="...">
+                      </div>
+                      <div class="col">
+                          <img src="https://www.frescura.life/templates/yootheme/cache/0P5A2609-984a5af2.jpeg" class="img-fluid rounded" alt="...">
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Services and Information -->
+          <div class="row mt-5">
+              <div class="col-md-6">
+                  <div class="section-title">Servizi</div>
+                  <ul>
+                      <li *ngFor="let service of resortFull.services">{{ service.name }}</li>
+                  </ul>
+              </div>
+              <div class="col-md-6">
+                  <div class="section-title">Da sapere</div>
+                  <div class="row mt-1">
+                      <div class="col-2">
+                          <mat-icon matSuffix>phone</mat-icon>
+                      </div>
+                      <div class="col-10">
+                          <p>{{ resortFull.phoneNumbers }}</p>
+                      </div>
+                  </div>
+                  <div class="row mt-1">
+                      <div class="col-2">
+                          <mat-icon matSuffix>schedule</mat-icon>
+                      </div>
+                      <div class="col-10">
+                          <p>{{ resortFull.timeTables }}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Description -->
+          <div class="row mt-5">
+              <div class="col">
+                  <div class="section-title">Descrizione</div>
+                  <p>{{ resortFull.description }}</p>
+              </div>
+          </div>
+
+          <!-- Events -->
+          <div class="row mt-5">
+              <div class="col">
+                  <div class="section-title">Prossimi eventi</div>
+                  <div class="row row-cols-lg-auto g-3 align-items-center">
+                      <div *ngFor="let event of resortFull.events">
+                          <div class="col">
+                              <div class="card" style="width: 18rem;">
+                                  <div class="card-body">
+                                      <h2 class="card-title">{{ event.name }}</h2>
+                                      <h3>{{ event.initialDate }}</h3>
+                                      <p>{{ event.description }}</p>
+                                      <div class="d-flex align-items-center">
+                                          <mat-icon matSuffix>schedule</mat-icon>
+                                          <p class="mb-0 ms-2">{{ event.duration }} minuti</p>
+                                      </div>
+                                      <div *ngIf="!event.isFull" class="mt-3">
+                                          <button class="btn btn-primary">Iscriviti</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Reviews -->
+          <div class="row mt-5">
+              <div class="col">
+                  <div class="section-title">Recensioni</div>
+                  <div class="row mt-3">
+                      <div class="col">
+                          <form class="d-flex align-items-center ms-auto">
+                              <div class="input-group">
+                                  <span class="input-group-text"><i class="material-icons">edit_note</i></span>
+                                  <input type="text" class="form-control" placeholder="Scrivi una recensione">
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+                  <div class="mt-3" *ngFor="let review of resortFull.reviews">
+                      <div class="card">
+                          <div class="card-body">
+                              <h2 class="card-title">{{ review.title }}</h2>
+                              <h3 class="card-subtitle text-muted">{{ review.date }}</h3>
+                              <p class="card-text">{{ review.description }}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Sticky Column -->
+      <div class="col-lg-4">
+          <div class="sticky-top">
+              <div class="card">
+                  <div class="card-body">
+                      <h2 class="card-title">Quando?</h2>
+                      <mat-form-field class="mb-4" appearance="outline">
+                          <mat-label>Choose a date</mat-label>
+                          <input matInput [matDatepicker]="picker" [value]="selectedDate" (dateChange)="setDate($event)">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      <h2 class="card-title">Aggiungi persone</h2>
+                      <div class="d-flex align-items-center">
+                          <button mat-icon-button (click)="decrement()">
+                              <mat-icon>remove</mat-icon>
+                          </button>
+                          <input matInput [(ngModel)]="count" readonly class="mx-2">
+                          <button mat-icon-button (click)="increment()">
+                              <mat-icon>add</mat-icon>
+                          </button>
+                      </div>
+                      <div class="mt-4">
+                          <button class="btn btn-primary btn-block" (click)="openDialog()">Prenota</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
