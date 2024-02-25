@@ -11,5 +11,4 @@ RUN npm install --force
 COPY ../.. .
 # Build the application
 EXPOSE 4200
-CMD["ng", "serve", "--host", "0.0.0.0", "--poll", "200"]
-
+CMD ["ng", "serve", "--host", "0.0.0.0", "--poll=2000", "--port", "4200", "--disable-host-check"]
