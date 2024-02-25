@@ -14,5 +14,6 @@ RUN npm run build
 # Stage 2: Run the Angular application
 FROM nginx:latest AS run
 COPY --from=build /usr/app/dist/see-you-sun /usr/share/nginx/html
+COPY ../../nginx.conf /etc/nginx/conf.d/default.conf
 # Expose port 80
 EXPOSE 80
