@@ -1,15 +1,18 @@
 version: '3.8'
 
 services:
-  #
-  #frontend-app:
-  #  build: ./frontend-app
-   # image: frontend-app-img
-    #container_name: frontend-app-ctn
-    #ports:
-     # - "${FRONTEND_APP_PORT}:${FRONTEND_APP_PORT}"
-    #networks:
-     # - global-net
+
+#  frontend-app:
+#    build: ./frontend-app
+#    image: frontend-app-img
+#    container_name: frontend-app-ctn
+#    ports:
+#      - "${FRONTEND_APP_PORT}:${FRONTEND_APP_PORT}"
+#    networks:
+#      - global-net
+#    volumes:
+#      - /app/node_modules
+#      - .:/usr/app
 
   # EUREKA DISCOVERY SERVER
   eureka-discovery-server:

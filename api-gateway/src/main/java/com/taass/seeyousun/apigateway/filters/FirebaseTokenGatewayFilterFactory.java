@@ -47,6 +47,7 @@ public class FirebaseTokenGatewayFilterFactory extends AbstractGatewayFilterFact
                     .header("X-User-UID", uid)
                     .header("X-User-Name", name)
                     .build();
+            log.info("Corretta autenticazione");
             return chain.filter(exchange.mutate().request(request).build());
         };
     }
