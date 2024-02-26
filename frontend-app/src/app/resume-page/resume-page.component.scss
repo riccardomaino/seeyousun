@@ -145,3 +145,8 @@ body {
         margin-top: 420px;
     }
 }
+
+.disabled-icon {
+    opacity: 0.5; /* Imposta l'opacità desiderata */
+    pointer-events: none; /* Impedisce l'interazione con l'icona */
+}

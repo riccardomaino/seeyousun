@@ -9,6 +9,8 @@ interface DialogData {
   row: number;
   column: number;
   people: number;
+  numberOfSunbeds: number;
+  persistenceTypeEnum: string;
   resortFull: resortFull;
 }
 
@@ -38,8 +40,13 @@ export class BookDialogSelectComponent {
 
   onSubmit(): void {
     // Chiudi il MatDialog
+    this.data.numberOfSunbeds = this.count;
+    this.data.persistenceTypeEnum = 'FULL_DAY';
     this.dialogRef.close();
+    const dataString = JSON.stringify(this.data);
+    const encodedData = encodeURIComponent(dataString);
+
     // Route alla pagina di pagamento
-    this.router.navigate(['/resume-page',  { data: this.data } ]); 
+    this.router.navigate(['/resume-page'], { queryParams: { data: encodedData } });
   }
 }

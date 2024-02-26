@@ -14,6 +14,8 @@ import {
 import { resortFull } from '../models/resortFull';
 import { Router } from '@angular/router';
 import { BookDialogSelectComponent } from '../book-dialog-select/book-dialog-select.component';
+import {catchError, throwError} from "rxjs";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-book-dialog',
@@ -23,7 +25,7 @@ import { BookDialogSelectComponent } from '../book-dialog-select/book-dialog-sel
 export class BookDialogComponent {
   beachSpecification: BeachSpec = {} as BeachSpec;
   matrix: Array<Array<{ row: number; column: number; status: string; selected: boolean }>> = [];
-  
+  showError = false;
 
   constructor(public dialogRefN: MatDialogRef<BookDialogSelectComponent>, private beachService: BeachService,  public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: { resort: resortFull, people: number, selectedDate: Date }) {}
 
@@ -32,17 +34,42 @@ export class BookDialogComponent {
   }
 
   setDate(event: MatDatepickerInputEvent<Date>) {
+    this.loadReservationInformation();
     this.data.selectedDate = event.value as Date;
   }
 
   private loadReservationInformation(): void {
-    this.beachService.getReservationInformation(2, '2024-01-18').subscribe((reservations) => {
-      this.beachSpecification = reservations.data;
-      this.buildMatrix();
-    });
+    this.beachService.getReservationInformation(this.data.resort.id, this.formatDate(this.data.selectedDate))
+        .pipe(
+            catchError(error => {
+              if (error.status === 404) {
+                // Gestisci l'errore 404 qui, ad esempio mostrando un messaggio di errore o eseguendo un'altra azione
+                console.error('Errore 404: Risorsa non trovata');
+                // Esempio: Mostra un messaggio di errore sulla pagina
+                this.showError = true;
+                // Esempio: Puoi anche lanciare un nuovo errore per gestirlo in un altro punto del codice
+                return throwError('Errore 404: Risorsa non trovata');
+              } else {
+                // In caso di altri errori, propagali
+                return throwError(error);
+              }
+            })
+        )
+        .subscribe((reservations) => {
+          this.beachSpecification = reservations.data;
+          this.buildMatrix();
+        });
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Aggiungi lo zero davanti se il mese è inferiore a 10
+    const day = date.getDate().toString().padStart(2, '0'); // Aggiungi lo zero davanti se il giorno è inferiore a 10
+    return `${year}-${month}-${day}`;
   }
 
   private buildMatrix(): void {
+    this.matrix = [];
     for (let i = 0; i < this.beachSpecification.dimension.totalUmbrellaLine; i++) {
       let row = [];
       for (let j = 0; j < this.beachSpecification.dimension.totalUmbrellaColumn; j++) {

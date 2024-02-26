@@ -47,6 +47,10 @@ const shouldAddToken = (req: HttpRequest<any>): boolean => {
     return true;
   }
 
+  if (req.method === 'POST' && req.url === `${environment.backendUrl}/resort-reservations/book`) {
+    return true;
+  }
+
   // Aggiungi il token solo alle richieste di tipo GET verso una specifica URL
   if (req.method === 'GET' && req.url === `${environment.backendUrl}/resort-reservations/reservation-for-user`) {
     return true;
