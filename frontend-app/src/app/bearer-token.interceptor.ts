@@ -56,6 +56,12 @@ const shouldAddToken = (req: HttpRequest<any>): boolean => {
     return true;
   }
 
+  if (req.method === 'POST' && req.url === `${environment.backendUrl}/reviews`) {
+    return true;
+  }
+
+
+
   // Se nessuna condizione soddisfatta, non aggiungere il token
   return false;
 };

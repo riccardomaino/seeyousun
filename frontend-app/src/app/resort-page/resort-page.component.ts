@@ -123,7 +123,7 @@ export class ResortPageComponent {
     onTextareaInput(event: any): void {
       if(this.isUserLoggedIn) {
         const dialogRef = this.dialog.open(ReviewDialogComponent, {
-          data: {resort: this.resortFull, people: this.count, selectedDate: this.selectedDate },
+          data: {resort: this.resortFull.id},
           height: '300px',
           width: '600px',
         });

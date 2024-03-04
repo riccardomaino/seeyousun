@@ -45,10 +45,16 @@ export class BeachService {
     return this.http.post(this.baseUrl + 'resort-reservations/book', {resortId: resortId, reservedUmbrellaLine: reservedUmbrellaRow, reservedUmbrellaColumn: reservedUmbrellaColumn, persistenceTypeEnum: persistenceTypeEnum, numberOfSunbeds: numberOfSunbeds, initialDate: initialDate, finalDate: finalDate});
   }
 
+  createReview(title: string, bodyReview: string, rating: number, date: string, resortId: number): Observable<any> {
+    return this.http.post(this.baseUrl + 'reviews', {title: title, bodyReview: bodyReview, rating: rating, date: date, resortId: resortId});
+  }
+
   getReservationForUser(): Observable<apiResponseReservationFUsr> {
     console.log('getReservationForUser');
     return this.http.get<apiResponseReservationFUsr>(this.baseUrl + '/resort-reservations/reservation-for-user');
   }
+
+
 
 
 
