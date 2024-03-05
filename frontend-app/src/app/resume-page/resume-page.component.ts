@@ -64,8 +64,7 @@ export class ResumePageComponent implements AfterViewInit {
         (response) => {
             if(response.status === 200 || response.status === 201) {
                 //TODO: Dialog con messaggio di conferma
-                //Wait for few seconds
-               // Route alla pagina di conferma
+                console.log('Prenotazione effettuata con successo');
             }
         },
         (error) => {
@@ -86,12 +85,14 @@ export class ResumePageComponent implements AfterViewInit {
     const month = parts[1];
     const year = parts[2];
 
-    // Aggiungi lo zero davanti al mese se è inferiore a 10
+    // Aggiungi lo zero davanti al giorno e al mese se sono inferiori a 10
+    const formattedDay = (parseInt(day, 10) < 10) ? `0${day}` : day;
     const formattedMonth = (parseInt(month, 10) < 10) ? `0${month}` : month;
 
     // Costruire la data nel formato richiesto (AAAA-MM-DD)
-    return `${year}-${formattedMonth}-${day}`;
+    return `${year}-${formattedMonth}-${formattedDay}`;
   }
+
 
 
 }

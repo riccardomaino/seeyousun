@@ -20,6 +20,8 @@ import {MatChipsModule} from '@angular/material/chips';
 export class FilterDialogComponent {
   services: Service[];
   selectedServices: string[] = []; // Array per mantenere traccia delle chips selezionate
+  location: string = '';
+
   constructor(
     public dialogRef: MatDialogRef<FilterDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { services: Service[] }
@@ -42,8 +44,10 @@ export class FilterDialogComponent {
   }
   
   closeDialog() {
-    // Chiudi il dialogo e passa l'array di selezionati
-    this.dialogRef.close(this.selectedServices);
+    // Chiudi il dialogo se location e servizi sono stati selezionati
+    if (this.location && this.selectedServices.length > 0) {
+      this.dialogRef.close( {location: this.location, services: this.selectedServices });
+    }
   }
 
   onNoClick(): void {

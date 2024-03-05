@@ -5,12 +5,19 @@
         <h1>Popolari in Italia </h1>
     
         <!-- Bottone per aprire i filtri in alto a destra -->
-        <button class="btn btn-primary" (click)="openDialog()">Apri Filtri</button>
-        
+        <div class="row">
+            <div class="col">
+                <div class="btn button-modifica d-flex align-items-center justify-content-center button-text" (click)="openDialog()"> Filtri  </div>
+            </div>
+            <div class="col">
+                <div *ngIf="isSearching" class="btn button-modifica d-flex align-items-center justify-content-center button-text" (click)="backToPopular()"> Cancella filtri  </div>
+            </div>
+        </div>
+
     </div>
   
     <!-- Griglia di card views -->
-    <div class="row">
+    <div *ngIf="!error404Flag" class="row">
       <div *ngFor="let rP of resortPresentation" class="col-lg-4 col-md-6 col-sm-12 mt-4">
         <div class="card" (click)="isSelected(rP)">
           <img class="card-img-top" src="{{ rP.photoCover }}" alt="Immagine Spiaggia">
@@ -34,5 +41,12 @@
   
       <!-- Altre card views... -->
     </div>
-  </div>
+    <div *ngIf="error404Flag" class="row mt-4">
+        <div class="col d-flex justify-content-center align-items-center flex-column error-container text-center">
+            <img src="../../assets/404.svg" alt="sad surfer" class="img-fluid" style="max-width: 200px;">
+            <h1 class="mt-3" style="font-size: 24px;">Oh Noo!!!! <br> {{ errorMessage }}</h1>
+        </div>
+    </div>
+
+</div>
   

@@ -29,11 +29,33 @@ export class BeachService {
   }
 
   getServices(): Observable<apiResponseService> {
-    return this.http.get<apiResponseService>(this.baseUrl + 'services');
+    return this.http.get<apiResponseService>(this.baseUrl + 'resorts/services');
   }
 
   getReservationInformation(id: number, date: string): Observable<apiResponseReservationInformation> {
     return this.http.get<apiResponseReservationInformation>(this.baseUrl + 'resorts/information/' + id + '?date=' + date);
+  }
+
+  getReservationForUser(): Observable<apiResponseReservationFUsr> {
+    console.log('getReservationForUser');
+    return this.http.get<apiResponseReservationFUsr>(this.baseUrl + '/resort-reservations/reservation-for-user');
+  }
+
+  getResortPresentationByFilter(location: string, services: string[]): Observable<apiResponseResortPresentation> {
+    let url = `${this.baseUrl}resorts/by-location-and-services?`;
+
+    if (location) {
+      url += `location=${location}`;
+    }
+
+    if (services && services.length > 0) {
+      if (location) {
+        url += '&';
+      }
+      url += `services=${services.join(',')}`;
+    }
+
+    return this.http.get<apiResponseResortPresentation>(url);
   }
 
   enrollToEvent(id: number): Observable<any> {
@@ -49,10 +71,7 @@ export class BeachService {
     return this.http.post(this.baseUrl + 'reviews', {title: title, bodyReview: bodyReview, rating: rating, date: date, resortId: resortId});
   }
 
-  getReservationForUser(): Observable<apiResponseReservationFUsr> {
-    console.log('getReservationForUser');
-    return this.http.get<apiResponseReservationFUsr>(this.baseUrl + '/resort-reservations/reservation-for-user');
-  }
+
 
 
 
