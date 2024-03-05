@@ -56,6 +56,10 @@ const shouldAddToken = (req: HttpRequest<any>): boolean => {
     return true;
   }
 
+  if (req.method === 'GET' && req.url === `${environment.backendUrl}/events/events-for-user`) {
+    return true;
+  }
+
   if (req.method === 'POST' && req.url === `${environment.backendUrl}/reviews`) {
     return true;
   }

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { BeachService } from '../services/beach.service';
-import { BeachSpec } from '../models/beachSpec';
+import { BeachService } from '../app/services/beach.service';
+import { BeachSpec } from '../app/models/beachSpec';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {
   MatDialog,
@@ -11,16 +11,16 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { resortFull } from '../models/resortFull';
+import { resortFull } from '../app/models/resortFull';
 import { Router } from '@angular/router';
-import { BookDialogSelectComponent } from '../book-dialog-select/book-dialog-select.component';
+import { BookDialogSelectComponent } from '../app/book-dialog-select/book-dialog-select.component';
 import {catchError, throwError} from "rxjs";
 import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-book-dialog',
-  templateUrl: './book-dialog.component.html',
-  styleUrls: ['./book-dialog.component.scss']
+  templateUrl: './book-dialog/book-dialog.component.html',
+  styleUrls: ['./book-dialog/book-dialog.component.scss']
 })
 export class BookDialogComponent {
   beachSpecification: BeachSpec = {} as BeachSpec;

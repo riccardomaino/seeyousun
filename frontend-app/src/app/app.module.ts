@@ -26,7 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { ResortPageComponent } from './resort-page/resort-page.component';
-import { BookDialogComponent } from './book-dialog/book-dialog.component';
+import { BookDialogComponent } from '../assets/book-dialog.component';
 import { BookDialogSelectComponent } from './book-dialog-select/book-dialog-select.component';
 import {MatSelectModule} from '@angular/material/select';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -45,6 +45,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { bearerTokenInterceptor } from './bearer-token.interceptor';
 import { FooterComponent } from './footer/footer.component';
 import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -64,7 +65,8 @@ import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
     ProfilePageComponent,
     ResumePageComponent,
     FooterComponent,
-    ReviewDialogComponent
+    ReviewDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

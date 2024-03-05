@@ -27,73 +27,70 @@
             <!-- Right col -->
             <div class="col-md mt-5">
                 <div class="row r1 mb-3">
-                    <div class="col-sm  ml-md-auto">
+                    <div class="col-sm ml-md-auto">
                         <div class="row mt-2">
                             <div class="profile-name">Le mie <div class="profile-surname"> Prenotazioni</div></div>
                         </div>
                         <!-- Qui ngFor -->
-                        <div class="row item-event mt-2 mb-2">
-                            <div class="col-auto">
-                                <img src="../../assets/icon _pending_.svg" alt="booking" class="booking-img">
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>place</mat-icon>
-                                Frescura
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>calendar_month</mat-icon>
-                                01/01/2021
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>beach_access</mat-icon>
-                                Posto 12
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>spa</mat-icon>
-                                Lettini: 2
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>local_parking</mat-icon>
-                                Si
-                            </div>
-                        </div>
-                        <div class="row item-event mt-2 mb-2">
-                            <div class="col-auto">
-                                <img src="../../assets/icon _pending_.svg" alt="booking" class="booking-img">
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>place</mat-icon>
-                                Frescura
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>calendar_month</mat-icon>
-                                01/01/2021
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>beach_access</mat-icon>
-                                Posto 12
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>spa</mat-icon>
-                                Lettini: 2
-                            </div>
-                            <div class="col-auto">
-                                <mat-icon>local_parking</mat-icon>
-                                Si
+                        <div class="card-container" style="max-height: 400px; overflow-y: auto;">
+                            <div *ngFor="let res of finalReservations" class="row item-event mt-2 mb-2">
+                                <div class="col-auto">
+                                    <img [src]="res.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>place</mat-icon>
+                                    {{ res.resName }}
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>calendar_month</mat-icon>
+                                    {{ res.date }}
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>beach_access</mat-icon>
+                                    {{ res.umbrella }}
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>spa</mat-icon>
+                                    {{ res.numberOfSunbeds }}
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>local_parking</mat-icon>
+                                    {{ res.parking ? 'Si' : 'No' }}
+                                </div>
                             </div>
                         </div>
-                        
                     </div>
+
                 </div>
 
-                
+
                 <div class="row r1">
                     <div class="col">
                         <div class="row mt-2">
                             <div class="profile-name">I miei <div class="profile-surname"> Eventi</div></div>
                         </div>
-                        <div class="row">
-
+                        <div class="card-container" style="max-height: 400px; overflow-y: auto;">
+                            <div *ngFor="let eve of finalEvents" class="row item-event mt-2 mb-2">
+                                <div class="col-auto">
+                                    <img [src]="eve.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>place</mat-icon>
+                                    {{ eve.name }}
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>calendar_month</mat-icon>
+                                    {{ eve.date }}
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>beach_access</mat-icon>
+                                    {{ eve.hour }}
+                                </div>
+                                <div class="col-auto">
+                                    <mat-icon>spa</mat-icon>
+                                    {{ eve.duration }}
+                                </div>
+                            </div>
                         </div>
                         
                     </div>

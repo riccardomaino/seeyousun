@@ -1,8 +1,11 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { resortFull } from '../models/resortFull';
 import { Location } from '@angular/common';
 import {BeachService} from "../services/beach.service";
+import {BookDialogSelectComponent} from "../book-dialog-select/book-dialog-select.component";
+import {MatDialog} from "@angular/material/dialog";
+import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 
 interface DialogData {
   umbrella: number;
@@ -28,7 +31,7 @@ export class ResumePageComponent implements AfterViewInit {
   parsedData: DialogData = {} as DialogData;
   selectedOption: string = '2';
 
-  constructor(private route: ActivatedRoute, private location: Location, private service: BeachService) {
+  constructor(private route: ActivatedRoute, private location: Location, private service: BeachService,  public dialog: MatDialog, private router: Router) {
     // Initialize the 'navbar' property
     this.navbar = new ElementRef(null);
   }
@@ -62,15 +65,28 @@ export class ResumePageComponent implements AfterViewInit {
 
     this.service.createReservation(this.parsedData.resortFull.id, this.parsedData.row+1, this.parsedData.column+1, this.parsedData.persistenceTypeEnum, this.parsedData.numberOfSunbeds, this.formatDate(this.parsedData.date), this.formatDate(this.parsedData.date)).subscribe(
         (response) => {
-            if(response.status === 200 || response.status === 201) {
-                //TODO: Dialog con messaggio di conferma
-                console.log('Prenotazione effettuata con successo');
-            }
+          console.log(response);
+            if(response.statusCode === 200 || response.statusCode === 201 ) {
+
+                const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                  data: {},
+                  height: '362px',
+                  width: '350px',
+                });
+                // Chiudi automaticamente il dialogo dopo 2 secondi
+                setTimeout(() => {
+                  dialogRef.close();
+                  // Imposta un ritardo di 2 secondi prima di reindirizzare
+                  setTimeout(() => {
+                    this.router.navigate(['/profile-page']);
+                  }, 2000);
+                }, 2000);
+              }
+
         },
         (error) => {
             console.error(error);
-        }
-        );
+    });
   }
 
   formatDate(dateString: string): string {

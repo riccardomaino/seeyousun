@@ -11,6 +11,7 @@ import { apiResponseResortFullByID } from '../models/apiResponseResortFullByID';
 import { apiResponseReservationInformation } from '../models/apiResponseReservationInformation';
 import { environment } from 'src/environments/environment';
 import {apiResponseReservationFUsr} from "../models/apiResponseReservationFUsr";
+import {apiResponseEventsForUser} from "../models/apiResponseEventsForUser";
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,12 @@ export class BeachService {
 
   getReservationForUser(): Observable<apiResponseReservationFUsr> {
     console.log('getReservationForUser');
-    return this.http.get<apiResponseReservationFUsr>(this.baseUrl + '/resort-reservations/reservation-for-user');
+    return this.http.get<apiResponseReservationFUsr>(this.baseUrl + 'resort-reservations/reservation-for-user');
+  }
+
+  getEventsForUser(): Observable<apiResponseEventsForUser> {
+    console.log('getReservationForUser');
+    return this.http.get<apiResponseEventsForUser>(this.baseUrl + 'events/events-for-user');
   }
 
   getResortPresentationByFilter(location: string, services: string[]): Observable<apiResponseResortPresentation> {

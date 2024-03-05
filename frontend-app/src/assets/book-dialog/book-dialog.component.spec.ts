@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookDialogComponent } from './book-dialog.component';
+import { BookDialogComponent } from '../book-dialog.component';
 
 describe('BookDialogComponent', () => {
   let component: BookDialogComponent;
