@@ -55,7 +55,7 @@ INSERT INTO public.daily_reservations (date, resort_id) VALUES
                                                             ('2024-03-30', 2),
                                                             ('2024-03-31', 2);
 
-INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (2, 'FULL_DAY', 1, 1, 'adffaefc', 79);
-INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (2, 'FULL_DAY', 1, 2, 'fadfadsfa', 79);
-INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (2, 'HALF_DAY_MORNING', 1, 3, 'dfssf', 79);
-INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (3, 'HALF_DAY_AFTERNOON', 1, 3, 'gferwf', 79);
+INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (2, 'FULL_DAY', 1, 1, 'tcbTqg98LvVBVHFWIMngfbLvjko2', 79);
+INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (2, 'FULL_DAY', 1, 2, 'tcbTqg98LvVBVHFWIMngfbLvjko2', 79);
+INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (2, 'HALF_DAY_MORNING', 1, 3, 'tcbTqg98LvVBVHFWIMngfbLvjko2', 79);
+INSERT INTO public.reservations (number_of_sunbeds, persistence_type_enum, reserved_umbrella_column, reserved_umbrella_line, user_uid, daily_reservation_id) VALUES (3, 'HALF_DAY_AFTERNOON', 1, 3, 'tcbTqg98LvVBVHFWIMngfbLvjko2', 79);
