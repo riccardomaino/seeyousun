@@ -12,4 +12,6 @@ public interface ResortClient {
     @GetMapping("api/v1/resorts/dimension/{resortId}")
     ResponseEntity<ApiResponseDTO<DimensionDTO>> getResortDimension(@PathVariable Long resortId);
 
+    @GetMapping("api/v1/resorts/name/{resortId}")
+    ResponseEntity<ApiResponseDTO<String>> getResortName(@PathVariable Long resortId);
 }

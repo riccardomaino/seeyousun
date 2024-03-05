@@ -162,4 +162,17 @@ public class ResortController {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("name/{resortId}")
+    public ResponseEntity<ApiResponseDTO<String>> getResortName(@PathVariable Long resortId){
+        String resortName = resortService.getResortName(resortId);
+        ApiResponseDTO<String> response = ApiResponseDTO.<String>builder()
+                .statusCode(200)
+                .success(true)
+                .message("Successo, ottenimento nome del resort avvenuto correttamente")
+                .timestamp(new Date())
+                .data(resortName)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

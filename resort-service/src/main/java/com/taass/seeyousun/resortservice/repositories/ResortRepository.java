@@ -34,4 +34,6 @@ public interface ResortRepository extends JpaRepository<Resort, Long> {
             @Param("services") Collection<String> services,
             @Param("numServices") Integer numServices);
 
+    @Query("SELECT r.name FROM Resort r WHERE r.id = :resortId")
+    Optional<String> findNameById(Long resortId);
 }

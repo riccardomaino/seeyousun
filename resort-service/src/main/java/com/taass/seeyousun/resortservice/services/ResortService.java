@@ -210,4 +210,9 @@ public class ResortService {
                 .reservedUmbrella(reservedUmbrella)
                 .build();
     }
+
+    public String getResortName(Long resortId) {
+        return resortRepository.findNameById(resortId)
+                .orElseThrow(()-> new ResortNotFoundException(String.format("Nessun resorts trovato con id: '%d'", resortId)));
+    }
 }

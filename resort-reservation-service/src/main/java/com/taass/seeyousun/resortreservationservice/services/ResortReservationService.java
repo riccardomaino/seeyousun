@@ -74,11 +74,18 @@ public class ResortReservationService {
         }
     }
 
-   public List<UmbrellaDTO> getReservedUmbrellaInformation(Long resortId, LocalDate date){
+    public List<UmbrellaDTO> getReservedUmbrellaInformation(Long resortId, LocalDate date){
         return dailyReservationRepository.findReservedPlaceOfResortInDate(resortId, date);
     }
 
     public List<ReservationFullDTO> getReservationForUser(String userUid) {
-        return dailyReservationRepository.findByUser(userUid);
+        List<ReservationFullDTO> reservationList = dailyReservationRepository.findByUser(userUid);
+        for(ReservationFullDTO reservation : reservationList){
+            String resortName = Objects.requireNonNull(
+                    resortClient.getResortName(reservation.getResortId())
+                    .getBody()).getData();
+            reservation.setResortName(resortName);
+        }
+        return reservationList;
     }
 }
