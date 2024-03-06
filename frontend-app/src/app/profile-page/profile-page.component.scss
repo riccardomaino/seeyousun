@@ -20,16 +20,18 @@ body {
 
 .left-col {
     border-radius: 0.9375rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(50px);
     background: #FFF;
-    box-shadow: 6px 6px 30px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     z-index: 1;
 }
 
 .r1 {
-    flex-shrink: 0;
     border-radius: 0.9375rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(50px);
     background: #FFF;
-    box-shadow: 6px 6px 30px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    z-index: 1;
 }
 
 
@@ -43,12 +45,21 @@ body {
     width: 14rem;
     height: 14rem;
     flex-shrink: 0;
-    border-radius: 50%; /* Utilizza il border-radius per creare un cerchio */
+    border-radius: 50%;
     border: 5px solid var(--Fuscia, #B83B5E);
-    background: url("../../assets/userimage.png") lightgray; /* Rimuovi il posizionamento e la ripetizione */
-    background-size: cover; /* Fai in modo che l'immagine copra tutto l'elemento */
-    background-position: center; /* Centra l'immagine all'interno dell'elemento */
-    background-origin: border-box; /* Include il bordo nel calcolo delle dimensioni */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(92deg, #B83B5E 9.9%, #D24C00 95.39%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.initial {
+    font-size: 9rem;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+    font-family: Raleway;
 }
 
 .profile-name, .profile-surname {
@@ -129,7 +140,7 @@ body {
     justify-content: center;
     gap: 1.5rem;
     border-radius: 1.0rem;
-    background: #FFF;
+    background-color: transparent !important;
     box-shadow: 6px 6px 30px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 

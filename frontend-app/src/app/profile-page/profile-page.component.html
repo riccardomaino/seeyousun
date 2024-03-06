@@ -6,22 +6,36 @@
     <div class="container vertical-center d-flex align-items-center justify-content-center">
         <div class="row row-cols-md-2 gx-md-5">
             <!-- Left col -->
-            <div class="hidden-on-mobile col-md mt-5 left-col card d-flex flex-column justify-content-between align-items-center"> 
-                <div class="row mt-5">
-                    <div class="profile-img"></div>
-                </div>
+            <div class="hidden-on-mobile col-md mt-5 left-col card d-flex flex-column justify-content-between align-items-center">
                 <div class="row">
-                    <div class="profile-name"> <div class="profile-surname"> {{ userName }}</div></div>
+                    <div class="col-auto text-center">
+                        <div class="row mt-5">
+                            <div class="profile-img">
+                                <div class="initial">
+                                    {{ userName ? userName.charAt(0).toUpperCase() : userMail.charAt(0).toUpperCase() }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="profile-name"> <div class="profile-surname"> {{ userName }}</div></div>
+                        </div>
+                        <div class="row">
+                            <div class="profile-email">{{ userMail }}</div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="row">
-                    <div class="profile-email">{{ userMail }}</div>
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="button-assistence mt-3">Contattaci</div>
+                        </div>
+                        <div class="row mt-3 mb-5">
+                            <div class="button-logout" (click)="logOut()">Logout</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="button-assistence mt-3">Contattaci</div>
-                </div>
-                <div class="row mt-3 mb-5">
-                    <div class="button-logout" (click)="logOut()">Logout</div>
-                </div>
+
 
             </div>
             <!-- Right col -->
@@ -34,29 +48,40 @@
                         <!-- Qui ngFor -->
                         <div class="card-container" style="max-height: 400px; overflow-y: auto;">
                             <div *ngFor="let res of finalReservations" class="row item-event mt-2 mb-2">
-                                <div class="col-auto">
-                                    <img [src]="res.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
+                                <div class="row">
+                                    <div class="col-auto align-self-center">
+                                        <img [src]="res.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col-auto d-flex align-items-center mt-1">
+                                                <mat-icon>place</mat-icon>
+                                                {{ res.resName }}
+                                            </div>
+
+                                            <div class="col-auto d-flex align-items-center mt-1">
+                                                <mat-icon>beach_access</mat-icon>
+                                                {{ res.umbrella }}
+                                            </div>
+                                            <div class="col-auto  d-flex align-items-center mt-1">
+                                                <mat-icon>spa</mat-icon>
+                                                {{ res.numberOfSunbeds }}
+                                            </div>
+                                            <div class="col-auto  d-flex align-items-center mt-1">
+                                                <mat-icon>calendar_month</mat-icon>
+                                                {{ res.date }}
+                                            </div>
+                                            <!--<div class="col-auto">
+                                                <mat-icon>local_parking</mat-icon>
+                                                {{ res.parking ? 'Si' : 'No' }}
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                    <div *ngIf="res.isInProgress" class="col-auto align-self-center">
+                                        <img [src]="'../../assets/edit_button.svg'" alt="booking" class="booking-img">
+                                    </div>
                                 </div>
-                                <div class="col-auto">
-                                    <mat-icon>place</mat-icon>
-                                    {{ res.resName }}
-                                </div>
-                                <div class="col-auto">
-                                    <mat-icon>calendar_month</mat-icon>
-                                    {{ res.date }}
-                                </div>
-                                <div class="col-auto">
-                                    <mat-icon>beach_access</mat-icon>
-                                    {{ res.umbrella }}
-                                </div>
-                                <div class="col-auto">
-                                    <mat-icon>spa</mat-icon>
-                                    {{ res.numberOfSunbeds }}
-                                </div>
-                                <div class="col-auto">
-                                    <mat-icon>local_parking</mat-icon>
-                                    {{ res.parking ? 'Si' : 'No' }}
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -71,25 +96,37 @@
                         </div>
                         <div class="card-container" style="max-height: 400px; overflow-y: auto;">
                             <div *ngFor="let eve of finalEvents" class="row item-event mt-2 mb-2">
-                                <div class="col-auto">
-                                    <img [src]="eve.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
+                                <div class="row">
+                                    <div class="col-auto align-self-center">
+                                        <img [src]="eve.isInProgress ? '../../assets/icon_pending_.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col-auto d-flex align-items-center mt-1">
+                                                <mat-icon>celebration</mat-icon>
+                                                {{ eve.name }}
+                                            </div>
+                                            <div class="col-auto d-flex align-items-center mt-1">
+                                                <mat-icon>calendar_month</mat-icon>
+                                                {{ eve.date }}
+                                            </div>
+                                            <div class="col-auto d-flex align-items-center mt-1">
+                                                <mat-icon>watch</mat-icon>
+                                                {{ eve.hour }}
+                                            </div>
+                                            <div class="col-auto d-flex align-items-center mt-1">
+                                                <mat-icon>schedule</mat-icon>
+                                                {{ eve.duration }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="eve.isInProgress" class="col-auto align-self-center">
+                                        <img [src]="'../../assets/edit_button.svg'" alt="booking" class="booking-img">
+                                    </div>
                                 </div>
-                                <div class="col-auto">
-                                    <mat-icon>place</mat-icon>
-                                    {{ eve.name }}
-                                </div>
-                                <div class="col-auto">
-                                    <mat-icon>calendar_month</mat-icon>
-                                    {{ eve.date }}
-                                </div>
-                                <div class="col-auto">
-                                    <mat-icon>beach_access</mat-icon>
-                                    {{ eve.hour }}
-                                </div>
-                                <div class="col-auto">
-                                    <mat-icon>spa</mat-icon>
-                                    {{ eve.duration }}
-                                </div>
+
+
+
                             </div>
                         </div>
                         

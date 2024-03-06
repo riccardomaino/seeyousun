@@ -87,8 +87,8 @@ export class ProfilePageComponent {
       const currentDateTime = new Date();
 
       // Verifica se l'evento è in corso o passato
-      const isInProgress = currentDateTime >= initialDateTime;
-      const isPassed = currentDateTime > initialDateTime;
+      const isInProgress = initialDateTime >= currentDateTime ;
+      const isPassed = !isInProgress;
 
       // Ottieni le parti di anno, mese e giorno dalla data
       const year = initialDateTime.getFullYear().toString().slice(-2);
