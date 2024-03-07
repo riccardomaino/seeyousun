@@ -140,7 +140,7 @@ export class ProfilePageComponent {
       const umbrellaNumber = 1;
 
       this.finalReservations.push({
-        resName: "frescura", // Per ora lasciamo sempre "frescura" come nome
+        resName: reservation.resortName,
         date: formattedDate,
         umbrella: umbrellaNumber,
         numberOfSunbeds: reservation.numberOfSunbeds,

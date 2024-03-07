@@ -69,9 +69,9 @@ export class ResumePageComponent implements AfterViewInit {
             if(response.statusCode === 200 || response.statusCode === 201 ) {
 
                 const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                  data: {},
-                  height: '362px',
-                  width: '350px',
+                  data: {title: 'Prenotazione completata', message: 'Ti stiamo reindirizzando alla tua pagina profilo!', status: true},
+                  height: '400px',
+                  width: '400px',
                 });
                 // Chiudi automaticamente il dialogo dopo 2 secondi
                 setTimeout(() => {
