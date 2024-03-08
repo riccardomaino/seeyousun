@@ -131,7 +131,7 @@ h2 {
 
 /* Aggiungi questo al tuo file di stili (styles.scss o styles.css) */
 .explore-section {
-  position: fixed;
+  position: absolute;
   bottom: 20px; /* Posiziona la sezione sopra il fondo con uno spazio dal basso */
   left: 50%;
   transform: translateX(-50%);
@@ -240,9 +240,9 @@ h2 {
 }
 
 .error-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: 20px; /* Aggiungi un margine sopra per separarlo dalla sezione precedente */
+  text-align: center; /* Centra il contenuto orizzontalmente */
 }
+
+
 

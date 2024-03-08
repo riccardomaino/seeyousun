@@ -42,9 +42,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div *ngIf="error404Flag" class="row mt-4">
-                    <div class="col d-flex justify-content-center align-items-center flex-column error-container text-center">
+                    <div class="error-container">
                         <img src="../../assets/404.svg" alt="sad surfer" class="img-fluid" style="max-width: 200px;">
                         <div class="title mt-3" style="font-size: 24px;">Oh Noo!!!! <br> {{ errorMessage }}</div>
                     </div>
@@ -84,7 +83,7 @@
         <div class="navbar-container">
             <app-navbar></app-navbar>
         </div>
-
+        <app-footer></app-footer>
 </div>
 
 

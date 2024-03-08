@@ -5,6 +5,20 @@
     }
 }
 
+@media (min-width: 1400px) {
+    .item-event {
+        display: flex;
+        min-width: 623px;
+        padding: 0.9375rem 1.875rem;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        border-radius: 1.0rem;
+        background-color: transparent !important;
+        box-shadow: 6px 6px 30px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+}
+
 body {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1728 1117" fill="none"><g filter="url(%23filter0_f_509_1005)"><circle cx="1029" cy="737" r="489" fill="%23D24C00"/></g><g filter="url(%23filter1_f_509_1005)"><circle cx="1465" cy="602" r="274" fill="%23B83B5E"/></g><defs><filter id="filter0_f_509_1005" x="-10" y="-302" width="2078" height="2078" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="275" result="effect1_foregroundBlur_509_1005"/></filter><filter id="filter1_f_509_1005" x="891" y="28" width="1148" height="1148" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_509_1005"/></filter></defs></svg>');
     background-size: cover;
@@ -17,6 +31,12 @@ body {
     height: 100%;
     overflow-y: auto; /* o scroll */
 }
+
+/* Aggiungi questo al tuo file di stili CSS */
+.item-event > .row > div:first-child {
+    order: -1; /* Imposta l'ordine per far comparire la colonna all'estrema sinistra */
+}
+
 
 .left-col {
     border-radius: 0.9375rem;
