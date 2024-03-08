@@ -46,12 +46,12 @@
                             <div class="profile-name">Le mie <div class="profile-surname"> Prenotazioni</div></div>
                         </div>
                         <!-- Qui ngFor -->
-                        <div class="card-container text-center d-flex align-items-center justify-content-center" style="max-height: 400px; min-height: 200px; overflow-y: auto;">
+                        <div class="row card-container text-center d-flex align-items-center justify-content-center" style="max-height: 400px; min-height: 200px; overflow-y: auto; overflow-x: hidden;">
                             <div *ngIf="!finalReservations || finalReservations.length === 0" class="">
                                 <p>Non hai nessuna prenotazione</p>
                             </div>
 
-                            <div *ngFor="let res of finalReservations" class="row item-event mt-2 mb-2">
+                            <div *ngFor="let res of finalReservations" class="col-auto item-event mt-2 mb-2">
                                 <div class="row">
                                     <div class="col-auto align-self-center">
                                         <img [src]="res.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
@@ -98,11 +98,11 @@
                         <div class="row mt-2">
                             <div class="profile-name">I miei <div class="profile-surname"> Eventi</div></div>
                         </div>
-                        <div class="card-container text-center d-flex align-items-center justify-content-center" style="max-height: 400px; min-height: 200px; overflow-y: auto;">
+                        <div class="row card-container text-center d-flex align-items-center justify-content-center" style="max-height: 400px; min-height: 200px; overflow-y: auto;overflow-x: hidden;">
                             <div *ngIf="!finalEvents || finalEvents.length === 0" class="text-center">
                                 <p>Non hai ancora nessuna iscrizione</p>
                             </div>
-                            <div *ngFor="let eve of finalEvents" class="row item-event mt-2 mb-2">
+                            <div *ngFor="let eve of finalEvents" class="col-auto item-event mt-2 mb-2" style="">
                                 <div class="row">
                                     <div class="col-auto align-self-center">
                                         <img [src]="eve.isInProgress ? '../../assets/icon_pending_.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">

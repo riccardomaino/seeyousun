@@ -29,6 +29,11 @@ export class NavbarComponent {
       this.router.navigate(['/profile-page']);
   }
 
+  logOut() {
+    this.auth.signOut();
+    this.router.navigate(['']);
+  }
+
   
 
 }
