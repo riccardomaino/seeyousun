@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center text-center">
+        <div class="col">
+            <div class="row mb-4">
+                <img [src]="data.status ? '../../assets/confirm.svg' : '../../assets/other_path.svg'" alt="Logo" style="width: 60%;" class="mx-auto d-block">
+            </div>
+            <div class="row">
+                <h1 class="display-4"> {{data.title}}</h1>
+            </div>
+            <div class="row">
+                <h3> {{data.message}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
