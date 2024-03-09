@@ -119,7 +119,7 @@ export class ResortPageComponent {
         this.service.enrollToEvent(event.id).subscribe(
             (res) => {
               const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                data: {title: 'Ti sei iscritto all\'evento con successo!', message:'', status: 'true'},
+                data: {title: 'Ci siamo! :)', message:'Ti sei iscritto all\'evento con successo.', status: true},
                 height: '400px',
                 width: '400px',
               });
@@ -134,7 +134,11 @@ export class ResortPageComponent {
             },
             (error) => {
               console.error("Errore durante l'abbonamento all'evento:", error);
-              // Aggiungi qui la logica per gestire l'errore, come mostrare un messaggio all'utente o eseguire altre azioni necessarie.
+              const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                data: {title: 'Ops! :(', message:'Qualcosa è andato storto, riprova più tardi.', status: false},
+                height: '400px',
+                width: '400px',
+              });
             }
         );
       }
@@ -154,8 +158,15 @@ export class ResortPageComponent {
       if(this.isUserLoggedIn) {
         const dialogRef = this.dialog.open(ReviewDialogComponent, {
           data: {resort: this.resortFull.id},
-          height: '300px',
+          height: '350px',
           width: '600px',
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          // Rimuove il focus dall'elemento textarea
+          const textarea = document.getElementById('yourTextareaId') as HTMLTextAreaElement;
+          if (textarea) {
+            textarea.blur();
+          }
         });
       } else {
         this.router.navigate(['/login-page']);

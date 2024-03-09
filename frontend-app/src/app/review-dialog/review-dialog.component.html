@@ -1,5 +1,5 @@
 <div class="center-content"  style="padding: 0 20px;">
-    <form class="form mt-3"> <!-- Aggiungi classe mt-3 al form -->
+    <form class="form mt-3 p-3"> <!-- Aggiungi classe mt-3 al form -->
         <div class="row align-items-center">
             <div class="col-auto">
                 <h2>Aggiungi una valutazione</h2>
@@ -12,8 +12,10 @@
         </div>
         <mat-form-field class="full-width mt-2" appearance="outline">
             <mat-label>Titolo recensione</mat-label>
-            <input matInput placeholder="Inserisci un titolo per la recensione"  [(ngModel)]="title" name="title">
+            <input matInput placeholder="Inserisci un titolo per la recensione" [(ngModel)]="title" name="title" style="color: #D24C00; text-align: left;">
         </mat-form-field>
+
+
 
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>La tua esperienza</mat-label>
