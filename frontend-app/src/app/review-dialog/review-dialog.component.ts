@@ -1,7 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import { BeachService} from "../services/beach.service";
 import { FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-review-dialog',
@@ -14,7 +16,7 @@ export class ReviewDialogComponent {
   title: string = ''; // Titolo della recensione
   bodyReview: string = ''; // Corpo della recensione
   formattedDate: string = ''; // Data formattata
-  constructor(private service: BeachService,  @Inject(MAT_DIALOG_DATA) public resortID: number) { }
+  constructor(private service: BeachService,  @Inject(MAT_DIALOG_DATA) public resortID: number, public dialog: MatDialog, public router: Router) { }
 
   ngOnInit() {
     // Ottieni la data corrente
@@ -45,9 +47,35 @@ export class ReviewDialogComponent {
     this.service.createReview(this.title, this.bodyReview, this.currentRating, this.formattedDate, this.resortID).subscribe(
     (response) => {
         console.log(response);
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            data: {title: 'Recensione aggiunta  :)', message:'Il tuo feedback è molto importante per noi.', status: true},
+            height: '400px',
+            width: '400px',
+        });
+        // Chiudi automaticamente il dialogo dopo 2 secondi
+        setTimeout(() => {
+            dialogRef.close();
+            // Imposta un ritardo di 2 secondi prima di reindirizzare
+            setTimeout(() => {
+                this.router.navigate(['/resort-page'], { queryParams: { id: this.resortID } });
+            }, 2000);
+        }, 2000);
     },
     (error) => {
-        console.error(error);
+        console.log(error);
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            data: {title: 'Qualcosa è andato storto :(', message:'Non siamo riusciti ad aggiungere la tua recensione. Riprova più tardi.', status: false},
+            height: '400px',
+            width: '400px',
+        });
+        // Chiudi automaticamente il dialogo dopo 2 secondi
+        setTimeout(() => {
+            dialogRef.close();
+            // Imposta un ritardo di 2 secondi prima di reindirizzare
+            setTimeout(() => {
+                //Do nothing
+            }, 2000);
+        }, 2000);
     }
     );
   }

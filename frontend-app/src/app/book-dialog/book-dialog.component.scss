@@ -38,23 +38,24 @@
     border-color:rgb(234, 0, 0);
   }
 
+  .isClickable {
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+
+
     /* Aggiungiamo un colore di sfondo quando l'utente passa sopra l'elemento */
-  .svg:hover {
+  .isClickable:hover {
     cursor: pointer; /* Cambiamo il cursore per indicare che l'elemento è cliccabile */
     border-radius: 0.625rem;
     border: 2px solid var(--Fuscia, #B83B5E);
     background: rgba(184, 59, 94, 0.25);
   }
 
-  .svg:active {
+  .isClickable:active {
     border-radius: 0.625rem;
     border: 2px solid var(--Fuscia, #B83B5E);
     background: rgba(184, 59, 94, 0.25);
-  }
-
-  /* arrotonda i bordi */
-  .svg {
-    transition: background-color 0.3s, color 0.3s;
   }
 
   

@@ -19,8 +19,8 @@ import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-book-dialog',
-  templateUrl: './book-dialog/book-dialog.component.html',
-  styleUrls: ['./book-dialog/book-dialog.component.scss']
+  templateUrl: '../app/book-dialog/book-dialog.component.html',
+  styleUrls: ['../app/book-dialog/book-dialog.component.scss']
 })
 export class BookDialogComponent {
   beachSpecification: BeachSpec = {} as BeachSpec;
@@ -69,14 +69,28 @@ export class BookDialogComponent {
   }
 
   private buildMatrix(): void {
+    let currIndex = 0;
     this.matrix = [];
     for (let i = 0; i < this.beachSpecification.dimension.totalUmbrellaLine; i++) {
       let row = [];
       for (let j = 0; j < this.beachSpecification.dimension.totalUmbrellaColumn; j++) {
-        if (this.beachSpecification.reservedUmbrella.some((reservedUmbrella) => reservedUmbrella.reservedUmbrellaLine === i && reservedUmbrella.reservedUmbrellaColumn === j)) {
-          row.push({ row: i, column: j, status: 'reserved', selected: false });
+        currIndex=this.beachSpecification.reservedUmbrella.findIndex((reservedUmbrella) => reservedUmbrella.reservedUmbrellaLine === i && reservedUmbrella.reservedUmbrellaColumn === j);
+        if (currIndex !== -1) {
+          switch (this.beachSpecification.reservedUmbrella[currIndex].persistenceTypeEnum) {
+            case 'FULL_DAY':
+              row.push({ row: i, column: j, status: 'FULL_DAY', selected: false });
+              break;
+            case 'HALF_DAY_MORNING':
+              row.push({ row: i, column: j, status: 'HALF_DAY_MORNING', selected: false });
+              break;
+            case 'HALF_DAY_AFTERNOON':
+              row.push({ row: i, column: j, status: 'HALF_DAY_AFTERNOON', selected: false });
+              break;
+            default:
+              break;
+          }
         } else {
-          row.push({ row: i, column: j, status: 'free', selected: false });
+          row.push({ row: i, column: j, status: 'FREE', selected: false });
         }
       }
       this.matrix.push(row);
@@ -84,18 +98,24 @@ export class BookDialogComponent {
   }
 
   selectUmbrella(row: number, column: number, status: string): void {
-    if (status === 'free') {
+    if (status === 'FREE') {
       console.log(row, column);
       // Cambia lo stato dell'ombrellone solo se è libero
       this.matrix[row][column].selected = !this.matrix[row][column].selected;
       console.log(this.matrix[row][column].selected); 
-      this.openDialog(row * this.matrix[0].length + column +1, this.data.selectedDate.getDate() + '/' + (this.data.selectedDate.getMonth() + 1) + '/' + this.data.selectedDate.getFullYear(), row, column);
+      this.openDialog(row * this.matrix[0].length + column +1, this.data.selectedDate.getDate() + '/' + (this.data.selectedDate.getMonth() + 1) + '/' + this.data.selectedDate.getFullYear(), row, column, status);
+    } else if (status === 'HALF_DAY_MORNING') {
+      console.log(row, column);
+      // Cambia lo stato dell'ombrellone solo se è libero
+      this.matrix[row][column].selected = !this.matrix[row][column].selected;
+      console.log(this.matrix[row][column].selected);
+      this.openDialog(row * this.matrix[0].length + column +1, this.data.selectedDate.getDate() + '/' + (this.data.selectedDate.getMonth() + 1) + '/' + this.data.selectedDate.getFullYear(), row, column, status);
     }
   }
 
-  openDialog(umbrella: number, date: string, row: number, column: number): void {
+  openDialog(umbrella: number, date: string, row: number, column: number, status: string): void {
     const dialogRef = this.dialog.open(BookDialogSelectComponent, {
-      data: {umbrella: umbrella, date: date, row: row, column: column, people: this.data.people, resortFull: this.data.resort},
+      data: {umbrella: umbrella, date: date, row: row, column: column, people: this.data.people, resortFull: this.data.resort, status: status},
       height: '362px',
       width: '350px',
     });

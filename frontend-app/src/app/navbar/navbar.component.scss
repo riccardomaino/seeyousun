@@ -1,10 +1,35 @@
+/* Aggiungi regole per adattare il contenuto su schermi più piccoli */
+@media (max-width: 765px) {
+  .nav-divisor {
+    display: none !important;
+  }
+  .button-logout {
+    display: none !important;
+  }
+}
+
+@media (min-width: 765px) {
+  .button-logout {
+    display: none !important;
+  }
+}
+.profile-surname {
+  color: #000;
+  font-family: Raleway;
+  font-size: 1.0rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration: none; /* Rimuove la sottolineatura */
+}
+
 .navbar {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(50px);
   background-color: transparent !important;
   display: flex;
   align-items: center;
-  height: 75px;
+
 }
 
 /* Nuova regola per garantire che la larghezza sia al 100% */
@@ -12,22 +37,13 @@
   width: 100%;
 }
 
-
-h1 {
-    color: #000000;
-    font-family: Raleway;
-    font-size: 2.5rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
 .logo {
-    background-image: url('../../assets/navbar/logo.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 75px;
-    width: 75px;
+  color: #000000;
+  font-family: Raleway;
+  font-size: 2.0rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .form-search {

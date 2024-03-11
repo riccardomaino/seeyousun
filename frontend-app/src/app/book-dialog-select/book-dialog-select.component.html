@@ -13,11 +13,9 @@
       </div>
       <div class="row">
         <mat-form-field appearance="outline">
-            <mat-label>Select</mat-label>
-            <mat-select [value]="'one'">
-              <mat-option value="one">Mattina 15€</mat-option>
-              <mat-option value="two">Pomeriggio 15€</mat-option>
-              <mat-option value="two">Giornata intera 30€</mat-option>
+            <mat-label>Seleziona periodo</mat-label>
+            <mat-select [(ngModel)]="selectedValue">
+              <mat-option *ngFor="let option of filteredOptions" [value]="option.optionName"> {{ option.value }} </mat-option>
             </mat-select>
           </mat-form-field>
       </div>

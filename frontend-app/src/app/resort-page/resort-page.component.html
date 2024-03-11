@@ -3,8 +3,13 @@
   <div class="navbar-container">
     <app-navbar></app-navbar>
   </div>
+    <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center vh-100">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
-  <div class="container-lg justify-content-center align-items-center ">
+    <div *ngIf="!isLoading" class="container-lg justify-content-center align-items-center ">
       <div class="row mt-5 gx-5 align-items-center">
         <!-- Column left -->
         <div class="col-lg-8" style="margin-top: 120px;">
@@ -160,7 +165,7 @@
                   <div id="recensioni" class="row" >
                     <mat-form-field class="example-full-width"  appearance="outline">
                       <mat-label>Scrivi una recensione</mat-label>
-                      <textarea matInput placeholder="Descrivi la tua esperienza" (input)="onTextareaInput($event)"></textarea>
+                        <textarea matInput placeholder="Descrivi la tua esperienza" id="yourTextareaId" (input)="onTextareaInput($event)"></textarea>
                     </mat-form-field>
                   </div>
 

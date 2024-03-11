@@ -1,14 +1,14 @@
 <nav class="navbar navbar-expand-md">
     <div class="container-fluid">
-      <img class="logo">
-      <a class="navbar-brand p-3" href="#">
-        <h1>SeeYouSun</h1>
+      <!--<img class="logo">-->
+      <a class="logo navbar-brand p-3 d-flex align-items-center" href="#">
+        <img src="../../assets/navbar/logo.png" width="50" height="50" class="d-inline-block align-top" alt="">
+        SeeYouSun
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <form class="d-flex align-items-center ms-auto">
           <div class="input-group search-wrapper">
             <div class="input-group-append">
@@ -17,18 +17,28 @@
             <input type="text" class="form-control search-text" placeholder="Cerca uno stabilimento">
           </div>
         </form>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link search-text" href="#">About us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-divisor" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a *ngIf="!isUserLoggedIn" class="nav-link search-text" (click)="openLoginPage()">Login</a>
-            <a *ngIf="isUserLoggedIn" class="nav-link search-text" (click)="openProfilePage()">{{user}}</a>
-          </li>
-        </ul>
+          <!--<form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>-->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link search-text" href="#">About us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-divisor" href="#"></a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="!isUserLoggedIn" class="nav-link search-text" (click)="openLoginPage()">Login</a>
+              </li>
+                <li class="nav-item">
+                    <a *ngIf="isUserLoggedIn" class="nav-link search-text" (click)="openProfilePage()">Ciao,  <a class="profile-surname"> {{ user }}</a></a>
+                </li>
+                <li *ngIf="isUserLoggedIn" class="button-logout nav-item">
+                    <button type="button" class="btn btn-outline-danger" (click)="logOut()">Logout</button>
+                </li>
+            </ul>
+
       </div>
     </div>
   </nav>

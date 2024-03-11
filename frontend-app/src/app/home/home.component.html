@@ -1,54 +1,90 @@
 <div class="container-fluid">
-  <div class="video-background">
-    <video autoplay loop muted>
-      <source src="assets/dynamicbg.mov" type="video/mp4">
-    </video>
-    <div class="overlay"></div>
-    <div class="welcome-message">
-      <h1 class="mb-3">Search, Book, Relax.</h1>
-      <h2 class="mb-3">Benvenuto in SeeYouSun, un nuovo modo di prenotare il tuo ombrellone, partecipare ad eventi presso le nostre strutture balneari e molto altro.</h2>
+    <div class="home-container">
+        <div class="video-background">
+            <video autoplay loop muted>
+                <source src="assets/dynamicbg.mov" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+            <div class="welcome-message">
+                <h1 class="mb-3">Search, Book, Relax.</h1>
+                <h2 class="mb-3">Benvenuto in SeeYouSun, un nuovo modo di prenotare il tuo ombrellone, partecipare ad eventi presso le nostre strutture balneari e molto altro.</h2>
+                <!-- Aggiungi questo solo se stai usando Angular Material Datepicker -->
+            </div>
 
-      <div class="container text-center">
-        <div class="row align-items-start">
-          <div class="col">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Quando?</mat-label>
-              <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date">
-                <input matEndDate placeholder="End date">
-              </mat-date-range-input>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-          </div>
-
-          <div class="col">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Dove vuoi andare?</mat-label>
-              <input matInput placeholder="">
-              <mat-icon matSuffix>location_on</mat-icon>
-            </mat-form-field>
-          </div>
+            <div class="explore-section text-center">
+                <div class="explore-text">
+                    Esplora
+                </div>
+                <!-- Aggiorna la sezione di esplorazione nel tuo HTML -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none" (click)="navigateToExplore()">
+                    <path d="M4.16658 16.7187L7.8645 13.0208L24.9999 30.1562L42.1353 13.0208L45.8333 16.7187L24.9999 37.552L4.16658 16.7187Z" fill="white"/>
+                </svg>
+            </div>
         </div>
-      </div>
-
-      <!-- Aggiungi questo solo se stai usando Angular Material Datepicker -->
-      <mat-datepicker #picker></mat-datepicker>
     </div>
 
-    <div class="explore-section text-center">
-      <div class="explore-text">
-        Esplora
-      </div>
-      <!-- Aggiorna la sezione di esplorazione nel tuo HTML -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none" (click)="navigateToExplore()">
-        <path d="M4.16658 16.7187L7.8645 13.0208L24.9999 30.1562L42.1353 13.0208L45.8333 16.7187L24.9999 37.552L4.16658 16.7187Z" fill="white"/>
-      </svg>
+    <div class="row">
+        <!-- Sezione Esplora -->
+        <div class="explore-container">
+            <!-- new-page.component.html -->
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
+                    <!-- Titolo in alto a sinistra -->
+                    <div class="title">Popolari in Italia </div>
+
+                    <!-- Bottone per aprire i filtri in alto a destra -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="btn button-modifica d-flex align-items-center justify-content-center button-text" (click)="openDialog()"> Filtri  </div>
+                        </div>
+                        <div class="col">
+                            <div *ngIf="isSearching" class="btn button-modifica d-flex align-items-center justify-content-center button-text" (click)="backToPopular()"> Cancella filtri  </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="error404Flag" class="row mt-4">
+                    <div class="error-container">
+                        <img src="../../assets/404.svg" alt="sad surfer" class="img-fluid" style="max-width: 200px;">
+                        <div class="title mt-3" style="font-size: 24px;">Oh Noo!!!! <br> {{ errorMessage }}</div>
+                    </div>
+                </div>
+
+                <!-- Griglia di card views -->
+                <div *ngIf="!error404Flag" class="row">
+                    <div *ngFor="let rP of resortPresentation" class="col-lg-4 col-md-6 col-sm-12 mt-4">
+                        <div class="card" (click)="isSelected(rP)">
+                            <img class="card-img-top" src="{{ rP.photoCover }}" alt="Immagine Spiaggia">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title">{{ rP.name }}</h5>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end align-items-center">
+                                        <div class="row">
+                                            <mat-icon class="me-1 align-middle star-icon">star</mat-icon>
+                                            <p class="card-text mb-0">{{ rP.rating }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="card-text">{{ rP.description }}</p>
+                                <!-- Aggiungi altre informazioni sulla spiaggia secondo le tue esigenze -->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <div class="navbar-container">
-      <app-navbar></app-navbar>
-    </div>
-  </div>
+        <div class="navbar-container">
+            <app-navbar></app-navbar>
+        </div>
+        <app-footer></app-footer>
 </div>
+
+
 <router-outlet></router-outlet>

@@ -87,8 +87,8 @@ export class ProfilePageComponent {
       const currentDateTime = new Date();
 
       // Verifica se l'evento è in corso o passato
-      const isInProgress = currentDateTime >= initialDateTime;
-      const isPassed = currentDateTime > initialDateTime;
+      const isInProgress = initialDateTime >= currentDateTime ;
+      const isPassed = !isInProgress;
 
       // Ottieni le parti di anno, mese e giorno dalla data
       const year = initialDateTime.getFullYear().toString().slice(-2);
@@ -140,7 +140,7 @@ export class ProfilePageComponent {
       const umbrellaNumber = 1;
 
       this.finalReservations.push({
-        resName: "frescura", // Per ora lasciamo sempre "frescura" come nome
+        resName: reservation.resortName,
         date: formattedDate,
         umbrella: umbrellaNumber,
         numberOfSunbeds: reservation.numberOfSunbeds,
