@@ -52,9 +52,7 @@ public class ResortReservationService {
     }
 
     @Transactional
-    public void createReservation(ReservationRequestDTO requestDTO)
-            throws ResortNotFoundException, DailyReservationNotFoundException,
-                UmbrellaAlreadyReservedException, UmbrellaOutOfBoundException, SunbedNotValidException {
+    public void createReservation(ReservationRequestDTO requestDTO){
         // Esecuzione dei controlli di validità sulla richiesta di prenotazione
         checkReservationRequestValidity(requestDTO);
         // Ottiene la lista di tutte le DailyReservation in cui aggiungere la nuova prenotazione (serve a salvare la Reservation in ogni giorno che è prenotata)
