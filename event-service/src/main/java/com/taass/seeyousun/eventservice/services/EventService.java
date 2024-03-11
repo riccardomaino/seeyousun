@@ -10,6 +10,7 @@ import com.taass.seeyousun.eventservice.model.Event;
 import com.taass.seeyousun.eventservice.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class EventService {
     }
 
     public List<EventDTO> getEventForResort(Long resortId) {
-        List<Event> eventList = eventRepository.findByResortId(resortId);
+        List<Event> eventList = eventRepository.findByResortIdAndInitialDateTimeAfter(resortId, LocalDateTime.now());
         return  eventList.stream()
                 .map(eventMapper::mapFrom)
                 .toList();
