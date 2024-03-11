@@ -68,7 +68,7 @@ export class HomeComponent {
       this.resortPresentationBackup = this.resortPresentation;
       this.beachService.getResortPresentationByFilter(result.location, result.services).subscribe(
           (resortPresentation) => {
-            console.log(this.resortPresentation);
+            console.log(resortPresentation.data);
             this.errorMessage = resortPresentation.message;
             this.resortPresentation = resortPresentation.data.popularResorts;
           },

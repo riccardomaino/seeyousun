@@ -74,6 +74,7 @@ export class BeachService {
   }
 
   createReview(title: string, bodyReview: string, rating: number, date: string, resortId: number): Observable<any> {
+    console.log({title: title, bodyReview: bodyReview, rating: rating, date: date, resortId: resortId});
     return this.http.post(this.baseUrl + 'reviews', {title: title, bodyReview: bodyReview, rating: rating, date: date, resortId: resortId});
   }
 

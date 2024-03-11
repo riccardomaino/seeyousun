@@ -46,6 +46,7 @@ export class ReviewDialogComponent {
   onSubmit() {
     this.service.createReview(this.title, this.bodyReview, this.currentRating, this.formattedDate, this.resortID).subscribe(
     (response) => {
+        console.log(response);
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             data: {title: 'Recensione aggiunta  :)', message:'Il tuo feedback è molto importante per noi.', status: true},
             height: '400px',
@@ -61,6 +62,7 @@ export class ReviewDialogComponent {
         }, 2000);
     },
     (error) => {
+        console.log(error);
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             data: {title: 'Qualcosa è andato storto :(', message:'Non siamo riusciti ad aggiungere la tua recensione. Riprova più tardi.', status: false},
             height: '400px',
