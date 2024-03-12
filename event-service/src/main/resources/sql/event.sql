@@ -24,7 +24,6 @@ INSERT INTO public.events (id, description, duration, initial_date_time, max_use
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (25, 'Beach Fashion Show', 60, '2024-06-19 17:00:00.000000', 2, 'Seaside Fashion Show', 10, false);
 INSERT INTO public.events (id, description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES (22, 'Beachside Karaoke Night', 60, '2024-06-13 19:00:00.000000', 10, 'Karaoke by the Shore', 7, false);
 INSERT INTO public.events (description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES ('Sunset Yoga Session', 60, '2024-06-16 17:00:00.000000', null, 'Beach Yoga', 2, false);
-INSERT INTO public.events (description, duration, initial_date_time, max_user, name, resort_id, is_full) VALUES ('Surfing Competition', 60, '2024-06-03 12:00:00.000000', null, 'Surfing Competition', 2, false);
 
 INSERT INTO public.events_reservations (event_id, user_subscribed) VALUES (2, 1);
 INSERT INTO public.events_reservations (event_id, user_subscribed) VALUES (3, 1);

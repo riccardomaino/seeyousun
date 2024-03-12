@@ -4,7 +4,7 @@ import { resortPresentation } from '../models/resortPresentation';
 import { resortFull } from '../models/resortFull';
 import { BeachService } from '../services/beach.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BookDialogComponent } from '../../assets/book-dialog.component';
+import { BookDialogComponent } from '../book-dialog/book-dialog.component';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';

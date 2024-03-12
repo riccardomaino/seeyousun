@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { BeachService } from '../app/services/beach.service';
-import { BeachSpec } from '../app/models/beachSpec';
+import { BeachService } from '../services/beach.service';
+import { BeachSpec } from '../models/beachSpec';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {
   MatDialog,
@@ -11,16 +11,16 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { resortFull } from '../app/models/resortFull';
+import { resortFull } from '../models/resortFull';
 import { Router } from '@angular/router';
-import { BookDialogSelectComponent } from '../app/book-dialog-select/book-dialog-select.component';
+import { BookDialogSelectComponent } from '../book-dialog-select/book-dialog-select.component';
 import {catchError, throwError} from "rxjs";
 import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-book-dialog',
-  templateUrl: '../app/book-dialog/book-dialog.component.html',
-  styleUrls: ['../app/book-dialog/book-dialog.component.scss']
+  templateUrl: './book-dialog.component.html',
+  styleUrls: ['./book-dialog.component.scss']
 })
 export class BookDialogComponent {
   beachSpecification: BeachSpec = {} as BeachSpec;
@@ -39,6 +39,7 @@ export class BookDialogComponent {
   }
 
   private loadReservationInformation(): void {
+    console.log(this.data.selectedDate);
     this.beachService.getReservationInformation(this.data.resort.id, this.formatDate(this.data.selectedDate))
         .pipe(
             catchError(error => {
@@ -57,6 +58,7 @@ export class BookDialogComponent {
         )
         .subscribe((reservations) => {
           this.beachSpecification = reservations.data;
+          console.log(this.beachSpecification);
           this.buildMatrix();
         });
   }
