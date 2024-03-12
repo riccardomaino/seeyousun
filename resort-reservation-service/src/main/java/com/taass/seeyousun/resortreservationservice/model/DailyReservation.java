@@ -35,7 +35,7 @@ public class DailyReservation {
     @JsonManagedReference
     private List<Reservation> reservations;
 
-    public void addReservation(Reservation newReservation) throws UmbrellaAlreadyReservedException {
+    public void addReservation(Reservation newReservation){
         boolean isAlreadyReserved = false;
         for(Reservation r : this.reservations){
             System.out.println(r);

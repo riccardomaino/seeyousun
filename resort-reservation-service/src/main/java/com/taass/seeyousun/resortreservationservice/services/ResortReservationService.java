@@ -34,8 +34,8 @@ public class ResortReservationService {
                 .getBody()).getData();
 
         // Effettuiamo un controllo sul rispetto dei limiti della mappa del resort
-        if(dimensionDTO.getTotalUmbrellaLine() < requestDTO.getReservedUmbrellaLine() ||
-                dimensionDTO.getTotalUmbrellaColumn() < requestDTO.getReservedUmbrellaColumn() ||
+        if(dimensionDTO.getTotalUmbrellaLine() <= requestDTO.getReservedUmbrellaLine() ||
+                dimensionDTO.getTotalUmbrellaColumn() <= requestDTO.getReservedUmbrellaColumn() ||
                 requestDTO.getReservedUmbrellaLine()  < 0 ||
                 requestDTO.getReservedUmbrellaColumn() < 0
         ) {
