@@ -91,9 +91,16 @@ INSERT INTO public.time_tables (resort_id, time_tables) VALUES (7, '6:30 - 19:30
 INSERT INTO public.time_tables (resort_id, time_tables) VALUES (8, 'Lun - Ven');
 INSERT INTO public.time_tables (resort_id, time_tables) VALUES (8, '9:30 - 13:00 e 14:00 - 19:00');
 
-
 INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (1, '2024-05-31', '2024-01-01', 5, 2);
 INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (2, '2024-06-30', '2024-06-01', 10, 2);
+INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (3, '2024-05-31', '2024-01-01', 5, 8);
+INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (4, '2024-05-31', '2024-01-01', 5, 1);
+INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (5, '2024-05-31', '2024-01-01', 5, 3);
+INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (6, '2024-05-31', '2024-01-01', 5, 4);
+INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (7, '2024-05-31', '2024-01-01', 5, 5);
+INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (8, '2024-05-31', '2024-01-01', 5, 6);
+INSERT INTO public.price_period (id, period_final_date, period_initial_date, sunbed_price, resort_id) VALUES (9, '2024-05-31', '2024-01-01', 5, 7);
+
 
 INSERT INTO public.umbrella_line_price (price_period_id, umbrella_price, umbrella_price_order) VALUES (1, 15, 0);
 INSERT INTO public.umbrella_line_price (price_period_id, umbrella_price, umbrella_price_order) VALUES (1, 10, 1);

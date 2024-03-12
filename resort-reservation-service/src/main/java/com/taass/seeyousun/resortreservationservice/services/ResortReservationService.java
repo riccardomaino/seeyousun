@@ -10,8 +10,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ResortReservationService {
@@ -55,22 +57,27 @@ public class ResortReservationService {
     public void createReservation(ReservationRequestDTO requestDTO){
         // Esecuzione dei controlli di validità sulla richiesta di prenotazione
         checkReservationRequestValidity(requestDTO);
-        // Ottiene la lista di tutte le DailyReservation in cui aggiungere la nuova prenotazione (serve a salvare la Reservation in ogni giorno che è prenotata)
-        List<DailyReservation> dailyReservationList = dailyReservationRepository.findDistinctByDateBetweenAndResortId(requestDTO.getInitialDate(), requestDTO.getFinalDate(), requestDTO.getResortId());
-
-        // Per ognuna delle DailyReservation in cui aggiungere la Reservation, si va effettivamente ad aggiungere la Reservation
-        for(DailyReservation dailyReservation : dailyReservationList){
-            Reservation reservation = Reservation.builder()
-                    .numberOfSunbeds(requestDTO.getNumberOfSunbeds())
-                    .reservedUmbrellaLine(requestDTO.getReservedUmbrellaLine())
-                    .reservedUmbrellaColumn(requestDTO.getReservedUmbrellaColumn())
-                    .persistenceTypeEnum(requestDTO.getPersistenceTypeEnum())
-                    .userUid(requestDTO.getUserUid())
-                    .build();
-            dailyReservation.addReservation(reservation);
-            dailyReservationRepository.saveAndFlush(dailyReservation);
+        // cerca il daily reservation se esiste, se no lo crea
+        DailyReservation dailyReservation;
+        Optional<DailyReservation> dailyReservationOpt =
+                dailyReservationRepository.findDistinctByDateAndResortId(requestDTO.getInitialDate(), requestDTO.getResortId());
+        dailyReservation = dailyReservationOpt
+                .orElseGet(() -> DailyReservation.builder()
+                                            .resortId(requestDTO.getResortId())
+                                            .date(requestDTO.getInitialDate())
+                                            .reservations(new ArrayList<>())
+                                            .build());
+        //crea la reservation
+        Reservation reservation = Reservation.builder()
+                .numberOfSunbeds(requestDTO.getNumberOfSunbeds())
+                .reservedUmbrellaLine(requestDTO.getReservedUmbrellaLine())
+                .reservedUmbrellaColumn(requestDTO.getReservedUmbrellaColumn())
+                .persistenceTypeEnum(requestDTO.getPersistenceTypeEnum())
+                .userUid(requestDTO.getUserUid())
+                .build();
+        dailyReservation.addReservation(reservation);
+        dailyReservationRepository.save(dailyReservation);
         }
-    }
 
     public List<UmbrellaDTO> getReservedUmbrellaInformation(Long resortId, LocalDate date){
         return dailyReservationRepository.findReservedPlaceOfResortInDate(resortId, date);

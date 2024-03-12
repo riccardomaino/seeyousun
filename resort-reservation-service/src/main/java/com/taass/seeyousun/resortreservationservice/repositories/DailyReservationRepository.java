@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DailyReservationRepository extends JpaRepository<DailyReservation,Long> {
 
-    List<DailyReservation> findDistinctByDateBetweenAndResortId(LocalDate initialDate, LocalDate finalDate, Long resortId);
+    Optional<DailyReservation> findDistinctByDateAndResortId(LocalDate initialDate, Long resortId);
 
     @Query("SELECT new com.taass.seeyousun.resortreservationservice.dto.UmbrellaDTO(r.reservedUmbrellaLine,r.reservedUmbrellaColumn,r.persistenceTypeEnum) " +
             "FROM DailyReservation d JOIN d.reservations r WHERE d.resortId = :resortId AND d.date = :date")
