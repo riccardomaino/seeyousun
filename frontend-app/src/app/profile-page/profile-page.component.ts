@@ -17,6 +17,7 @@ interface reservationsFinal {
 }
 
 interface eventFinal {
+  id: number;
   date: string;
   hour: string;
   name: string;
@@ -101,6 +102,7 @@ export class ProfilePageComponent {
 
       // Costruzione dell'oggetto EventFinal
       const eventFinal: eventFinal = {
+        id: event.id,
         date: `${day}/${month}/${year}`,
         hour: `${hour}:${minutes}`,
         name: event.name,
@@ -149,6 +151,23 @@ export class ProfilePageComponent {
         parking: false // Per ora impostiamo sempre a false
       });
     });
+  }
+
+  unsubscribeEvent(id: number) {
+    this.service.unsubscribeToEvent(id).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.statusCode === 200 || response.statusCode === 201) {
+            // Rimuovi l'evento dalla lista finale
+            this.finalEvents = this.finalEvents.filter(event => event.id !== id);
+            this.loadUserData();
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+    );
+
   }
 
 

@@ -21,8 +21,9 @@
                         <div class="col">
                             <mat-form-field appearance="outline">
                                 <mat-label>Email</mat-label>
-                                <input matInput placeholder="La tua mail" [(ngModel)]="email">
+                                <input matInput placeholder="La tua mail" [(ngModel)]="email" (input)="checkIfMailValid()">
                                 <mat-icon matSuffix>mail</mat-icon>
+                                <mat-hint class="hint"  *ngIf="mailIsInvalid">Inserisci una mail valida</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>

@@ -65,12 +65,12 @@ export class HomeComponent {
     dialogRef.afterClosed().subscribe(result => {
       this.textHeader = 'Risultati della ricerca';
       this.isSearching = true;
-      this.resortPresentationBackup = this.resortPresentation;
       this.beachService.getResortPresentationByFilter(result.location, result.services).subscribe(
           (resortPresentation) => {
-            console.log(resortPresentation.data);
+            console.log(resortPresentation);
             this.errorMessage = resortPresentation.message;
-            this.resortPresentation = resortPresentation.data.popularResorts;
+            this.resortPresentation = resortPresentation.data;
+            console.log(this.resortPresentation);
           },
           (error) => {
             console.log('Errore durante la chiamata al servizio:', error);
@@ -98,6 +98,7 @@ export class HomeComponent {
   private loadResortPresentation(): void {
     this.beachService.getResortPresentation().subscribe((resortPresentation) => {
       this.resortPresentation = resortPresentation.data.popularResorts;
+      this.resortPresentationBackup = this.resortPresentation;
     });
   }
 

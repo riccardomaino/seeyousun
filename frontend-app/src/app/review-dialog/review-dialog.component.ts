@@ -70,7 +70,7 @@ export class ReviewDialogComponent {
         });
         // Chiudi automaticamente il dialogo dopo 2 secondi
         setTimeout(() => {
-            dialogRef.close();
+            dialogRef.close( {});
             // Imposta un ritardo di 2 secondi prima di reindirizzare
             setTimeout(() => {
                 //Do nothing

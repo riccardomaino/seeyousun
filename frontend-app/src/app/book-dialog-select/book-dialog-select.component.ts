@@ -48,6 +48,9 @@ export class BookDialogSelectComponent {
     } else {
       this.filteredOptions = this.options.slice();
     }
+    // Default value
+    this.data.row = this.data.row + 1;
+    this.data.column = this.data.column + 1;
   }
 
 

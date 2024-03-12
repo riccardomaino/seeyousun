@@ -12,6 +12,8 @@ export class LoginPageComponent {
   constructor(public router: Router, public auth: AngularFireAuth) {}
   email: string = '';
   password: string = '';
+  hide: boolean = true;
+  pIsInvalid: boolean = false;
 
   //Sing in with mail and password
   login() {
@@ -19,6 +21,7 @@ export class LoginPageComponent {
       this.router.navigate(['/profile-page']);
     }).catch(error => {
       console.log(error);
+      this.pIsInvalid = true;
     });
   }
 

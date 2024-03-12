@@ -12,6 +12,7 @@ import { apiResponseReservationInformation } from '../models/apiResponseReservat
 import { environment } from 'src/environments/environment';
 import {apiResponseReservationFUsr} from "../models/apiResponseReservationFUsr";
 import {apiResponseEventsForUser} from "../models/apiResponseEventsForUser";
+import {apiResponseRPByFilter} from "../models/apiResponseRPByFilter";
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +48,7 @@ export class BeachService {
     return this.http.get<apiResponseEventsForUser>(this.baseUrl + 'events/events-for-user');
   }
 
-  getResortPresentationByFilter(location: string, services: string[]): Observable<apiResponseResortPresentation> {
+  getResortPresentationByFilter(location: string, services: string[]): Observable<apiResponseRPByFilter> {
     let url = `${this.baseUrl}resorts/by-location-and-services?`;
 
     if (location) {
@@ -61,11 +62,15 @@ export class BeachService {
       url += `services=${services.join(',')}`;
     }
 
-    return this.http.get<apiResponseResortPresentation>(url);
+    return this.http.get<apiResponseRPByFilter>(url);
   }
 
   enrollToEvent(id: number): Observable<any> {
     return this.http.post(this.baseUrl + 'events/subscription', { eventId: id });
+  }
+
+  unsubscribeToEvent(id: number): Observable<any> {
+    return this.http.post(this.baseUrl + 'events/unsubscription', { eventId: id });
   }
 
   createReservation(resortId: number, reservedUmbrellaRow: number, reservedUmbrellaColumn: number, persistenceTypeEnum: string, numberOfSunbeds: number, initialDate: string, finalDate: string,): Observable<any> {

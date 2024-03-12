@@ -14,16 +14,18 @@
                                 <mat-label>Email</mat-label>
                                 <input matInput placeholder="La tua mail" [(ngModel)]="email">
                                 <mat-icon matSuffix>mail</mat-icon>
-                                <mat-hint>Hint</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field appearance="outline">
-                                <mat-label>Password</mat-label>
-                                <input matInput placeholder="Inserisci password" [(ngModel)]="password">
-                                <mat-icon matSuffix>password</mat-icon>
+                                <mat-label>Inserisci una password</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-hint class="mat-error"  *ngIf="pIsInvalid" style="color: #BE0A0A">Username o password errati!</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>

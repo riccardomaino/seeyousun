@@ -23,7 +23,7 @@ export class ResortPageComponent {
   id: number = 0;
   resortPresentation: resortPresentation[] = [];
   resortFull: resortFull = {} as resortFull;
-  count = 0;
+  people = 1; //people
   selectedDate: Date = new Date(); //today's date
   isUserLoggedIn: boolean = false;
   isLoading: boolean = true;
@@ -45,14 +45,14 @@ export class ResortPageComponent {
   }
 
     increment(): void {
-      if (this.count < 5) {
-        this.count++;
+      if (this.people < 5) {
+        this.people++;
       }
     }
 
     decrement(): void {
-      if (this.count > 0) {
-        this.count--;
+      if (this.people > 0) {
+        this.people--;
       }
     }
 
@@ -80,7 +80,7 @@ export class ResortPageComponent {
         this.router.navigate(['/login-page']);
       } else {
         const dialogRef = this.dialog.open(BookDialogComponent, {
-          data: {resort: this.resortFull, people: this.count, selectedDate: this.selectedDate },
+          data: {resort: this.resortFull, people: this.people, selectedDate: this.selectedDate },
           height: '500px',
           width: '800px',
         });
@@ -133,12 +133,16 @@ export class ResortPageComponent {
               }, 2000);
             },
             (error) => {
-              console.error("Errore durante l'abbonamento all'evento:", error);
+              console.error("Errore durante l'abbonamento all'evento:", error.error.message);
               const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                data: {title: 'Ops! :(', message:'Qualcosa è andato storto, riprova più tardi.', status: false},
+                data: {title: 'Ops! :(', message: error.error.message, status: false},
                 height: '400px',
                 width: '400px',
               });
+              // Chiudi automaticamente il dialogo dopo 2 secondi
+              setTimeout(() => {
+                dialogRef.close();
+              }, 2000);
             }
         );
       }
@@ -162,6 +166,7 @@ export class ResortPageComponent {
           width: '600px',
         });
         dialogRef.afterClosed().subscribe(() => {
+          this.loadResortFull(); // Aggiorna la pagina per visualizzare la nuova recensione
           // Rimuove il focus dall'elemento textarea
           const textarea = document.getElementById('yourTextareaId') as HTMLTextAreaElement;
           if (textarea) {

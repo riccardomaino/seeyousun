@@ -41,19 +41,19 @@
             <!-- Right col -->
             <div class="col-md mt-5">
                 <div class="row r1 mb-3">
-                    <div class="col-sm ml-md-auto">
+                    <div class="col">
                         <div class="row mt-2">
                             <div class="profile-name">Le mie <div class="profile-surname"> Prenotazioni</div></div>
                         </div>
                         <!-- Qui ngFor -->
-                        <div class="row card-container text-center d-flex align-items-center justify-content-center" style="max-height: 400px; min-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                        <div class="row card-container text-center d-flex align-items-center justify-content-center" style="max-height: 400px; min-height: 200px; overflow-y: auto; overflow-x: hidden; display: inline-block;">
                             <div *ngIf="!finalReservations || finalReservations.length === 0" class="">
                                 <p>Non hai nessuna prenotazione</p>
                             </div>
 
-                            <div *ngFor="let res of finalReservations" class="col-auto item-event mt-2 mb-2 justify-content-start align-items-start">
+                            <div *ngFor="let res of finalReservations" class="col-auto item-event mt-2 mb-2 justify-content-start align-items-start" style="">
                                 <div class="row">
-                                    <div class="col-auto align-self-center">
+                                    <div class="col-auto align-self-center align-items-center">
                                         <img [src]="res.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
                                     </div>
                                     <div class="col">
@@ -81,9 +81,6 @@
                                             </div>-->
                                         </div>
                                     </div>
-                                    <div *ngIf="res.isInProgress" class="col-auto align-self-center order-3">
-                                        <img [src]="'../../assets/edit_button.svg'" alt="booking" class="booking-img">
-                                    </div>
                                 </div>
 
                             </div>
@@ -100,12 +97,12 @@
                         </div>
                         <div class="row card-container text-center d-flex align-items-center justify-content-center" style="max-height: 400px; min-height: 200px; overflow-y: auto;overflow-x: hidden;">
                             <div *ngIf="!finalEvents || finalEvents.length === 0" class="text-center">
-                                <p>Non hai ancora nessuna iscrizione</p>
+                                <p>Non hai nessuna iscrizione</p>
                             </div>
-                            <div *ngFor="let eve of finalEvents" class="col-auto item-event mt-2 mb-2 justify-content-start align-items-start" style="">
+                            <div *ngFor="let eve of finalEvents" class="col-auto item-event-1 mt-2 mb-2 justify-content-start align-items-start" style="">
                                 <div class="row">
                                     <div class="col-auto align-self-center ">
-                                        <img [src]="eve.isInProgress ? '../../assets/icon_pending_.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
+                                        <img [src]="eve.isInProgress ? '../../assets/icon_pending.svg' : '../../assets/icon_inprogress.svg'" alt="booking" class="booking-img">
                                     </div>
                                     <div class="col">
                                         <div class="row">
@@ -128,7 +125,7 @@
                                         </div>
                                     </div>
                                     <div *ngIf="eve.isInProgress" class="col-auto align-self-center">
-                                        <img [src]="'../../assets/edit_button.svg'" alt="booking" class="booking-img">
+                                        <img [src]="'../../assets/edit_button.svg'" alt="booking" class="booking-img" (click)="unsubscribeEvent(eve.id)">
                                     </div>
                                 </div>
                             </div>

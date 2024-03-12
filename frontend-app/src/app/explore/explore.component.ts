@@ -61,7 +61,7 @@ export class ExploreComponent {
           (resortPresentation) => {
             console.log(this.resortPresentation);
             this.errorMessage = resortPresentation.message;
-            this.resortPresentation = resortPresentation.data.popularResorts;
+            this.resortPresentation = resortPresentation.data;
           },
           (error) => {
             console.log('Errore durante la chiamata al servizio:', error);
