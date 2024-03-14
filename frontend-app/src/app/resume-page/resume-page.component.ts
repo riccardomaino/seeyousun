@@ -63,7 +63,7 @@ export class ResumePageComponent implements AfterViewInit {
 
   confirmOrder(): void {
 
-    this.service.createReservation(this.parsedData.resortFull.id, this.parsedData.row, this.parsedData.column, this.parsedData.persistenceTypeEnum, this.parsedData.numberOfSunbeds, this.formatDate(this.parsedData.date), this.formatDate(this.parsedData.date)).subscribe(
+    this.service.createReservation(this.parsedData.resortFull.id, this.parsedData.row-1, this.parsedData.column-1, this.parsedData.persistenceTypeEnum, this.parsedData.numberOfSunbeds, this.formatDate(this.parsedData.date), this.formatDate(this.parsedData.date)).subscribe(
         (response) => {
           console.log(response);
             if(response.statusCode === 200 || response.statusCode === 201 ) {

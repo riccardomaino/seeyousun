@@ -9,7 +9,8 @@ import { Event } from '../models/event';
 interface reservationsFinal {
   resName: string;
   date: string;
-  umbrella: number;
+  umbrellaLine: number;
+  umbrellaColumn: number;
   numberOfSunbeds: number;
   isInProgress: boolean;
   isPassed: boolean;
@@ -100,12 +101,15 @@ export class ProfilePageComponent {
       const hour = ('0' + initialDateTime.getHours()).slice(-2);
       const minutes = ('0' + initialDateTime.getMinutes()).slice(-2);
 
+      // Taglia il nome dell'evento se supera i 18 caratteri e aggiungi i puntini di sospensione
+      let eventName = event.name.length > 18 ? event.name.slice(0, 15) + '...' : event.name;
+
       // Costruzione dell'oggetto EventFinal
       const eventFinal: eventFinal = {
         id: event.id,
         date: `${day}/${month}/${year}`,
         hour: `${hour}:${minutes}`,
-        name: event.name,
+        name: eventName, // Nome modificato se supera i 18 caratteri
         description: event.description,
         isInProgress: isInProgress,
         isPassed: isPassed,
@@ -117,6 +121,9 @@ export class ProfilePageComponent {
     }
   }
 
+  sendEmail() {
+    window.location.href = 'mailto:ettore.calvi@edu.unito.it,emanuele.rovaretto@edu.unito.it,riccardo.maino@edu.unito.it?subject=Richiesta%20di%20assistenza&body=Body%20goes%20here';
+  }
 
 
 // Funzione per formattare la data nel formato dd/MM/YY
@@ -126,6 +133,7 @@ export class ProfilePageComponent {
   }
 
   modifyReservation(reservations: reservation[]) {
+    console.log('reservations', reservations);
     const currentDate = new Date();
 
     reservations.forEach(reservation => {
@@ -137,14 +145,21 @@ export class ProfilePageComponent {
       // Formatta la data in dd/MM/yyyy
       const formattedDate = `${reservationDate.getDate()}/${reservationDate.getMonth() + 1}/${reservationDate.getFullYear()}`;
 
+      // Taglia il nome del resort se è più lungo di 18 caratteri e aggiungi "..."
+      let resortName = reservation.resortName;
+      if (resortName.length > 18) {
+        resortName = resortName.substring(0, 15) + '...';
+      }
+
       // Calcola il numero dell'ombrellone
       //const umbrellaNumber = reservation.reservedUmbrellaLine * (numeroMassimoDiColonne) + reservation.reservedUmbrellaColumn + 1;
       const umbrellaNumber = 1;
 
       this.finalReservations.push({
-        resName: reservation.resortName,
+        resName: resortName,
         date: formattedDate,
-        umbrella: umbrellaNumber,
+        umbrellaLine: reservation.reservedUmbrellaLine + 1,
+        umbrellaColumn: reservation.reservedUmbrellaColumn + 1,
         numberOfSunbeds: reservation.numberOfSunbeds,
         isInProgress: isInProgress,
         isPassed: isPassed,
@@ -153,6 +168,7 @@ export class ProfilePageComponent {
     });
   }
 
+
   unsubscribeEvent(id: number) {
     this.service.unsubscribeToEvent(id).subscribe(
         (response) => {
@@ -160,7 +176,6 @@ export class ProfilePageComponent {
           if (response.statusCode === 200 || response.statusCode === 201) {
             // Rimuovi l'evento dalla lista finale
             this.finalEvents = this.finalEvents.filter(event => event.id !== id);
-            this.loadUserData();
           }
         },
         (error) => {

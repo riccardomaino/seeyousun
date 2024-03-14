@@ -58,11 +58,12 @@ export class HomeComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(FilterDialogComponent, {
       data: { services: this.services },
-      height: '600px',
+      height: '550px',
       width: '600px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if(!result) return;
       this.textHeader = 'Risultati della ricerca';
       this.isSearching = true;
       this.beachService.getResortPresentationByFilter(result.location, result.services).subscribe(
@@ -105,6 +106,15 @@ export class HomeComponent {
   private loadServices(): void {
     this.beachService.getServices().subscribe((response) => {
       this.services = response.data;
+    });
+  }
+
+  public resortByName(resortName: string): void {
+    this.beachService.getResortByName(resortName).subscribe(  (resortPresentation) => {
+        this.resortPresentation = resortPresentation.data;
+        console.log(this.resortPresentation);
+        this.textHeader = 'Risultati della ricerca';
+        this.isSearching = true;
     });
   }
 }

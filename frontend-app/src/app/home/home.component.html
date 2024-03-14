@@ -52,7 +52,7 @@
                 <!-- Griglia di card views -->
                 <div *ngIf="!error404Flag" class="row">
                     <div *ngFor="let rP of resortPresentation" class="col-lg-4 col-md-6 col-sm-12 mt-4">
-                        <div class="card" (click)="isSelected(rP)">
+                        <div class="card dynamicBtn" (click)="isSelected(rP)">
                             <img class="card-img-top" src="{{ rP.photoCover }}" alt="Immagine Spiaggia">
                             <div class="card-body">
                                 <div class="row">
@@ -60,9 +60,9 @@
                                         <h5 class="card-title">{{ rP.name }}</h5>
                                     </div>
                                     <div class="col-6 d-flex justify-content-end align-items-center">
-                                        <div class="row">
-                                            <mat-icon class="me-1 align-middle star-icon">star</mat-icon>
-                                            <p class="card-text mb-0">{{ rP.rating }}</p>
+                                        <div class="d-flex align-items-center">
+                                            <mat-icon>star</mat-icon>
+                                            <p class="mb-0 ms-2">{{ rP.rating }}</p>
                                         </div>
                                     </div>
                                 </div>

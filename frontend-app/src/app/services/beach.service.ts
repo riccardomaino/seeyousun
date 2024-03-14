@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import {apiResponseReservationFUsr} from "../models/apiResponseReservationFUsr";
 import {apiResponseEventsForUser} from "../models/apiResponseEventsForUser";
 import {apiResponseRPByFilter} from "../models/apiResponseRPByFilter";
+import {apiResponseResortsByName} from "../models/apiResponseResortsByName";
 
 @Injectable({
   providedIn: 'root',
@@ -83,7 +84,9 @@ export class BeachService {
     return this.http.post(this.baseUrl + 'reviews', {title: title, bodyReview: bodyReview, rating: rating, date: date, resortId: resortId});
   }
 
-
+  getResortByName(resortName: string): Observable<apiResponseResortsByName> {
+    return this.http.get<apiResponseResortsByName>(this.baseUrl + 'resorts/by-name?name=' + resortName);
+  }
 
 
 

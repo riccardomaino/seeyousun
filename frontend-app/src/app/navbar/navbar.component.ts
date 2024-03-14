@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { HomeComponent} from "../home/home.component";
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  constructor(public router: Router, public auth: AngularFireAuth) {}
+  constructor(public router: Router, public auth: AngularFireAuth, private home: HomeComponent) {}
   isUserLoggedIn: boolean = false;
   user: string = '';
+  resortName: string = '';
 
   ngOnInit() {
     this.auth.authState.subscribe(user => {
@@ -34,6 +36,19 @@ export class NavbarComponent {
     this.router.navigate(['']);
   }
 
-  
+  resortByName(resortName: string) {
+    console.log('Ciao' + resortName);
+    if (resortName.trim() !== '') {
+      if (this.router.url === '') {
+        // Chiama la funzione del controller della home
+        this.home.resortByName(resortName);
+      } else {
+        // Routing a home e chiama la funzione del controller della home
+        this.router.navigate(['']);
+        this.home.resortByName(resortName);
+      }
+    }
+  }
+
 
 }

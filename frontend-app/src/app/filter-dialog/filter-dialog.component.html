@@ -11,6 +11,9 @@
         <mat-chip-option color="accent" *ngFor="let service of services" (click)="toggleSelection(service)">{{ service.name }}</mat-chip-option>
     </mat-chip-listbox>
 </div>
-<div mat-dialog-actions class="dialog-actions" style="position: absolute; bottom: 0; width: 100%;">
-    <div class="btn button-modifica d-flex align-items-center justify-content-center button-text" (click)="closeDialog()"> Cerca </div>
+
+<div mat-dialog-actions class="dialog-actions" style="position: absolute; bottom: 0; width: 100%; display: flex; justify-content: space-between; color: white">
+    <div>
+        <div  class=" button-modifica btn-text dynamicBtn" (click)="closeDialog()">Cerca</div>
+    </div>
 </div>

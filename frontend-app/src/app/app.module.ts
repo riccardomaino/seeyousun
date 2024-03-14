@@ -91,7 +91,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [provideHttpClient(withInterceptors([bearerTokenInterceptor]))],
+  providers: [provideHttpClient(withInterceptors([bearerTokenInterceptor])), HomeComponent],
   bootstrap: [AppComponent]
 })
 

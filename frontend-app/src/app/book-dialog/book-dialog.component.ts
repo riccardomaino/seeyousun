@@ -76,8 +76,10 @@ export class BookDialogComponent {
     for (let i = 0; i < this.beachSpecification.dimension.totalUmbrellaLine; i++) {
       let row = [];
       for (let j = 0; j < this.beachSpecification.dimension.totalUmbrellaColumn; j++) {
-        currIndex=this.beachSpecification.reservedUmbrella.findIndex((reservedUmbrella) => reservedUmbrella.reservedUmbrellaLine === i && reservedUmbrella.reservedUmbrellaColumn === j);
+        currIndex=this.beachSpecification.reservedUmbrella.findIndex((reservedUmbrella) => reservedUmbrella.reservedUmbrellaLine == i && reservedUmbrella.reservedUmbrellaColumn == j);
+        console.log('currIndex: ' +  currIndex);
         if (currIndex !== -1) {
+          console.log(this.beachSpecification.reservedUmbrella[currIndex].persistenceTypeEnum);
           switch (this.beachSpecification.reservedUmbrella[currIndex].persistenceTypeEnum) {
             case 'FULL_DAY':
               row.push({ row: i, column: j, status: 'FULL_DAY', selected: false });
@@ -97,6 +99,7 @@ export class BookDialogComponent {
       }
       this.matrix.push(row);
     }
+    console.log(this.matrix);
   }
 
   selectUmbrella(row: number, column: number, status: string): void {

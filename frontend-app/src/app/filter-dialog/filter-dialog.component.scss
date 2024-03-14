@@ -17,3 +17,19 @@
   font-weight: 100;
   line-height: normal;
 }
+
+.btn-text {
+  color: white; /* Imposta il colore del testo desiderato */
+}
+
+.dynamicBtn {
+  cursor: pointer;
+}
+
+.dynamicBtn:hover {
+  filter: brightness(110%);
+}
+
+.dynamicBtn:active {
+  filter: brightness(90%);
+}
