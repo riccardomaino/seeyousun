@@ -1,6 +1,16 @@
 version: '3.2'
 
 services:
+  frontend-app:
+    image: seeyousun/frontend-app:1.0
+    container_name: frontend-app-ctn
+    ports:
+      - "${FRONTEND_APP_HOST_PORT}:${FRONTEND_APP_HOST_PORT}"
+    volumes:
+      - ./frontend-app:/usr/app
+      - /usr/app/node_modules  #./frontend-app/node_modules:
+    networks:
+      - global-net
   # EUREKA DISCOVERY SERVER
   eureka-discovery-server:
     image: seeyousun/eureka-discovery-server:1.0

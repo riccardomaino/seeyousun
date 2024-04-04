@@ -132,6 +132,24 @@ metadata:
     kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
     kompose.version: 1.32.0 (765fde254)
   labels:
+    io.kompose.service: frontend-app
+  name: frontend-app
+spec:
+  ports:
+    - name: "4200"
+      port: 4200
+      targetPort: 4200
+  selector:
+    io.kompose.service: frontend-app
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
     io.kompose.service: rabbit-mq
   name: rabbit-mq
 spec:
@@ -238,7 +256,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-global-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
         io.kompose.service: api-gateway
     spec:
       containers:
@@ -301,7 +319,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-event-net: "true"
+        io.kompose.network/progetto-esame-event-net: "true"
         io.kompose.service: db-postgres-event
     spec:
       containers:
@@ -365,7 +383,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-resort-net: "true"
+        io.kompose.network/progetto-esame-resort-net: "true"
         io.kompose.service: db-postgres-resort
     spec:
       containers:
@@ -429,7 +447,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-resort-reservation-net: "true"
+        io.kompose.network/progetto-esame-resort-reservation-net: "true"
         io.kompose.service: db-postgres-resort-reservation
     spec:
       containers:
@@ -493,7 +511,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-review-net: "true"
+        io.kompose.network/progetto-esame-review-net: "true"
         io.kompose.service: db-postgres-review
     spec:
       containers:
@@ -555,7 +573,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-global-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
         io.kompose.service: eureka-discovery-server
     spec:
       containers:
@@ -592,8 +610,8 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-event-net: "true"
-        io.kompose.network/seeyousun-backend-global-net: "true"
+        io.kompose.network/progetto-esame-event-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
         io.kompose.service: event-service
     spec:
       containers:
@@ -631,6 +649,80 @@ metadata:
     kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
     kompose.version: 1.32.0 (765fde254)
   labels:
+    io.kompose.service: frontend-app
+  name: frontend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: frontend-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/progetto-esame-global-net: "true"
+        io.kompose.service: frontend-app
+    spec:
+      containers:
+        - image: seeyousun/frontend-app:1.0
+          name: frontend-app-ctn
+          ports:
+            - containerPort: 4200
+              hostPort: 4200
+          volumeMounts:
+            - mountPath: /usr/app
+              name: frontend-app-claim0
+            - mountPath: /usr/app/node_modules
+              name: frontend-app-claim1
+      restartPolicy: Always
+      volumes:
+        - name: frontend-app-claim0
+          persistentVolumeClaim:
+            claimName: frontend-app-claim0
+        - name: frontend-app-claim1
+          persistentVolumeClaim:
+            claimName: frontend-app-claim1
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: frontend-app-claim0
+  name: frontend-app-claim0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: frontend-app-claim1
+  name: frontend-app-claim1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
     io.kompose.service: rabbit-mq
   name: rabbit-mq
 spec:
@@ -646,7 +738,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-global-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
         io.kompose.service: rabbit-mq
     spec:
       containers:
@@ -701,8 +793,8 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-global-net: "true"
-        io.kompose.network/seeyousun-backend-resort-reservation-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
+        io.kompose.network/progetto-esame-resort-reservation-net: "true"
         io.kompose.service: resort-reservation-service
     spec:
       containers:
@@ -753,8 +845,8 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-global-net: "true"
-        io.kompose.network/seeyousun-backend-resort-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
+        io.kompose.network/progetto-esame-resort-net: "true"
         io.kompose.service: resort-service
     spec:
       containers:
@@ -813,8 +905,8 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-global-net: "true"
-        io.kompose.network/seeyousun-backend-review-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
+        io.kompose.network/progetto-esame-review-net: "true"
         io.kompose.service: review-service
     spec:
       containers:
@@ -873,7 +965,7 @@ spec:
         kompose.cmd: kompose convert -f docker-compose-resolved.yaml -o kube.yaml
         kompose.version: 1.32.0 (765fde254)
       labels:
-        io.kompose.network/seeyousun-backend-global-net: "true"
+        io.kompose.network/progetto-esame-global-net: "true"
         io.kompose.service: zipkin
     spec:
       containers:
