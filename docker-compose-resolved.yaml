@@ -123,6 +123,17 @@ services:
     ports:
     - published: 8084
       target: 8084
+  frontend-app:
+    container_name: frontend-app-ctn
+    image: seeyousun/frontend-app:1.0
+    networks:
+      global-net: null
+    ports:
+    - published: 4200
+      target: 4200
+    volumes:
+    - /home/emanuele/Documenti/uni/magistrale/primo_anno/taass/progetto_esame/frontend-app:/usr/app:rw
+    - /usr/app/node_modules
   rabbit-mq:
     container_name: rabbit-mq-ctn
     image: rabbitmq:3-management-alpine

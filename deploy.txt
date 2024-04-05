@@ -14,9 +14,13 @@ networking.k8s.io/v1
 ## Docker-compose utilizza le immagini del docker-registry, mentre docker-compose-development builda le immagini
 
 
-## Per eseguire con kubernetics(per valorizzare le variabili di ambiente):
+## Per eseguire con kubernedocker system prune
+tics(per valorizzare le variabili di ambiente):
 
 docker-compose -f docker-compose.yml config > docker-compose-resolved.yaml
 kompose convert -f docker-compose-resolved.yaml -o  kube.yaml
 minikube start
 kubectl apply -f kube.yaml
+
+##quando docker fa casino prune di tutto
+docker system prune
