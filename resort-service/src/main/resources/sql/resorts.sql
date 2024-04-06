@@ -1,19 +1,19 @@
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
 VALUES (1, 'Il più bel lido che puoi trovare', 'Varigotti, Liguria', 'Baia dei Saraceni', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (2, 'Un luogo incantevole con acque cristalline e servizi di prima classe. Ideale per trascorrere una giornata rilassante sotto il sole salentino.', 'Gallipoli, Puglia', 'Lido Punta della Suina', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+VALUES (2, 'Un luogo incantevole con acque cristalline e servizi di prima classe. Ideale per trascorrere una giornata rilassante sotto il sole salentino.', 'Gallipoli, Puglia', 'Lido Punta della Suina', '../../assets/Lidi/PuntaDellaSuina/1.jpg', 4, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (3, 'Situato in una baia mozzafiato, questo lido offre paesaggi mozzafiato e una vasta gamma di attività acquatiche. Perfetto per famiglie e amanti del mare.', 'Otranto, Puglia', 'Lido Baia dei Turchi', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 5, 4, 6);
+VALUES (3, 'Situato in una baia mozzafiato, questo lido offre paesaggi mozzafiato e una vasta gamma di attività acquatiche. Perfetto per famiglie e amanti del mare.', 'Otranto, Puglia', 'Lido Baia dei Turchi', '../../assets/Lidi/LidoBaiadeiTurchi/1.jpg', 5, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (4, 'Un oasi di tranquillità con acque termali naturali. Le piscine naturali rendono questo lido unico nel suo genere. Un luogo perfetto per rilassarsi e rigenerarsi.', 'Santa Cesarea Terme, Marche', 'Lido La Poesia', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 3, 4, 6);
+VALUES (4, 'Un oasi di tranquillità con acque termali naturali. Le piscine naturali rendono questo lido unico nel suo genere. Un luogo perfetto per rilassarsi e rigenerarsi.', 'Roca Vecchia, Puglia', 'Lido La Poesia', '../../assets/Lidi/LidoLaPoesia/1.jpg', 3, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (5, 'Un mix di divertimento e relax, con una spiaggia dorata e servizi moderni. Ideale per chi cerca una giornata di sole e mare senza rinunciare al comfort.', 'Porto Cesareo, Puglia', 'Lido Tabù', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+VALUES (5, 'Un mix di divertimento e relax, con una spiaggia dorata e servizi moderni. Ideale per chi cerca una giornata di sole e mare senza rinunciare al comfort.', 'Porto Cesareo, Puglia', 'Lido Tabù', '../../assets/Lidi/LidoTabù/1.jpg', 4, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (6, 'A serene oasis nestled along the Amalfi Coast, Lido del Sole offers breathtaking views of the azure Mediterranean. With 4-star amenities and a total of 6 umbrella lines, it''s the perfect spot for sun-soaked relaxation.', 'Positano, Campania', 'Lido del Sole', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+VALUES (6, 'A serene oasis nestled along the Amalfi Coast, Lido del Sole offers breathtaking views of the azure Mediterranean. With 4-star amenities and a total of 6 umbrella lines, it''s the perfect spot for sun-soaked relaxation.', 'Positano, Campania', 'Lido Del Sole', '../../assets/Lidi/LidoDelSole/1.jpg', 4, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (7, 'Discover paradise at Cala Luna Beach Club. Crystal-clear waters, white sandy beaches, and 6 umbrella columns await you. Ideal for families and couples seeking tranquility.', 'San Teodoro, Sardinia', 'Cala Luna Beach Club', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 5, 4, 6);
+VALUES (7, 'Discover paradise at Cala Luna Beach Club. Crystal-clear waters, white sandy beaches, and 6 umbrella columns await you. Ideal for families and couples seeking tranquility.', 'San Teodoro, Sardinia', 'Cala Luna Beach Club', '../../assets/Lidi/CalaLunaBeachClub/1.jpg', 5, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (8, 'Unwind at Sunset Cove, where golden sands meet turquoise tides. Enjoy 4 umbrella lines and stunning sunsets. Perfect for beach lovers and sunset chasers.', 'Taormina, Sicily', 'Sunset Cove Resort', 'https://storage.googleapis.com/pod_public/1300/122734.jpg', 4, 4, 6);
+VALUES (8, 'Unwind at Sunset Cove, where golden sands meet turquoise tides. Enjoy 4 umbrella lines and stunning sunsets. Perfect for beach lovers and sunset chasers.', 'Taormina, Sicily', 'Sunset Cove Resort', '../../assets/Lidi/SunsetCoveResort/1.jpg', 4, 4, 6);
 
 INSERT INTO public.services (id, name, category) VALUES (1, 'Spiagge accessibili a disabili', 'accessibilità');
 INSERT INTO public.services (id, name, category) VALUES (2, 'Idromassaggio', 'benessere');
