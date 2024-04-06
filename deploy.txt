@@ -18,9 +18,20 @@ networking.k8s.io/v1
 tics(per valorizzare le variabili di ambiente):
 
 docker-compose -f docker-compose.yml config > docker-compose-resolved.yaml
-kompose convert -f docker-compose-resolved.yaml -o  kube.yaml
+
 minikube start
 kubectl apply -f kube.yaml
 
+#port forword verso front-end
+x : 80
+
 ##quando docker fa casino prune di tutto
 docker system prune
+
+
+#connessione a db da kube
+X:5432
+
+
+#toglie tutte le porte riservate da kubectl
+ps aux | grep -i kubectl | grep -v grep | awk {'print $2'} | xargs kill

@@ -9,7 +9,7 @@ RUN npm install --force
 # Copy the rest of the application
 COPY ../.. .
 # Build the Angular application
-RUN npm run build
+RUN npm run build --configuration see-you-sun
 
 # Stage 2: Run the Angular application
 FROM nginx:latest AS run
