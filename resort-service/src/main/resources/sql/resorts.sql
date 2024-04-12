@@ -7,7 +7,7 @@ VALUES (3, 'Situato in una baia mozzafiato, questo lido offre paesaggi mozzafiat
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
 VALUES (4, 'Un oasi di tranquillità con acque termali naturali. Le piscine naturali rendono questo lido unico nel suo genere. Un luogo perfetto per rilassarsi e rigenerarsi.', 'Roca Vecchia, Puglia', 'Lido La Poesia', '../../assets/Lidi/LidoLaPoesia/1.jpg', 3, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
-VALUES (5, 'Un mix di divertimento e relax, con una spiaggia dorata e servizi moderni. Ideale per chi cerca una giornata di sole e mare senza rinunciare al comfort.', 'Porto Cesareo, Puglia', 'Lido Tabù', '../../assets/Lidi/LidoTabù/1.jpg', 4, 4, 6);
+VALUES (5, 'Un mix di divertimento e relax, con una spiaggia dorata e servizi moderni. Ideale per chi cerca una giornata di sole e mare senza rinunciare al comfort.', 'Porto Cesareo, Puglia', 'Lido Tabù', '../../assets/Lidi/LidoTabu/1.jpg', 4, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
 VALUES (6, 'A serene oasis nestled along the Amalfi Coast, Lido del Sole offers breathtaking views of the azure Mediterranean. With 4-star amenities and a total of 6 umbrella lines, it''s the perfect spot for sun-soaked relaxation.', 'Positano, Campania', 'Lido Del Sole', '../../assets/Lidi/LidoDelSole/1.jpg', 4, 4, 6);
 INSERT INTO public.resorts (id, description, location, name, photo_cover, rating, total_umbrella_line, total_umbrella_column)
@@ -113,3 +113,48 @@ INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/L
 INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/2.jpg');
 INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/3.jpg');
 INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/5.jpg');
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (3, '../../assets/Lidi/LidoBaiadeiTurchi/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (3, '../../assets/Lidi/LidoBaiadeiTurchi/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (3, '../../assets/Lidi/LidoBaiadeiTurchi/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (3, '../../assets/Lidi/LidoBaiadeiTurchi/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (3, '../../assets/Lidi/LidoBaiadeiTurchi/5.jpg');
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (4, '../../assets/Lidi/LidoLaPoesia/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (4, '../../assets/Lidi/LidoLaPoesia/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (4, '../../assets/Lidi/LidoLaPoesia/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (4, '../../assets/Lidi/LidoLaPoesia/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (4, '../../assets/Lidi/LidoLaPoesia/5.jpg');
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (5, '../../assets/Lidi/LidoTabu/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (5, '../../assets/Lidi/LidoTabu/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (5, '../../assets/Lidi/LidoTabu/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (5, '../../assets/Lidi/LidoTabu/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (5, '../../assets/Lidi/LidoTabu/5.jpg');
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (6, '../../assets/Lidi/LidoDelSole/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (6, '../../assets/Lidi/LidoDelSole/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (6, '../../assets/Lidi/LidoDelSole/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (6, '../../assets/Lidi/LidoDelSole/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (6, '../../assets/Lidi/LidoDelSole/5.jpg');
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (7, '../../assets/Lidi/CalaLunaBeachClub/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (7, '../../assets/Lidi/CalaLunaBeachClub/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (7, '../../assets/Lidi/CalaLunaBeachClub/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (7, '../../assets/Lidi/CalaLunaBeachClub/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (7, '../../assets/Lidi/CalaLunaBeachClub/5.jpg');
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/Lidi/SunsetCoveResort/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/Lidi/SunsetCoveResort/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/Lidi/SunsetCoveResort/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/Lidi/SunsetCoveResort/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/Lidi/SunsetCoveResort/5.jpg');
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/5.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/1.jpg');
+
+
