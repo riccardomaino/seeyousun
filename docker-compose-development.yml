@@ -2,31 +2,31 @@ version: '3.8'
 
 services:
   #FRONTEND APPLICATION (PROD)
-  frontend-app:
-    build:
-      context: frontend-app
-      dockerfile: docker/prod/Dockerfile
-    image: frontend-app-img
-    container_name: frontend-app-ctn
-    ports:
-      - "${FRONTEND_APP_HOST_PORT}:${FRONTEND_APP_CONTAINER_PORT}"
-    networks:
-      - global-net
-
-#  # FRONTEND APPLICATION (DEV)
 #  frontend-app:
 #    build:
 #      context: frontend-app
-#      dockerfile: docker/dev/Dockerfile
+#      dockerfile: docker/prod/Dockerfile
 #    image: frontend-app-img
 #    container_name: frontend-app-ctn
 #    ports:
-#      - "${FRONTEND_APP_HOST_PORT}:${FRONTEND_APP_HOST_PORT}"
-#    volumes:
-#      - ./frontend-app:/usr/app
-#      - /usr/app/node_modules  #./frontend-app/node_modules:
+#      - "${FRONTEND_APP_HOST_PORT}:${FRONTEND_APP_CONTAINER_PORT}"
 #    networks:
 #      - global-net
+
+  # FRONTEND APPLICATION (DEV)
+  frontend-app:
+    build:
+      context: frontend-app
+      dockerfile: docker/dev/Dockerfile
+    image: frontend-app-img
+    container_name: frontend-app-ctn
+    ports:
+      - "${FRONTEND_APP_HOST_PORT}:${FRONTEND_APP_HOST_PORT}"
+    volumes:
+      - ./frontend-app:/usr/app
+      - /usr/app/node_modules  #./frontend-app/node_modules:
+    networks:
+      - global-net
 
   # EUREKA DISCOVERY SERVER
   eureka-discovery-server:

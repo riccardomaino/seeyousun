@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {Component, DoCheck, Inject} from '@angular/core';
 import { BeachService } from '../services/beach.service';
 import { BeachSpec } from '../models/beachSpec';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -22,12 +22,17 @@ import {formatDate} from "@angular/common";
   templateUrl: './book-dialog.component.html',
   styleUrls: ['./book-dialog.component.scss']
 })
-export class BookDialogComponent {
+export class BookDialogComponent implements DoCheck {
   beachSpecification: BeachSpec = {} as BeachSpec;
   matrix: Array<Array<{ row: number; column: number; status: string; selected: boolean }>> = [];
   showError = false;
 
   constructor(public dialogRefN: MatDialogRef<BookDialogSelectComponent>, private beachService: BeachService,  public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: { resort: resortFull, people: number, selectedDate: Date }) {}
+
+  ngDoCheck(): void {
+        console.log('ngDoCheck');
+        console.log(this.matrix);
+    }
 
   ngOnInit(): void {
     this.loadReservationInformation();
@@ -77,9 +82,7 @@ export class BookDialogComponent {
       let row = [];
       for (let j = 0; j < this.beachSpecification.dimension.totalUmbrellaColumn; j++) {
         currIndex=this.beachSpecification.reservedUmbrella.findIndex((reservedUmbrella) => reservedUmbrella.reservedUmbrellaLine == i && reservedUmbrella.reservedUmbrellaColumn == j);
-        console.log('currIndex: ' +  currIndex);
         if (currIndex !== -1) {
-          console.log(this.beachSpecification.reservedUmbrella[currIndex].persistenceTypeEnum);
           switch (this.beachSpecification.reservedUmbrella[currIndex].persistenceTypeEnum) {
             case 'FULL_DAY':
               row.push({ row: i, column: j, status: 'FULL_DAY', selected: false });
@@ -109,7 +112,7 @@ export class BookDialogComponent {
       this.matrix[row][column].selected = !this.matrix[row][column].selected;
       console.log(this.matrix[row][column].selected); 
       this.openDialog(row * this.matrix[0].length + column +1, this.data.selectedDate.getDate() + '/' + (this.data.selectedDate.getMonth() + 1) + '/' + this.data.selectedDate.getFullYear(), row, column, status);
-    } else if (status === 'HALF_DAY_MORNING') {
+    } else if (status === 'HALF_DAY_MORNING' || status === 'HALF_DAY_AFTERNOON') {
       console.log(row, column);
       // Cambia lo stato dell'ombrellone solo se è libero
       this.matrix[row][column].selected = !this.matrix[row][column].selected;
@@ -129,34 +132,6 @@ export class BookDialogComponent {
     });
   }
 
-  changeColor(column: any): void {
-    if (column.status !== 'reserved') {
-      // Modifica l'SVG dell'ombrellone selezionato
-      column.selected = !column.selected;
-      if (column.selected) {
-        // Cambia il colore di riempimento quando l'ombrellone viene selezionato
-        column.fillColor = '#4C1B51';
-      } else {
-        // Ripristina il colore di riempimento predefinito quando l'ombrellone viene deselezionato
-        column.fillColor = ''; // oppure '#<colore predefinito>'
-      }
-    }
-  }
 
-  onMouseEnter(column: any): void {
-    if (column.status === 'selected') {
-      // Modifica l'SVG quando il mouse entra
-      // Ad esempio, cambiando il colore di riempimento
-      column.fillColor = '#4C1B51';
-    }
-  }
-  
-  onMouseLeave(column: any): void {
-    if (column.status === 'selected') {
-      // Ripristina l'SVG al suo stato originale quando il mouse esce
-      // Ad esempio, ripristinando il colore di riempimento
-      column.fillColor = '#D24C00'; // Colore di riempimento originale
-    }
-  }
 
 }

@@ -108,3 +108,8 @@ INSERT INTO public.umbrella_line_price (price_period_id, umbrella_price, umbrell
 INSERT INTO public.umbrella_line_price (price_period_id, umbrella_price, umbrella_price_order) VALUES (2, 20, 0);
 INSERT INTO public.umbrella_line_price (price_period_id, umbrella_price, umbrella_price_order) VALUES (2, 15, 1);
 INSERT INTO public.umbrella_line_price (price_period_id, umbrella_price, umbrella_price_order) VALUES (2, 10, 2);
+
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/2.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (2, '../../assets/Lidi/PuntaDellaSuina/4.jpg');
