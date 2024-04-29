@@ -5,7 +5,7 @@ services:
     image: seeyousun/frontend-app:1.0
     container_name: frontend-app-ctn
     ports:
-      - "${FRONTEND_APP_HOST_PORT}:${FRONTEND_APP_HOST_PORT}"
+      - "${FRONTEND_APP_HOST_PORT}:${FRONTEND_APP_CONTAINER_PORT}"
     volumes:
       - ./frontend-app:/usr/app
       - /usr/app/node_modules  #./frontend-app/node_modules:
@@ -106,7 +106,7 @@ services:
       - ZIPKIN_HOST=${ZIPKIN_HOST}
       - ZIPKIN_PORT=${ZIPKIN_PORT}
       - DATABASE_HOST=db-postgres-resort
-      - DATABASE_PORT=5001
+      - DATABASE_PORT=5432
       - DATABASE_NAME=dbresort
 
   # DATABASE RESORT-RESERVATION-SERVICE
@@ -142,7 +142,7 @@ services:
       - ZIPKIN_HOST=${ZIPKIN_HOST}
       - ZIPKIN_PORT=${ZIPKIN_PORT}
       - DATABASE_HOST=db-postgres-resort-reservation
-      - DATABASE_PORT=5002
+      - DATABASE_PORT=5432
       - DATABASE_NAME=dbresortreservation
 
   # DATABASE REVIEW-SERVICE
@@ -182,7 +182,7 @@ services:
       - ZIPKIN_HOST=${ZIPKIN_HOST}
       - ZIPKIN_PORT=${ZIPKIN_PORT}
       - DATABASE_HOST=db-postgres-review
-      - DATABASE_PORT=5003
+      - DATABASE_PORT=5432
       - DATABASE_NAME=dbreview
 
   # DATABASE EVENT-SERVICE
@@ -218,7 +218,7 @@ services:
       - ZIPKIN_HOST=${ZIPKIN_HOST}
       - ZIPKIN_PORT=${ZIPKIN_PORT}
       - DATABASE_HOST=db-postgres-event
-      - DATABASE_PORT=5004
+      - DATABASE_PORT=5432
       - DATABASE_NAME=dbevent
 
 volumes:
