@@ -27,7 +27,7 @@ body, html {
   overflow: hidden;
 }
 
-video {
+img { /* Usa il selettore per l'immagine */
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -43,8 +43,9 @@ video {
   height: 100%;
   backdrop-filter: blur(54.25%); /* Regola la quantità di sfocatura desiderata */
   background: radial-gradient(45.77% 45.75% at 49.36% 54.25%, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.00) 100%);
-  z-index: 2; /* Assicura che la sfocatura sia sopra il video */
+  z-index: 2; /* Assicura che la sfocatura sia sopra l'immagine */
 }
+
 
 .navbar-container {
   position: absolute;
