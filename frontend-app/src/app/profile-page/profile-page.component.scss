@@ -5,6 +5,12 @@
     }
 }
 
+@media (max-height: 1033px) {
+    body {
+        overflow-y: auto;
+    }
+}
+
 @media (min-width: 1400px) {
     .item-event {
         display: flex;

@@ -151,10 +151,10 @@ INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/L
 INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/Lidi/SunsetCoveResort/4.jpg');
 INSERT INTO public.resorts_photos (resort_id, photos) VALUES (8, '../../assets/Lidi/SunsetCoveResort/5.jpg');
 
-INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/5.jpg');
-INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/4.jpg');
-INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/3.jpg');
-INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/2.jpg');
-INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, '../../assets/Lidi/BaiaDeiSaraceni/1.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, 'https://i.postimg.cc/2SccVVPP/5.webpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, 'https://i.postimg.cc/GmhgLkSF/4.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, 'https://i.postimg.cc/Gp4MYbR9/3.jpg');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, 'https://i.postimg.cc/XvtsktNL/2.webp');
+INSERT INTO public.resorts_photos (resort_id, photos) VALUES (1, 'https://i.postimg.cc/gkKBbM4c/1.jpg');
 
 
