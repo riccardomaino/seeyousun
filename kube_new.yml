@@ -1,0 +1,952 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+  selector:
+    io.kompose.service: api-gateway
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-event
+  name: db-postgres-event
+spec:
+  ports:
+    - name: "5004"
+      port: 5004
+      targetPort: 5432
+  selector:
+    io.kompose.service: db-postgres-event
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-resort
+  name: db-postgres-resort
+spec:
+  ports:
+    - name: "5001"
+      port: 5001
+      targetPort: 5432
+  selector:
+    io.kompose.service: db-postgres-resort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-resort-reservation
+  name: db-postgres-resort-reservation
+spec:
+  ports:
+    - name: "5002"
+      port: 5002
+      targetPort: 5432
+  selector:
+    io.kompose.service: db-postgres-resort-reservation
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-review
+  name: db-postgres-review
+spec:
+  ports:
+    - name: "5003"
+      port: 5003
+      targetPort: 5432
+  selector:
+    io.kompose.service: db-postgres-review
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: eureka-discovery-server
+  name: eureka-discovery-server
+spec:
+  ports:
+    - name: "8761"
+      port: 8761
+      targetPort: 8761
+  selector:
+    io.kompose.service: eureka-discovery-server
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: event-service
+  name: event-service
+spec:
+  ports:
+    - name: "8084"
+      port: 8084
+      targetPort: 8084
+  selector:
+    io.kompose.service: event-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: frontend-app
+  name: frontend-app
+spec:
+  ports:
+    - name: "4200"
+      port: 4200
+      targetPort: 80
+  selector:
+    io.kompose.service: frontend-app
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: rabbit-mq
+  name: rabbit-mq
+spec:
+  ports:
+    - name: "5672"
+      port: 5672
+      targetPort: 5672
+    - name: "15672"
+      port: 15672
+      targetPort: 15672
+  selector:
+    io.kompose.service: rabbit-mq
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: resort-reservation-service
+  name: resort-reservation-service
+spec:
+  ports:
+    - name: "8082"
+      port: 8082
+      targetPort: 8082
+  selector:
+    io.kompose.service: resort-reservation-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: resort-service
+  name: resort-service
+spec:
+  ports:
+    - name: "8081"
+      port: 8081
+      targetPort: 8081
+  selector:
+    io.kompose.service: resort-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: review-service
+  name: review-service
+spec:
+  ports:
+    - name: "8083"
+      port: 8083
+      targetPort: 8083
+  selector:
+    io.kompose.service: review-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: zipkin
+  name: zipkin
+spec:
+  ports:
+    - name: "9411"
+      port: 9411
+      targetPort: 9411
+  selector:
+    io.kompose.service: zipkin
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: api-gateway
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.service: api-gateway
+    spec:
+      containers:
+        - env:
+            - name: API_GATEWAY_HOST
+              value: api-gateway
+            - name: API_GATEWAY_PORT
+              value: "8080"
+            - name: EUREKA_SERVER_HOST
+              value: eureka-discovery-server
+            - name: EUREKA_SERVER_PORT
+              value: "8761"
+            - name: EVENT_SERVICE_HOST
+              value: event-service
+            - name: EVENT_SERVICE_PORT
+              value: "8084"
+            - name: LOGGING_LEVEL_ROOT
+              value: info
+            - name: RESORT_RESERVATION_SERVICE_HOST
+              value: resort-reservation-service
+            - name: RESORT_RESERVATION_SERVICE_PORT
+              value: "8082"
+            - name: RESORT_SERVICE_HOST
+              value: resort-service
+            - name: RESORT_SERVICE_PORT
+              value: "8081"
+            - name: REVIEW_SERVICE_HOST
+              value: review-service
+            - name: REVIEW_SERVICE_PORT
+              value: "8083"
+            - name: ZIPKIN_HOST
+              value: zipkin
+            - name: ZIPKIN_PORT
+              value: "9411"
+          image: seeyousun/api-gateway:1.0
+          name: api-gateway-ctn
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-event
+  name: db-postgres-event
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: db-postgres-event
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-event-net: "true"
+        io.kompose.service: db-postgres-event
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: dbevent
+            - name: POSTGRES_PASSWORD
+              value: admin
+            - name: POSTGRES_USER
+              value: admin
+            - name: restart
+              value: unless-stopped
+          image: postgres
+          name: db-event-ctn
+          ports:
+            - containerPort: 5432
+              hostPort: 5004
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-data-event
+      restartPolicy: Always
+      volumes:
+        - name: db-data-event
+          persistentVolumeClaim:
+            claimName: db-data-event
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: db-data-event
+  name: db-data-event
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-resort
+  name: db-postgres-resort
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: db-postgres-resort
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-resort-net: "true"
+        io.kompose.service: db-postgres-resort
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: dbresort
+            - name: POSTGRES_PASSWORD
+              value: admin
+            - name: POSTGRES_USER
+              value: admin
+            - name: restart
+              value: unless-stopped
+          image: postgres
+          name: db-resort-ctn
+          ports:
+            - containerPort: 5432
+              hostPort: 5001
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-data-resort
+      restartPolicy: Always
+      volumes:
+        - name: db-data-resort
+          persistentVolumeClaim:
+            claimName: db-data-resort
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: db-data-resort
+  name: db-data-resort
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-resort-reservation
+  name: db-postgres-resort-reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: db-postgres-resort-reservation
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-resort-reservation-net: "true"
+        io.kompose.service: db-postgres-resort-reservation
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: dbresortreservation
+            - name: POSTGRES_PASSWORD
+              value: admin
+            - name: POSTGRES_USER
+              value: admin
+            - name: restart
+              value: unless-stopped
+          image: postgres
+          name: db-resort-reservation-ctn
+          ports:
+            - containerPort: 5432
+              hostPort: 5002
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-data-resort-reservation
+      restartPolicy: Always
+      volumes:
+        - name: db-data-resort-reservation
+          persistentVolumeClaim:
+            claimName: db-data-resort-reservation
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: db-data-resort-reservation
+  name: db-data-resort-reservation
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: db-postgres-review
+  name: db-postgres-review
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: db-postgres-review
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-review-net: "true"
+        io.kompose.service: db-postgres-review
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: dbreview
+            - name: POSTGRES_PASSWORD
+              value: admin
+            - name: POSTGRES_USER
+              value: admin
+            - name: restart
+              value: unless-stopped
+          image: postgres
+          name: db-review-ctn
+          ports:
+            - containerPort: 5432
+              hostPort: 5003
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-data-review
+      restartPolicy: Always
+      volumes:
+        - name: db-data-review
+          persistentVolumeClaim:
+            claimName: db-data-review
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: db-data-review
+  name: db-data-review
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: eureka-discovery-server
+  name: eureka-discovery-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: eureka-discovery-server
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.service: eureka-discovery-server
+    spec:
+      containers:
+        - env:
+            - name: EUREKA_SERVER_HOST
+              value: eureka-discovery-server
+            - name: EUREKA_SERVER_PORT
+              value: "8761"
+          image: seeyousun/eureka-discovery-server:1.0
+          name: eureka-discovery-server-ctn
+          ports:
+            - containerPort: 8761
+              hostPort: 8761
+              protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: event-service
+  name: event-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: event-service
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-event-net: "true"
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.service: event-service
+    spec:
+      containers:
+        - env:
+            - name: DATABASE_HOST
+              value: db-postgres-event
+            - name: DATABASE_NAME
+              value: dbevent
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: EUREKA_SERVER_HOST
+              value: eureka-discovery-server
+            - name: EUREKA_SERVER_PORT
+              value: "8761"
+            - name: EVENT_SERVICE_HOST
+              value: event-service
+            - name: EVENT_SERVICE_PORT
+              value: "8084"
+            - name: ZIPKIN_HOST
+              value: zipkin
+            - name: ZIPKIN_PORT
+              value: "9411"
+          image: seeyousun/event-service:1.0
+          name: event-service-ctn
+          ports:
+            - containerPort: 8084
+              hostPort: 8084
+              protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: frontend-app
+  name: frontend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: frontend-app
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.service: frontend-app
+    spec:
+      containers:
+        - image: seeyousun/frontend-app:1.0
+          name: frontend-app-ctn
+          ports:
+            - containerPort: 80
+              hostPort: 4200
+              protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: rabbit-mq
+  name: rabbit-mq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: rabbit-mq
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.service: rabbit-mq
+    spec:
+      containers:
+        - image: rabbitmq:3-management-alpine
+          name: rabbit-mq-ctn
+          ports:
+            - containerPort: 5672
+              hostPort: 5672
+              protocol: TCP
+            - containerPort: 15672
+              hostPort: 15672
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/rabbitmq
+              name: data-rabbit-mq
+      restartPolicy: Always
+      volumes:
+        - name: data-rabbit-mq
+          persistentVolumeClaim:
+            claimName: data-rabbit-mq
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: data-rabbit-mq
+  name: data-rabbit-mq
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: resort-reservation-service
+  name: resort-reservation-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: resort-reservation-service
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.network/seeyousun-resort-reservation-net: "true"
+        io.kompose.service: resort-reservation-service
+    spec:
+      containers:
+        - env:
+            - name: DATABASE_HOST
+              value: db-postgres-resort-reservation
+            - name: DATABASE_NAME
+              value: dbresortreservation
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: EUREKA_SERVER_HOST
+              value: eureka-discovery-server
+            - name: EUREKA_SERVER_PORT
+              value: "8761"
+            - name: RESORT_RESERVATION_SERVICE_HOST
+              value: resort-reservation-service
+            - name: RESORT_RESERVATION_SERVICE_PORT
+              value: "8082"
+            - name: ZIPKIN_HOST
+              value: zipkin
+            - name: ZIPKIN_PORT
+              value: "9411"
+          image: seeyousun/resort-reservation-service:1.0
+          name: resort-reservation-service-ctn
+          ports:
+            - containerPort: 8082
+              hostPort: 8082
+              protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: resort-service
+  name: resort-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: resort-service
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.network/seeyousun-resort-net: "true"
+        io.kompose.service: resort-service
+    spec:
+      containers:
+        - env:
+            - name: DATABASE_HOST
+              value: db-postgres-resort
+            - name: DATABASE_NAME
+              value: dbresort
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: EUREKA_SERVER_HOST
+              value: eureka-discovery-server
+            - name: EUREKA_SERVER_PORT
+              value: "8761"
+            - name: RABBIT_HOST
+              value: rabbit-mq
+            - name: RABBIT_PASSWORD
+              value: guest
+            - name: RABBIT_PORT
+              value: "5672"
+            - name: RABBIT_USERNAME
+              value: guest
+            - name: RESORT_SERVICE_HOST
+              value: resort-service
+            - name: RESORT_SERVICE_PORT
+              value: "8081"
+            - name: ZIPKIN_HOST
+              value: zipkin
+            - name: ZIPKIN_PORT
+              value: "9411"
+          image: seeyousun/resort-service:1.0
+          name: resort-service-ctn
+          ports:
+            - containerPort: 8081
+              hostPort: 8081
+              protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: review-service
+  name: review-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: review-service
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.network/seeyousun-review-net: "true"
+        io.kompose.service: review-service
+    spec:
+      containers:
+        - env:
+            - name: DATABASE_HOST
+              value: db-postgres-review
+            - name: DATABASE_NAME
+              value: dbreview
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: EUREKA_SERVER_HOST
+              value: eureka-discovery-server
+            - name: EUREKA_SERVER_PORT
+              value: "8761"
+            - name: RABBIT_HOST
+              value: rabbit-mq
+            - name: RABBIT_PASSWORD
+              value: guest
+            - name: RABBIT_PORT
+              value: "5672"
+            - name: RABBIT_USERNAME
+              value: guest
+            - name: REVIEW_SERVICE_HOST
+              value: review-service
+            - name: REVIEW_SERVICE_PORT
+              value: "8083"
+            - name: ZIPKIN_HOST
+              value: zipkin
+            - name: ZIPKIN_PORT
+              value: "9411"
+          image: seeyousun/review-service:1.0
+          name: review-service-ctn
+          ports:
+            - containerPort: 8083
+              hostPort: 8083
+              protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: zipkin
+  name: zipkin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: zipkin
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/seeyousun-global-net: "true"
+        io.kompose.service: zipkin
+    spec:
+      containers:
+        - image: openzipkin/zipkin
+          name: zipkin-ctn
+          ports:
+            - containerPort: 9411
+              hostPort: 9411
+              protocol: TCP
+      restartPolicy: Always
+
