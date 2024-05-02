@@ -3,12 +3,13 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: api-gateway
   name: api-gateway
 spec:
+  type: LoadBalancer
   ports:
     - name: "8080"
       port: 8080
@@ -21,7 +22,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-event
@@ -39,7 +40,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-resort
@@ -57,7 +58,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-resort-reservation
@@ -75,7 +76,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-review
@@ -93,7 +94,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: eureka-discovery-server
@@ -111,7 +112,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: event-service
@@ -129,7 +130,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: frontend-app
@@ -147,7 +148,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: rabbit-mq
@@ -168,7 +169,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: resort-reservation-service
@@ -186,7 +187,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: resort-service
@@ -204,7 +205,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: review-service
@@ -222,7 +223,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: zipkin
@@ -240,7 +241,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: api-gateway
@@ -253,7 +254,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
@@ -304,7 +305,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-event
@@ -319,7 +320,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-event-net: "true"
@@ -369,7 +370,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-resort
@@ -384,7 +385,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-resort-net: "true"
@@ -434,7 +435,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-resort-reservation
@@ -449,7 +450,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-resort-reservation-net: "true"
@@ -499,7 +500,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: db-postgres-review
@@ -514,7 +515,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-review-net: "true"
@@ -564,7 +565,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: eureka-discovery-server
@@ -577,7 +578,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
@@ -602,7 +603,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: event-service
@@ -615,7 +616,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-event-net: "true"
@@ -655,7 +656,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: frontend-app
@@ -668,7 +669,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
@@ -688,7 +689,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: rabbit-mq
@@ -703,7 +704,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
@@ -747,7 +748,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: resort-reservation-service
@@ -760,7 +761,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
@@ -800,7 +801,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: resort-service
@@ -813,7 +814,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
@@ -861,7 +862,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: review-service
@@ -874,7 +875,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
@@ -922,7 +923,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
     kompose.version: 1.33.0 (3ce457399)
   labels:
     io.kompose.service: zipkin
@@ -935,7 +936,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube_new.yml
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f .\docker-compose-production-resolved.yml -o kube.yml
         kompose.version: 1.33.0 (3ce457399)
       labels:
         io.kompose.network/seeyousun-global-net: "true"
