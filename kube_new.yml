@@ -629,7 +629,7 @@ spec:
             - name: DATABASE_NAME
               value: dbevent
             - name: DATABASE_PORT
-              value: "5432"
+              value: "5004"
             - name: EUREKA_SERVER_HOST
               value: eureka-discovery-server
             - name: EUREKA_SERVER_PORT
@@ -774,7 +774,7 @@ spec:
             - name: DATABASE_NAME
               value: dbresortreservation
             - name: DATABASE_PORT
-              value: "5432"
+              value: "5002"
             - name: EUREKA_SERVER_HOST
               value: eureka-discovery-server
             - name: EUREKA_SERVER_PORT
@@ -827,7 +827,7 @@ spec:
             - name: DATABASE_NAME
               value: dbresort
             - name: DATABASE_PORT
-              value: "5432"
+              value: "5001"
             - name: EUREKA_SERVER_HOST
               value: eureka-discovery-server
             - name: EUREKA_SERVER_PORT
@@ -888,7 +888,7 @@ spec:
             - name: DATABASE_NAME
               value: dbreview
             - name: DATABASE_PORT
-              value: "5432"
+              value: "5003"
             - name: EUREKA_SERVER_HOST
               value: eureka-discovery-server
             - name: EUREKA_SERVER_PORT
