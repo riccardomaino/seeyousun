@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="">
     <div class="home-container">
         <div class="video-background">
             <img src="assets/staticbg.jpg" alt="Una splendida baia in Sicilia">
@@ -64,7 +64,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="card-text">{{ rP.description }}</p>
+                                <p class="card-text" [ngStyle]="{'overflow': 'hidden', 'text-overflow': 'ellipsis', 'display': '-webkit-box', '-webkit-line-clamp': '3', '-webkit-box-orient': 'vertical', 'max-height': '3.6em'}">
+                                    {{ rP.description }}
+                                </p>
                                 <!-- Aggiungi altre informazioni sulla spiaggia secondo le tue esigenze -->
                             </div>
                         </div>

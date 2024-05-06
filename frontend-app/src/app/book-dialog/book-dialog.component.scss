@@ -1,6 +1,7 @@
 .grid-container {
+    min-width: 604px;
     margin-top: 150px;
-    overflow: hidden; /* Abilita lo scroll se il contenuto è più grande del contenitore */
+    overflow-x: auto; /* Abilita lo scroll se il contenuto è più grande del contenitore */
   }
 
 .background {
@@ -18,7 +19,7 @@
     bottom: 0;
     left: 0;
     width: 100%; /* Larghezza al 100% rispetto al corpo della pagina */
-    height: auto; 
+    height: auto;
     z-index: -1;
   }
 

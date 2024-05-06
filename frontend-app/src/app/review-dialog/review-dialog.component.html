@@ -15,14 +15,18 @@
             <input matInput placeholder="Inserisci un titolo per la recensione" [(ngModel)]="title" name="title" style=" text-align: left;">
         </mat-form-field>
 
-
-
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>La tua esperienza</mat-label>
             <textarea matInput placeholder="Descrivi la tua esperienza" [(ngModel)]="bodyReview" name="bodyReview"></textarea>
         </mat-form-field>
-        <div class="button-select"> <!-- Rimuovi classe mt-auto dal bottone -->
-            <div class="btn d-flex align-items-center justify-content-center button-text" (click) = "onSubmit()">Invia</div>
-        </div>
+        <mat-dialog-actions class="p-3">
+            <div class="button-select">
+                <div class="btn d-flex align-items-center justify-content-center button-text" (click) = "onSubmit()">Invia</div>
+            </div>
+
+            <div class="button-annulla">
+                <div class="btn d-flex align-items-center button-text-annulla" (click) = "onAnnulla()">Annulla</div>
+            </div>
+        </mat-dialog-actions>
     </form>
 </div>

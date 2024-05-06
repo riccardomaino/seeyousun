@@ -43,6 +43,10 @@ export class ReviewDialogComponent {
     this.currentRating = rating;
   }
 
+  onAnnulla() {
+    this.dialog.closeAll();
+  }
+
   onSubmit() {
     this.service.createReview(this.title, this.bodyReview, this.currentRating, this.formattedDate, this.resortID).subscribe(
     (response) => {

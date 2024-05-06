@@ -6,8 +6,7 @@
     width: 100%;
     z-index: 3; /* Assicura che la navbar sia sopra la sfocatura */
   }
-  
-  
+
   .image {
     width: 100%;
     height: auto;
@@ -352,6 +351,10 @@ stroke: var(--Arancione-Scuro, #D24C00);
   font-weight: 300;
   line-height: normal;
 }
+
+  ::ng-deep .mat-dialog-container {
+    overflow-x: auto; /* Abilita lo scrolling laterale */
+  }
 
 
 
