@@ -1,5 +1,5 @@
 # SeeYouSun
-## A new way to book your umbrella, participate in events at our beach facilities, and much more.
+## A new way to book your umbrella, participate in events at beach facilities, and much more.
 
 **SeeYouSun** is a university project designed to simplify booking beach facilities such as umbrellas and sunbeds at seaside resorts. This application allows users to easily reserve spots at their preferred beach locations and offers additional features that enhance the beach experience.
 
